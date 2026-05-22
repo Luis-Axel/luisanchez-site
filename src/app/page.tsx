@@ -44,6 +44,9 @@ export default function Home() {
             <Button href="#selected-work" trailingIcon={<ArrowRight />}>
               See selected work
             </Button>
+            <Button href="/Sanchez_Luis_Resume.pdf" variant="outline" download>
+              Download resume
+            </Button>
             <Button href="/about" variant="outline">
               About Lui
             </Button>
@@ -217,7 +220,7 @@ export default function Home() {
               lsancheznj@gmail.com
             </Button>
             <Button
-              href="https://www.linkedin.com/in/luissanchez-nj"
+              href="https://www.linkedin.com/in/luissanchez000"
               variant="outline"
             >
               LinkedIn

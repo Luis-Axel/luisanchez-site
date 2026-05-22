@@ -8,7 +8,7 @@ const PRIMARY_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { href: "https://www.linkedin.com/in/luissanchez-nj", label: "LinkedIn" },
+  { href: "https://www.linkedin.com/in/luissanchez000", label: "LinkedIn" },
   { href: "mailto:lsancheznj@gmail.com", label: "Email" },
   { href: "tel:+19733068631", label: "973.306.8631" },
 ];

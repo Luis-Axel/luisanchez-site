@@ -28,10 +28,10 @@ export const TESTIMONIALS: Testimonial[] = [
     sourceLabel: "View on LinkedIn",
   },
   {
-    // TODO: Lui — fill in the actual quote text + author from the screenshot
-    name: "Faculty / Peer (Bergen Community College)",
-    context: "From college, posted on LinkedIn",
-    relationship: "Faculty",
+    // TODO: Lui — fill in the actual student's name + quote text from the screenshot
+    name: "[TODO: student's name]",
+    context: "Student at Bergen Community College, posted on LinkedIn",
+    relationship: "Student",
     quote:
       "[TODO: paste the actual recommendation text from public/press/linkedin-review-from-college.png. Keeping the screenshot live until then.]",
     screenshot: "/press/linkedin-review-from-college.png",

@@ -103,7 +103,7 @@ export default function AboutPage() {
             <Button href="mailto:lsancheznj@gmail.com" trailingIcon={<ArrowRight />}>
               Email
             </Button>
-            <Button href="https://www.linkedin.com/in/luissanchez-nj" variant="outline">
+            <Button href="https://www.linkedin.com/in/luissanchez000" variant="outline">
               LinkedIn
             </Button>
           </div>
@@ -285,12 +285,12 @@ export default function AboutPage() {
                   LinkedIn
                 </span>
                 <a
-                  href="https://www.linkedin.com/in/luissanchez-nj"
+                  href="https://www.linkedin.com/in/luissanchez000"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-[var(--color-primary)]"
                 >
-                  linkedin.com/in/luissanchez-nj
+                  linkedin.com/in/luissanchez000
                 </a>
               </div>
             </div>
