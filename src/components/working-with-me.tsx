@@ -81,16 +81,30 @@ const POSTS: LinkedInPost[] = [
     positionMd:
       "absolute top-[4%] right-[3%] rotate-2 z-10 md:w-[300px] lg:w-[330px]",
   },
+];
+
+// A separate quote-style card variant for endorsements that aren't LinkedIn
+// posts (e.g. performance review excerpts, internal Slack quotes). Stays
+// visually distinct so the showcase doesn't read as five identical chips.
+type QuoteCard = {
+  /** Short attribution shown under the quote */
+  attribution: string;
+  /** Source label shown above the quote (e.g. "Performance review · USCS") */
+  source: string;
+  /** Quote text */
+  quote: string;
+  positionMd: string;
+  widthMd?: string;
+};
+
+const QUOTES: QuoteCard[] = [
   {
-    name: "[TODO]",
-    title: "Former manager or director",
-    avatar: "",
-    meta: "Coming soon · Add a LinkedIn recommendation",
-    body: [
-      "Manager or director endorsement — focuses on leadership, ownership, and team-level results.",
-    ],
+    source: "Performance review",
+    attribution: "[TODO: manager's name] · Manager at Genpro",
+    quote:
+      "Luis is a strong catalyst for building scalable workflows, improving pricing operations, and turning complex process challenges into better systems.",
     positionMd:
-      "absolute bottom-[8%] left-[3%] -rotate-2 z-10 md:w-[300px] lg:w-[330px]",
+      "absolute bottom-[8%] left-[3%] -rotate-2 z-10 md:w-[330px] lg:w-[360px]",
   },
 ];
 
@@ -130,6 +144,13 @@ export function WorkingWithMeShowcase() {
             className={cn(post.positionMd, post.widthMd)}
           />
         ))}
+        {QUOTES.map((q, i) => (
+          <ReviewQuoteCard
+            key={`q-${i}`}
+            quote={q}
+            className={cn(q.positionMd, q.widthMd)}
+          />
+        ))}
       </div>
 
       {/* Mobile stack */}
@@ -146,6 +167,9 @@ export function WorkingWithMeShowcase() {
         <div className="flex flex-col gap-4">
           {POSTS.map((post, i) => (
             <LinkedInPostCard key={i} post={post} />
+          ))}
+          {QUOTES.map((q, i) => (
+            <ReviewQuoteCard key={`q-${i}`} quote={q} />
           ))}
         </div>
       </div>
@@ -271,5 +295,45 @@ function LinkedInPostCard({
     </a>
   ) : (
     <article className={cardBase}>{inner}</article>
+  );
+}
+
+function ReviewQuoteCard({
+  quote,
+  className,
+}: {
+  quote: QuoteCard;
+  className?: string;
+}) {
+  return (
+    <article
+      className={cn(
+        "block rounded-[18px] p-5 md:p-6 transition-transform duration-300 ease-out",
+        // Warm paper-feel surface that contrasts with the LinkedIn cards.
+        "bg-[#f5efe3] dark:bg-[#f5efe3] text-[#2a3530]",
+        "border border-[#d8cdb6]",
+        "shadow-[0_24px_60px_-22px_rgba(0,0,0,0.65),0_2px_4px_rgba(0,0,0,0.20)]",
+        "hover:!rotate-0 hover:scale-[1.03] hover:z-40",
+        className,
+      )}
+    >
+      <span className="font-mono uppercase tracking-[0.14em] text-[10px] md:text-[11px] text-[#7a8a82]">
+        {quote.source}
+      </span>
+      <div className="relative mt-3">
+        <span
+          aria-hidden
+          className="font-display absolute -top-3 -left-1 text-[64px] leading-none text-[#02594e]/25 select-none pointer-events-none"
+        >
+          “
+        </span>
+        <p className="relative font-display text-[18px] md:text-[20px] leading-[1.4] tracking-[-0.005em] text-[#1f2a26]">
+          {quote.quote}
+        </p>
+      </div>
+      <span className="block mt-4 pt-3 border-t border-[#d8cdb6] text-[12px] md:text-[13px] text-[#5a6b66]">
+        — {quote.attribution}
+      </span>
+    </article>
   );
 }
