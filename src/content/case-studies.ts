@@ -28,6 +28,111 @@ export type CaseStudy = {
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
+    slug: "pricing-intelligence-platform",
+    title: "ML Pricing Intelligence Platform",
+    oneLiner:
+      "Freight brokers were quoting off DAT, the industry-standard peer-rate feed everyone in logistics uses. DAT is noisy on its own. I led the build of an ML platform that cleans the noise, protects the brokerage's downside, and prices thousands of lanes systemically.",
+    year: "2025 — Present",
+    company: "Genpro",
+    visualTodo:
+      "Network mapping visualization showing pricing flow across lanes (geo + model output)",
+    heroImage: "/pricing/ccm-ui.webp",
+    overview:
+      "I led the third-party engineering team that built Genpro's ML pricing and lane analytics platform. A React frontend over a Python ML stack (scikit-learn, XGBoost) and a BigQuery warehouse, it takes the messy industry-standard DAT peer-rate feed plus our own historical loads and turns them into clean, model-backed lane prices brokers can use in the moment. The same model powers daily GTM market targeting across the desk.",
+    metadata: [
+      { label: "Stack", value: "React · Python (scikit-learn, XGBoost) · BigQuery" },
+      { label: "Scale", value: "Thousands of lanes priced daily" },
+      { label: "Inputs", value: "DAT peer rates · Genpro historical loads · external market signals" },
+      { label: "Outcome", value: "Powers daily GTM market-targeting + lane pricing decisions" },
+    ],
+    stats: [
+      { value: "1000s", label: "Lanes priced daily", caption: "Across the active U.S. truckload network, off cleaned DAT + internal signals" },
+      { value: "Real-time", label: "Quote-time latency", caption: "Brokers get a model-backed price before they pick up the phone" },
+      { value: "Daily", label: "GTM cadence", caption: "Sales and capacity teams target lanes off the same model output as pricing" },
+    ],
+    constraints: [
+      "DAT is industry-standard but noisy: peer-reported, sparse on thin lanes, biased on volatile ones",
+      "Pricing must be defensible to a broker, not just accurate. Every rec needs an explainability trail",
+      "Genpro's downside must be protected: a bad print should never get quoted to a customer",
+      "Same model has to serve sales targeting and quote pricing without divergence",
+      "Outputs need to reconcile against finance reporting at the month-end view",
+    ],
+    sections: [
+      {
+        id: "symptom",
+        label: "Symptom",
+        heading: "Brokers were quoting off a feed everyone knows is messy.",
+        body: [
+          "DAT is the leading rate feed in trucking. Everyone in the industry uses it. The problem is that DAT is peer-reported, which means it's noisy on its own: thin coverage on uncommon lanes, lagging signal on volatile ones, and rate bands wide enough to drive a truck through.",
+          "Genpro brokers were quoting off DAT directly, padded with intuition and recent memory. Rates came out inconsistent across the desk, slow on RFPs, and structurally exposed to whichever way the peer noise was leaning that week.",
+        ],
+        visuals: [
+          {
+            todo: "DAT trendlines — the industry-standard peer rate feed every brokerage in trucking quotes off. Useful, but visibly noisy, especially on thinner lanes.",
+            aspect: "aspect-[16/9]",
+            src: "/pricing/dat-trendlines.avif",
+          },
+        ],
+      },
+      {
+        id: "diagnosis",
+        label: "Diagnosis",
+        heading: "The feed isn't broken. The relationship with the feed is.",
+        body: [
+          "DAT is fine as an input. It is not fine as a quote. The leverage point wasn't replacing DAT. It was wrapping it with a model that knew where DAT was reliable, where it wasn't, and what to do in either case.",
+          "Underneath that, we had years of Genpro historical loads in BigQuery and external market signals nobody had wired together yet. Combined with DAT, that was enough to clean the noise, fill the sparse lanes, and produce a single defensible price per lane.",
+        ],
+      },
+      {
+        id: "hypothesis",
+        label: "Hypothesis",
+        heading: "One model, three surfaces, downside-protected by construction.",
+        body: [
+          "If we trained a pricing model on Genpro's historical loads and market signals together with DAT (treating DAT as one input among many, not the answer), we could (1) clean DAT's noise on the lanes it covered, (2) infer prices on the lanes it didn't, and (3) flag the lanes where our confidence was too low to quote at all.",
+          "That same model then powers three surfaces from one source of truth: the quoting UI brokers use, the GTM targeting view sales uses, and the market view capacity uses. Three teams, one set of numbers.",
+        ],
+      },
+      {
+        id: "implementation",
+        label: "Implementation",
+        heading: "Led the build end-to-end with a third-party engineering team.",
+        body: [
+          "I owned the spec, the data model, and the broker workflow integration. The third-party engineering team I led owned the React frontend and the Python ML service implementation. We standardized on scikit-learn and XGBoost for the core pricing models, BigQuery as the system of record, and a thin API layer so retraining never blocks quote-time serving.",
+          "On the data side, the work was building the lane network: mapping every active and adjacent lane, attaching DAT, internal load history, and market signals to each, and producing a continuous price surface where lanes that DAT covered well, lanes it covered sparsely, and lanes it didn't cover at all all came out with the same shape of answer.",
+          "The hardest part wasn't the model. It was making the outputs trustworthy. Every recommended price gets an explainability trail a broker can push back on, every low-confidence lane is flagged before it gets quoted (downside protection), and every aggregate reconciles against finance's monthly numbers.",
+        ],
+        visuals: [
+          {
+            todo: "Network mapping for pricing: model output projected across the active and adjacent lane network. Where DAT is reliable, where it isn't, and where we have enough internal signal to price anyway.",
+            aspect: "aspect-[16/9]",
+            src: "/pricing/network-mapping.png",
+          },
+          {
+            todo: "The CCM tool in action: the in-product UI brokers and pricing analysts use to interact with the model, configure lane rules, and review recommendations.",
+            aspect: "aspect-[16/9]",
+            src: "/pricing/ccm-ui.webp",
+          },
+        ],
+      },
+      {
+        id: "results",
+        label: "Results",
+        heading: "From spreadsheet pricing to a system the GTM org runs on.",
+        body: [
+          "The platform is the default surface for lane pricing at Genpro and is wired directly into daily GTM market-targeting decisions. Sales, capacity, and pricing are working off the same numbers for the first time, and the broker desk is no longer exposed to whichever way the DAT peer noise leaned that week.",
+          "Just as important, the underlying warehouse, models, and serving layer are now the substrate the next set of internal ML projects sit on. Not a one-off.",
+        ],
+        visuals: [
+          {
+            todo: "The final solution to the pricing problem — a collage of the platform's surfaces and outputs. Full product UI not shown for IP reasons.",
+            aspect: "aspect-[16/9]",
+            src: "/pricing/product-collage.webp",
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: "smartmove-platform",
     title: "SmartMove — Full-Stack Logistics Analytics Platform",
     oneLiner:
@@ -132,76 +237,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
-    slug: "macro",
-    title: "Macro — Consumer-Health AI Product",
-    oneLiner:
-      "Building a consumer-health AI product on top of model APIs. Current cofounder side project.",
-    year: "2026 — Present",
-    company: "Cofounder · Macro",
-    visualTodo:
-      "Macro product screenshot or onboarding flow",
-    overview:
-      "Macro is a consumer-health AI product I'm building as a cofounder. It sits on top of frontier model APIs and turns ambient personal-health signals into actions a normal person can take. [TODO — Lui to expand: positioning, target user, what shipped so far, what's in flight.]",
-    metadata: [
-      { label: "Stack", value: "[TODO — confirm: model APIs (Anthropic / OpenAI), iOS / mobile-web stack, backend]" },
-      { label: "Stage", value: "Side project · Active development" },
-      { label: "Role", value: "Cofounder · Builder" },
-      { label: "Started", value: "2026" },
-    ],
-    stats: [
-      { value: "TODO", label: "Headline product metric", caption: "TODO — pick the one number that tells the Macro story" },
-      { value: "TODO", label: "Users / cohort size", caption: "TODO — confirm before launch" },
-      { value: "TODO", label: "Model coverage", caption: "TODO — which model APIs Macro currently routes against" },
-    ],
-    constraints: [
-      "TODO — what the product CAN'T do or won't do (privacy boundary, scope discipline)",
-      "TODO — what makes Macro defensible vs. a thin wrapper on a chat API",
-      "TODO — how Macro stays cheap enough to run on consumer pricing",
-    ],
-    sections: [
-      {
-        id: "symptom",
-        label: "Symptom",
-        heading: "[TODO: the user problem Macro is solving]",
-        body: [
-          "[TODO — Lui: 1-2 sentences on what's broken in consumer health that Macro is responding to.]",
-        ],
-      },
-      {
-        id: "diagnosis",
-        label: "Diagnosis",
-        heading: "[TODO: why this problem hasn't been solved already]",
-        body: [
-          "[TODO — Lui: what's structurally different now (model capabilities, costs, distribution) that makes Macro possible.]",
-        ],
-      },
-      {
-        id: "hypothesis",
-        label: "Hypothesis",
-        heading: "[TODO: the bet Macro is taking]",
-        body: [
-          "[TODO — Lui: 1-2 sentences on the specific bet — product hypothesis + go-to-market hypothesis.]",
-        ],
-      },
-      {
-        id: "implementation",
-        label: "Implementation",
-        heading: "[TODO: how it's built]",
-        body: [
-          "[TODO — Lui: the architecture in one paragraph. Where the model APIs sit, what's deterministic vs. prompted, what's persistent vs. ephemeral.]",
-        ],
-      },
-      {
-        id: "results",
-        label: "Results",
-        heading: "[TODO: traction]",
-        body: [
-          "[TODO — Lui: what's shipped, who's using it, what's measured. If pre-launch, that's fine: name what's in flight and what the next milestone is.]",
-        ],
-      },
-    ],
-  },
-  {
     slug: "etl-integration-replacement",
     title: "Replacing Cleo: an Internal EDI + ETL + API Integration Service",
     oneLiner:
@@ -300,105 +335,103 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
-    slug: "pricing-intelligence-platform",
-    title: "ML Pricing Intelligence Platform",
+    slug: "mutuall-chrome-extension",
+    title: "Mutuall — Chrome Extension for Supply-Chain Portal Automation",
     oneLiner:
-      "Freight brokers were quoting off DAT, the industry-standard peer-rate feed everyone in logistics uses. DAT is noisy on its own. I led the build of an ML platform that cleans the noise, protects the brokerage's downside, and prices thousands of lanes systemically.",
-    year: "2025 — Present",
-    company: "Genpro",
+      "Logistics teams were burning hours every week clicking through brittle supply-chain portals to schedule appointments. We shipped a Chrome extension that did the clicking for them.",
+    year: "2023 — 2025",
+    company: "Cofounder · Mutuall",
     visualTodo:
-      "Network mapping visualization showing pricing flow across lanes (geo + model output)",
-    heroImage: "/pricing/ccm-ui.webp",
+      "Mutuall extension UI screenshot: appointment scheduling dropdown over a freight portal",
+    heroImage: "/mutuall/product-1.png",
+    externalLink: {
+      href: "https://chromewebstore.google.com/detail/mutuall/mfpagiocmfjfmphagndihhfclhhpjebd",
+      label: "Live on the Chrome Web Store ↗",
+    },
     overview:
-      "I led the third-party engineering team that built Genpro's ML pricing and lane analytics platform. A React frontend over a Python ML stack (scikit-learn, XGBoost) and a BigQuery warehouse, it takes the messy industry-standard DAT peer-rate feed plus our own historical loads and turns them into clean, model-backed lane prices brokers can use in the moment. The same model powers daily GTM market targeting across the desk.",
+      "Mutuall was a Chrome extension that integrated with supply-chain portals to automate purchase-order management and appointment scheduling. I cofounded it and led the technical build from 2023 through its 2025 sunset. The extension shipped publicly on the Chrome Web Store and let logistics teams collapse a stack of portal tabs into a single toolbar.",
     metadata: [
-      { label: "Stack", value: "React · Python (scikit-learn, XGBoost) · BigQuery" },
-      { label: "Scale", value: "Thousands of lanes priced daily" },
-      { label: "Inputs", value: "DAT peer rates · Genpro historical loads · external market signals" },
-      { label: "Outcome", value: "Powers daily GTM market-targeting + lane pricing decisions" },
+      { label: "Stack", value: "Chrome Extension (TypeScript) · React · Background workers · Encrypted local credential store" },
+      { label: "Scale", value: "Multiple supply-chain portals supported" },
+      { label: "Lifetime", value: "2-year cycle · Sunset 2025" },
+      { label: "Outcome", value: "Cofounded + technical lead; live on Chrome Web Store" },
     ],
     stats: [
-      { value: "1000s", label: "Lanes priced daily", caption: "Across the active U.S. truckload network, off cleaned DAT + internal signals" },
-      { value: "Real-time", label: "Quote-time latency", caption: "Brokers get a model-backed price before they pick up the phone" },
-      { value: "Daily", label: "GTM cadence", caption: "Sales and capacity teams target lanes off the same model output as pricing" },
+      { value: "Hours/week", label: "Saved per user", caption: "Replaced repetitive portal clicks with one-click scheduling" },
+      { value: "Multi-portal", label: "Coverage from one toolbar", caption: "Logistics teams stopped tab-switching between supplier portals" },
+      { value: "Live", label: "On the Chrome Web Store", caption: "Public listing maintained through 2025" },
     ],
     constraints: [
-      "DAT is industry-standard but noisy: peer-reported, sparse on thin lanes, biased on volatile ones",
-      "Pricing must be defensible to a broker, not just accurate. Every rec needs an explainability trail",
-      "Genpro's downside must be protected: a bad print should never get quoted to a customer",
-      "Same model has to serve sales targeting and quote pricing without divergence",
-      "Outputs need to reconcile against finance reporting at the month-end view",
+      "Run inside the host portal's DOM without breaking it",
+      "Encrypt credentials on-device. Never send to a server",
+      "Survive portal layout changes without redeploying for every site",
+      "Single Chrome process, no backend dependency at runtime",
+      "Auditable trail for every scheduled appointment",
     ],
     sections: [
       {
         id: "symptom",
         label: "Symptom",
-        heading: "Brokers were quoting off a feed everyone knows is messy.",
+        heading: "Logistics teams were paying the portal tax.",
         body: [
-          "DAT is the leading rate feed in trucking. Everyone in the industry uses it. The problem is that DAT is peer-reported, which means it's noisy on its own: thin coverage on uncommon lanes, lagging signal on volatile ones, and rate bands wide enough to drive a truck through.",
-          "Genpro brokers were quoting off DAT directly, padded with intuition and recent memory. Rates came out inconsistent across the desk, slow on RFPs, and structurally exposed to whichever way the peer noise was leaning that week.",
-        ],
-        visuals: [
-          {
-            todo: "DAT trendlines — the industry-standard peer rate feed every brokerage in trucking quotes off. Useful, but visibly noisy, especially on thinner lanes.",
-            aspect: "aspect-[16/9]",
-            src: "/pricing/dat-trendlines.avif",
-          },
+          "Supply-chain operators were spending hours every week clicking through five or six different supplier portals to manage purchase orders and book delivery appointments. Each portal had its own login, its own facility-ID conventions, and its own brittle scheduling UI.",
+          "The actual work, matching a PO to the right facility, picking a time slot, confirming the booking, was minutes of decision-making buried under hours of browser context-switching, password retrieval, and copy-paste between tabs.",
         ],
       },
       {
         id: "diagnosis",
         label: "Diagnosis",
-        heading: "The feed isn't broken. The relationship with the feed is.",
+        heading: "The work wasn't the bottleneck. The UI was.",
         body: [
-          "DAT is fine as an input. It is not fine as a quote. The leverage point wasn't replacing DAT. It was wrapping it with a model that knew where DAT was reliable, where it wasn't, and what to do in either case.",
-          "Underneath that, we had years of Genpro historical loads in BigQuery and external market signals nobody had wired together yet. Combined with DAT, that was enough to clean the noise, fill the sparse lanes, and produce a single defensible price per lane.",
+          "When we shadowed users, the scheduling logic itself was almost trivial. What was killing them was the path to it: logging into the right portal, drilling into the right account, hunting for the PO, decoding which facility ID the portal expected, and only then getting to the slot picker.",
+          "The leverage point wasn't replacing the portals. That was a non-starter for vendor-relationship reasons. It was collapsing the workflow into a single surface that lived where the user already was. The browser tab they were already staring at.",
         ],
       },
       {
         id: "hypothesis",
         label: "Hypothesis",
-        heading: "One model, three surfaces, downside-protected by construction.",
+        heading: "A Chrome extension can do the clicking for them.",
         body: [
-          "If we trained a pricing model on Genpro's historical loads and market signals together with DAT (treating DAT as one input among many, not the answer), we could (1) clean DAT's noise on the lanes it covered, (2) infer prices on the lanes it didn't, and (3) flag the lanes where our confidence was too low to quote at all.",
-          "That same model then powers three surfaces from one source of truth: the quoting UI brokers use, the GTM targeting view sales uses, and the market view capacity uses. Three teams, one set of numbers.",
+          "If we injected a small extension into whichever supplier portal the user was already on, we could read the PO context off the page, resolve the right facility ID behind the scenes, fetch the available appointment slots, and let the user book in one click without leaving the tab.",
+          "Encrypted on-device credential storage handled the portal-login overhead once. An activity log captured every booking so logistics teams stopped maintaining the spreadsheet they were keeping on the side anyway.",
         ],
       },
       {
         id: "implementation",
         label: "Implementation",
-        heading: "Led the build end-to-end with a third-party engineering team.",
+        heading: "Three jobs running quietly inside the browser.",
         body: [
-          "I owned the spec, the data model, and the broker workflow integration. The third-party engineering team I led owned the React frontend and the Python ML service implementation. We standardized on scikit-learn and XGBoost for the core pricing models, BigQuery as the system of record, and a thin API layer so retraining never blocks quote-time serving.",
-          "On the data side, the work was building the lane network: mapping every active and adjacent lane, attaching DAT, internal load history, and market signals to each, and producing a continuous price surface where lanes that DAT covered well, lanes it covered sparsely, and lanes it didn't cover at all all came out with the same shape of answer.",
-          "The hardest part wasn't the model. It was making the outputs trustworthy. Every recommended price gets an explainability trail a broker can push back on, every low-confidence lane is flagged before it gets quoted (downside protection), and every aggregate reconciles against finance's monthly numbers.",
+          "The extension did three things and nothing else. (1) A PO lookup engine that matched POs to the correct facility ID even when the portal UI didn't surface that mapping. (2) An appointment scheduling layer that fetched available slots across facilities and let users book in one click from a dropdown. (3) A secure credential vault that stored portal logins encrypted, on-device, so users never re-entered passwords.",
+          "An intentional architectural constraint: nothing ran on a backend. The entire extension lived inside the user's Chrome process. That simplified the trust story (we never touched their credentials) and removed an entire class of compliance conversations with logistics IT teams.",
+          "The activity history layer wrote every PO action and scheduled appointment into a local log that users could export. It was the difference between a tool that did work and a tool that proved it.",
         ],
         visuals: [
           {
-            todo: "Network mapping for pricing: model output projected across the active and adjacent lane network. Where DAT is reliable, where it isn't, and where we have enough internal signal to price anyway.",
+            todo: "Mutuall appointment scheduling UI: one-click slot picker inside the host portal.",
             aspect: "aspect-[16/9]",
-            src: "/pricing/network-mapping.png",
+            src: "/mutuall/product-1.png",
           },
           {
-            todo: "The CCM tool in action: the in-product UI brokers and pricing analysts use to interact with the model, configure lane rules, and review recommendations.",
+            todo: "Mutuall PO lookup view: matched POs with facility IDs resolved.",
             aspect: "aspect-[16/9]",
-            src: "/pricing/ccm-ui.webp",
+            src: "/mutuall/product-2.png",
           },
         ],
       },
       {
         id: "results",
         label: "Results",
-        heading: "From spreadsheet pricing to a system the GTM org runs on.",
+        heading: "Hours back to the operator and a live audit trail.",
         body: [
-          "The platform is the default surface for lane pricing at Genpro and is wired directly into daily GTM market-targeting decisions. Sales, capacity, and pricing are working off the same numbers for the first time, and the broker desk is no longer exposed to whichever way the DAT peer noise leaned that week.",
-          "Just as important, the underlying warehouse, models, and serving layer are now the substrate the next set of internal ML projects sit on. Not a one-off.",
+          "Users got hours of their week back. The portal tax (login, navigate, look up, copy, paste, confirm) collapsed into the dropdown next to the address bar. Multi-portal coverage came from one toolbar instead of five tabs.",
+          "The activity log turned out to be the quiet win. Logistics teams had been hand-maintaining appointment trackers in spreadsheets for audit purposes. The extension gave them that for free, exportable, and accurate by construction.",
+          "We ran the product for two years and sunset it in 2025 after an amicable wind-down. The Chrome Web Store listing stayed live through the cycle.",
         ],
         visuals: [
           {
-            todo: "The final solution to the pricing problem — a collage of the platform's surfaces and outputs. Full product UI not shown for IP reasons.",
+            todo: "Mutuall activity history: exportable log of recent POs and scheduled appointments.",
             aspect: "aspect-[16/9]",
-            src: "/pricing/product-collage.webp",
+            src: "/mutuall/product-3.png",
           },
         ],
       },

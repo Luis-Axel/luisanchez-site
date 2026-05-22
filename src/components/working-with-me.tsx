@@ -209,7 +209,7 @@ function LinkedInPostCard({
 }) {
   const cardBase = cn(
     "block rounded-[14px] overflow-hidden transition-transform duration-300 ease-out",
-    "bg-[#1b1f23] border border-white/[0.08]",
+    "bg-[#1b1f23] border border-white/20",
     "shadow-[0_24px_60px_-22px_rgba(0,0,0,0.75),0_2px_4px_rgba(0,0,0,0.25)]",
     "hover:!rotate-0 hover:scale-[1.03] hover:z-40",
     className,
@@ -279,28 +279,28 @@ function ReviewQuoteCard({
     <article
       className={cn(
         "block rounded-[18px] p-5 md:p-6 transition-transform duration-300 ease-out",
-        "bg-[#f5efe3] dark:bg-[#f5efe3] text-[#2a3530]",
-        "border border-[#d8cdb6]",
-        "shadow-[0_24px_60px_-22px_rgba(0,0,0,0.65),0_2px_4px_rgba(0,0,0,0.20)]",
+        // Match the LinkedIn-dark surface so all cards share a palette.
+        "bg-[#1b1f23] text-white border border-white/20",
+        "shadow-[0_24px_60px_-22px_rgba(0,0,0,0.75),0_2px_4px_rgba(0,0,0,0.25)]",
         "hover:!rotate-0 hover:scale-[1.03] hover:z-40",
         className,
       )}
     >
-      <span className="font-mono uppercase tracking-[0.14em] text-[10px] md:text-[11px] text-[#7a8a82]">
+      <span className="font-mono uppercase tracking-[0.14em] text-[10px] md:text-[11px] text-white/55">
         {quote.source}
       </span>
       <div className="relative mt-3">
         <span
           aria-hidden
-          className="font-display absolute -top-3 -left-1 text-[64px] leading-none text-[#02594e]/25 select-none pointer-events-none"
+          className="font-display absolute -top-3 -left-1 text-[64px] leading-none text-white/15 select-none pointer-events-none"
         >
           “
         </span>
-        <p className="relative font-display text-[15px] md:text-[17px] leading-[1.45] tracking-[-0.005em] text-[#1f2a26]">
+        <p className="relative font-display text-[15px] md:text-[17px] leading-[1.45] tracking-[-0.005em] text-white/90">
           {quote.quote}
         </p>
       </div>
-      <span className="block mt-4 pt-3 border-t border-[#d8cdb6] text-[12px] md:text-[13px] text-[#5a6b66]">
+      <span className="block mt-4 pt-3 border-t border-white/15 text-[12px] md:text-[13px] text-white/65">
         {quote.attribution}
       </span>
     </article>
