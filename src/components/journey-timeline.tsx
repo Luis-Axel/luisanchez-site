@@ -75,11 +75,14 @@ function JourneyPill({
 
   return (
     <div className={cn("group/pill relative w-fit", indentClass)}>
-      {/* The pill */}
+      {/* The pill. Hardcoded deep-teal #02594e (NOT the theme primary) so the
+          pill stays dark in both light and dark mode and white text on top
+          keeps WCAG-grade contrast. The theme primary's dark-mode bright
+          mint reads poorly with white. */}
       <div
         className={cn(
           "inline-flex items-center gap-3 rounded-full px-5 py-2.5 cursor-default",
-          "bg-[var(--color-primary)] text-white",
+          "bg-[#02594e] text-white",
           "shadow-[0_12px_24px_-12px_rgba(0,0,0,0.4)]",
           "transition-transform duration-200 ease-out",
           "group-hover/pill:scale-[1.02] group-hover/pill:shadow-[0_18px_32px_-12px_rgba(0,0,0,0.5)]",
@@ -150,7 +153,9 @@ function DetailCard({
               key={i}
               className="flex gap-2 text-[13px] leading-[1.5] text-[#3f4f4a]"
             >
-              <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-primary)]" />
+              {/* Deep teal #02594e dot (NOT theme primary). Theme primary
+                  in dark mode is a bright mint that washes out on white. */}
+              <span className="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[#02594e]" />
               <span>{b}</span>
             </li>
           ))}
