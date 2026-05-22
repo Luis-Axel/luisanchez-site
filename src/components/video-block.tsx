@@ -128,16 +128,18 @@ export function VideoCard({ className }: { className?: string }) {
 
       {open && (
         <div
-          className="fixed inset-0 z-[100] grid place-items-center bg-black/80 backdrop-blur-sm p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
           onClick={() => setOpen(false)}
           role="dialog"
           aria-modal="true"
           aria-label="Luis Sanchez introduction video"
         >
-          {/* No bounding "box" around the video — it sits floating on the
-              overlay at its natural aspect ratio, capped only by viewport. */}
+          {/* No bounding "box" around the video — wrapper sizes to the video
+              itself (fit-content) so flex centering places it dead center on
+              the overlay. Close button sits INSIDE the video bounds (top-3
+              right-3) so it can't drag the centering off-axis. */}
           <div
-            className="relative inline-block"
+            className="relative w-fit h-fit max-h-[92vh] max-w-[95vw]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
@@ -152,7 +154,7 @@ export function VideoCard({ className }: { className?: string }) {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="absolute -top-3 -right-3 md:top-3 md:right-3 inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/95 hover:bg-white text-black shadow-lg transition-transform hover:scale-105"
+              className="absolute top-3 right-3 inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/95 hover:bg-white text-black shadow-lg transition-transform hover:scale-105"
               aria-label="Close video"
             >
               <svg
