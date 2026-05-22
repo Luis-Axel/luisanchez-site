@@ -148,30 +148,73 @@ export default async function CaseStudyPage({
               </div>
               {s.visuals?.length ? (
                 <div className="mt-4 flex flex-col gap-4">
-                  {s.visuals.map((v, i) => (
-                    <div
-                      key={i}
-                      className={`relative ${v.aspect ?? "aspect-[1948/1080]"} overflow-hidden rounded-[12px] bg-black/90 dark:bg-black/60`}
-                    >
-                      {v.src ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={v.src}
-                          alt={v.todo}
-                          className="absolute inset-0 w-full h-full object-contain"
-                        />
-                      ) : (
-                        <>
-                          <div className="absolute inset-0 grid place-items-center p-6 text-center">
-                            <span className="text-xs text-white/40 font-mono leading-relaxed max-w-[80%]">
-                              [Inline visual — TODO: {v.todo}]
-                            </span>
-                          </div>
-                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
-                        </>
-                      )}
-                    </div>
-                  ))}
+                  {s.visuals.map((v, i) => {
+                    // Stacked deck-of-cards visual (e.g. Mutuall's
+                    // Target + Walmart + Other platforms stack).
+                    if (v.stack?.length) {
+                      const items = v.stack;
+                      return (
+                        <div
+                          key={i}
+                          className={`relative ${v.aspect ?? "aspect-[16/10]"} overflow-hidden rounded-[12px] bg-black/[0.04] dark:bg-white/[0.03] border border-[var(--color-border)]`}
+                        >
+                          {items.map((s, idx) => {
+                            const offset = idx * 36; // px shift per layer
+                            const rotate = idx === 0 ? -4 : idx === 1 ? 3 : -2;
+                            const z = items.length - idx;
+                            return (
+                              <div
+                                key={idx}
+                                className="absolute left-1/2 top-1/2 w-[58%] sm:w-[52%] md:w-[48%] aspect-[4/3] rounded-[10px] overflow-hidden shadow-[0_24px_50px_-18px_rgba(0,0,0,0.55),0_2px_4px_rgba(0,0,0,0.15)] border border-white/15 bg-[#1b1f23]"
+                                style={{
+                                  transform: `translate(calc(-50% + ${offset}px), calc(-50% + ${offset}px)) rotate(${rotate}deg)`,
+                                  zIndex: z,
+                                }}
+                              >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={s.src}
+                                  alt={s.label ?? `Platform ${idx + 1}`}
+                                  className="h-full w-full object-cover"
+                                  loading="lazy"
+                                />
+                                {s.label ? (
+                                  <span className="absolute bottom-2 left-2 right-2 text-[11px] font-mono uppercase tracking-[0.12em] text-white/85 bg-black/55 backdrop-blur-sm rounded-md px-2 py-1 inline-block w-fit">
+                                    {s.label}
+                                  </span>
+                                ) : null}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <div
+                        key={i}
+                        className={`relative ${v.aspect ?? "aspect-[1948/1080]"} overflow-hidden rounded-[12px] bg-black/90 dark:bg-black/60`}
+                      >
+                        {v.src ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={v.src}
+                            alt={v.todo}
+                            className="absolute inset-0 w-full h-full object-contain"
+                          />
+                        ) : (
+                          <>
+                            <div className="absolute inset-0 grid place-items-center p-6 text-center">
+                              <span className="text-xs text-white/40 font-mono leading-relaxed max-w-[80%]">
+                                [Inline visual — TODO: {v.todo}]
+                              </span>
+                            </div>
+                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
+                          </>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               ) : null}
             </article>

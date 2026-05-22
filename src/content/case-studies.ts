@@ -21,8 +21,15 @@ export type CaseStudy = {
     label: string;
     heading: string;
     body: string[];
-    /** Optional inline visual placeholder TODOs (or real images when `src` is set) */
-    visuals?: { todo: string; aspect?: string; src?: string }[];
+    /** Optional inline visuals. `src` is a single image. When `stack` is set,
+     *  the visual renders as a composite of multiple images layered like a
+     *  deck of cards — first entry in the stack array sits on top. */
+    visuals?: {
+      todo: string;
+      aspect?: string;
+      src?: string;
+      stack?: { src: string; label?: string }[];
+    }[];
   }[];
 };
 
@@ -377,6 +384,17 @@ export const CASE_STUDIES: CaseStudy[] = [
           "Scheduling a single freight booking already means juggling a supplier portal, the receiving facility, and any intermediaries. Scheduling five loads typically meant logging into roughly fifteen different sites in a single afternoon. Five separate sets of credentials, five separate UIs, five separate copy-paste cycles between PO and slot picker.",
           "The work itself, picking the right slot at the right facility, was minutes of decision-making per load. Everything around it was hours of browser tax.",
         ],
+        visuals: [
+          {
+            todo: "Just a few of the scheduling portals a typical logistics user juggled: Target on top, Walmart underneath, and any number of smaller / specialty portals below that.",
+            aspect: "aspect-[16/10]",
+            stack: [
+              { src: "/mutuall/platform-1-target.png", label: "Target" },
+              { src: "/mutuall/platform-2-walmart.png", label: "Walmart" },
+              { src: "/mutuall/platform-3-other.png", label: "+ many more" },
+            ],
+          },
+        ],
       },
       {
         id: "diagnosis",
@@ -428,6 +446,11 @@ export const CASE_STUDIES: CaseStudy[] = [
           "We ran the product for two years and sunset it in 2025 after an amicable wind-down. The Chrome Web Store listing stayed live through the cycle.",
         ],
         visuals: [
+          {
+            todo: "Mutuall, finalized: the single companion-tool surface that collapsed those fifteen portal tabs into one.",
+            aspect: "aspect-[16/9]",
+            src: "/mutuall/finalized-tool.png",
+          },
           {
             todo: "Mutuall activity history: exportable log of recent POs and scheduled appointments.",
             aspect: "aspect-[16/9]",
