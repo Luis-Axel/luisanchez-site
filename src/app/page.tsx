@@ -3,10 +3,9 @@ import { HomeHero } from "@/components/hero";
 import { Button, ArrowRight } from "@/components/button";
 import { YearRail } from "@/components/year-rail";
 import { CaseStudyCard } from "@/components/case-study-card";
-import { TestimonialCard } from "@/components/testimonial-card";
 import { PressCard } from "@/components/press-card";
+import { WorkingWithMeShowcase } from "@/components/working-with-me";
 import { CASE_STUDIES, MORE_WORK } from "@/content/case-studies";
-import { TESTIMONIALS } from "@/content/testimonials";
 import { PRESS } from "@/content/press";
 import Link from "next/link";
 
@@ -87,21 +86,9 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Working with me — testimonials */}
+      {/* Working with me — testimonial showcase with Luis cutout centerpiece */}
       <Section id="working-with-me" className="mt-8 md:mt-12">
-        <div className="flex items-baseline justify-between mb-10 md:mb-14">
-          <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em]">
-            What it&apos;s like working with me
-          </h2>
-          <span className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)]">
-            From peers & mentees
-          </span>
-        </div>
-        <div className="grid gap-6 md:gap-8 md:grid-cols-2">
-          {TESTIMONIALS.map((t) => (
-            <TestimonialCard key={t.name} {...t} />
-          ))}
-        </div>
+        <WorkingWithMeShowcase />
       </Section>
 
       {/* Press & recognition */}
