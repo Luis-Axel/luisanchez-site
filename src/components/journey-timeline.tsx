@@ -31,13 +31,16 @@ export type JourneyEntry = {
 
 // Discrete indent classes so the cascade only applies at md+ and resets to
 // ml-0 on mobile. Tailwind can't see dynamic ml-[Npx] values, so we list them.
+// Steps are sized so each pill begins roughly where the previous one ended
+// horizontally — the cascade reads as a continuous staircase. Bounded so
+// the final pill stays inside the section's content width.
 const INDENT_CLASSES = [
-  "md:ml-0",
-  "md:ml-14",
-  "md:ml-28",
-  "md:ml-[168px]",
-  "md:ml-[224px]",
-  "md:ml-[280px]",
+  "md:ml-0 lg:ml-0",
+  "md:ml-[150px] lg:ml-[180px]",
+  "md:ml-[300px] lg:ml-[360px]",
+  "md:ml-[450px] lg:ml-[540px]",
+  "md:ml-[600px] lg:ml-[720px]",
+  "md:ml-[750px] lg:ml-[900px]",
 ];
 
 export function JourneyTimeline({
@@ -48,7 +51,7 @@ export function JourneyTimeline({
   className?: string;
 }) {
   return (
-    <div className={cn("relative flex flex-col gap-4 md:gap-5", className)}>
+    <div className={cn("relative flex flex-col gap-5 md:gap-7", className)}>
       {entries.map((entry, i) => (
         <JourneyPill key={i} entry={entry} index={i} total={entries.length} />
       ))}
