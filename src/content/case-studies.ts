@@ -315,11 +315,13 @@ export const MORE_WORK: {
     image: "/press/smartmove.png",
   },
   {
-    title: "Mutuall — Freight Rate Intelligence SaaS",
+    title: "Mutuall — Chrome Extension for Supply-Chain Portal Automation",
     tag: "Cofounder · 2023 – 2025",
     description:
-      "Unified rate data across multiple external broker platforms into a common warehouse model, surfaced through a single API. Sunset after a 2-year cycle.",
+      "Chrome extension that automated purchase-order management and one-click appointment scheduling across supply-chain portals. Smart PO lookup matched orders to the correct facility ID, encrypted credential storage handled portal logins, and an activity log made every booking auditable. Sunset after a 2-year cycle.",
     visualTodo: "Mutuall product screenshot or schema diagram",
+    image: "/mutuall/product-1.png",
+    href: "https://chromewebstore.google.com/detail/mutuall/mfpagiocmfjfmphagndihhfclhhpjebd",
   },
   {
     title: "BigQuery Enterprise Data Governance",

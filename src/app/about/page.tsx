@@ -64,7 +64,7 @@ const SIDE = [
     year: "2023 — 2025",
     role: "Cofounder",
     org: "Mutuall",
-    body: "Freight rate intelligence SaaS unifying broker rate data into a common warehouse model. Sunset after a 2-year cycle.",
+    body: "Chrome extension that automated purchase-order management and one-click appointment scheduling across supply-chain portals — smart PO lookup, encrypted credential storage, full activity log. Sunset after a 2-year cycle. Listed on the Chrome Web Store: chromewebstore.google.com/detail/mutuall.",
   },
 ];
 

@@ -166,6 +166,16 @@ export default function Home() {
                   </span>
                 </div>
               )}
+              {item.href ? (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="self-start text-[14px] text-[var(--color-primary)] hover:underline underline-offset-4 mt-1"
+                >
+                  View on the Chrome Web Store ↗
+                </a>
+              ) : null}
             </article>
           ))}
         </div>
