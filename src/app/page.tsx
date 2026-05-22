@@ -27,10 +27,10 @@ export default function Home() {
           </div>
           <div className="flex flex-col gap-4 text-[18px] md:text-[20px] leading-[1.55] text-[var(--color-text-primary)] max-w-[760px]">
             <p>
-              I&apos;m a builder/operator, not a designer or pure software
-              engineer. My work sits at the seam between data, ML, and
-              operations — wherever a messy real-world workflow needs to become a
-              system someone else can run.
+              I&apos;m a builder/operator who turns operational mess into
+              usable systems. My work sits at the seam between data, ML, and
+              operations, where messy real-world workflows need to become tools
+              teams can rely on.
             </p>
             <p>
               Today that means leading a 4-person data team at Genpro, building

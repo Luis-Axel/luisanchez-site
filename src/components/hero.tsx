@@ -103,15 +103,17 @@ export function HomeHero({ className }: { className?: string }) {
     // line from forcing the column wider than the viewport on small screens.
     <header className={cn("hero-dots flex w-full min-w-0 flex-col gap-8 md:gap-10", className)}>
       {/* Headline */}
-      <h1 className="min-w-0 font-display font-semibold text-[var(--color-primary)] text-[44px] sm:text-[56px] md:text-[80px] lg:text-[96px] leading-[1.0] tracking-[-0.035em]">
-        Hi, I&apos;m Luis.
+      <h1 className="min-w-0 font-display font-semibold text-[var(--color-primary)] text-[40px] sm:text-[52px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.035em]">
+        I build data and ML systems for messy real-world operations.
       </h1>
 
-      {/* Subtitle with inline company badge */}
-      <p className="min-w-0 max-w-[820px] text-[16px] md:text-[22px] leading-[1.6] text-[var(--color-text-primary)] break-words">
-        Data engineer with a supply-chain background. Currently leading data and
-        analytics at{" "}
-        <CompanyBadge name="Genpro" href="https://genproinc.com/" />.
+      {/* Subtitle */}
+      <p className="min-w-0 max-w-[820px] text-[16px] md:text-[20px] leading-[1.6] text-[var(--color-text-primary)] break-words">
+        I&apos;m a supply-chain operator turned data builder, currently leading
+        data and analytics at{" "}
+        <CompanyBadge name="Genpro" href="https://genproinc.com/" />. My work
+        turns fragmented workflows into pricing platforms, automation systems,
+        and decision tools teams rely on.
       </p>
 
       {/* Sticky-note row (Card 2 is the introduction video) */}
@@ -135,12 +137,15 @@ function StickyRow() {
       back in cleanly later.
   */
   const cardWrapper =
-    "relative z-10 transition-transform duration-300 ease-out " +
+    "relative z-10 shrink-0 snap-start transition-transform duration-300 ease-out " +
     "hover:scale-[1.06] hover:-translate-y-3 hover:!rotate-0 hover:z-30 hover:drop-shadow-[0_20px_30px_rgba(0,0,0,0.35)]";
 
   return (
     <div className="relative mt-2 md:mt-4">
-      <div className="relative flex flex-col items-center gap-5 md:flex-row md:items-start md:justify-center md:gap-6 px-2 py-6 md:py-10">
+      {/* Mobile: horizontal scroll-snap row so the three cards sit side by
+          side and the user can swipe through them instead of seeing them
+          stacked vertically. Desktop: standard centered flex row. */}
+      <div className="relative flex flex-row items-start gap-4 md:gap-6 md:justify-center px-4 md:px-2 py-6 md:py-10 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {/* Card 1 — Recent work. Wrapped in `group/recent` so 3 mini case-study
             thumbnails can fan out from behind the card on hover. */}
         <div className={cn(cardWrapper, "group/recent")}>

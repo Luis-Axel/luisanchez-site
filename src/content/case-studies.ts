@@ -40,7 +40,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: "pricing-intelligence-platform",
     title: "ML Pricing Intelligence Platform",
     oneLiner:
-      "Freight brokers were quoting off DAT, the industry-standard peer-rate feed everyone in logistics uses. DAT is noisy on its own. I led the build of an ML platform that cleans the noise, protects the brokerage's downside, and prices thousands of lanes systemically.",
+      "Thousands of lanes priced daily · Quote-time pricing · Daily GTM targeting",
     year: "2025 — Present",
     company: "Genpro",
     visualTodo:
@@ -145,7 +145,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: "etl-integration-replacement",
     title: "Replacing Cleo: an Internal EDI + ETL + API Integration Service",
     oneLiner:
-      "Genpro was paying ~$80K/year for Cleo, a third-party EDI middleware that held trading-partner data behind a vendor wall. When a new TMS onboarding made the Cleo dev work absurd, I built the replacement instead.",
+      "$80K/year vendor eliminated · EDI / ETL / API in-house · BigQuery-native trading-partner data",
     year: "2025",
     company: "Genpro",
     visualTodo:
@@ -177,7 +177,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         heading: "$80K a year for a black box, and a new TMS that needed to talk through it.",
         body: [
           "Cleo was the EDI middleware Genpro used to exchange data with trading partners: purchase orders, invoices, shipment statuses, the usual freight-industry traffic. It worked, but it worked behind a vendor wall. Every schema change took a vendor ticket. Trading-partner data was effectively trapped inside Cleo and had to be manually re-exported to land anywhere we could query it.",
-          "The forcing function was a new TMS onboarding. The development required to fit the new TMS through Cleo's platform was so extensive that just building the integration ourselves made more sense than paying Cleo to extend their model. Once we'd built that, backfilling the rest of the partner connections in-house followed naturally.",
+          "The forcing function was a new TMS onboarding. The development required to fit the new TMS through Cleo's platform exposed the limits of the existing workflow, so we built the integration ourselves instead of paying Cleo to extend their model. Once that was live, backfilling the rest of the partner connections in-house followed naturally.",
         ],
         visuals: [
           {
@@ -242,9 +242,9 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "smartmove-platform",
-    title: "SmartMove — Full-Stack Logistics Analytics Platform",
+    title: "Warehouse Move Optimization Platform (SmartMove)",
     oneLiner:
-      "USCS load planners were consolidating LTL freight by hand, capped by 'that's how we've always done it.' Built a full-stack platform that systemized the workflow, modeled it as traveling-salesman + bin-packing, and rolled it out nationwide.",
+      "$9.3M validated savings · Nationwide rollout · “Game changer” per USCS leadership",
     year: "2024",
     company: "USCS",
     visualTodo:
@@ -348,7 +348,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: "mutuall-chrome-extension",
     title: "Mutuall — Chrome Extension for Logistics Scheduling Consolidation",
     oneLiner:
-      "Scheduling five loads in trucking often meant logging into fifteen different supplier portals in an afternoon. We built a Chrome extension that did it all from one toolbar — AI agents dispatched the user's credentials in the background; the user just approved.",
+      "87% scheduling-time reduction · 15 portals collapsed into one toolbar · Human-approved browser agents",
     year: "2023 — 2025",
     company: "Cofounder · Mutuall",
     visualTodo:
@@ -359,7 +359,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       label: "Live on the Chrome Web Store ↗",
     },
     overview:
-      "Mutuall was a Chrome extension that collapsed logistics appointment scheduling from a stack of supplier-portal tabs into a single companion tool. Where scheduling five loads typically required logging into fifteen different supplier websites, Mutuall used the user's stored credentials and AI agents running in the background to handle scheduling across portals from one surface. Users approved the recommendations; the agents did the clicking. Cut scheduling time per user by 87%.",
+      "Mutuall was a Chrome extension that collapsed logistics appointment scheduling from a stack of supplier-portal tabs into a single companion tool. Human-approved browser agents handled repetitive portal work from one toolbar, using encrypted on-device credentials and an auditable activity log. The user stayed in control of every booking. Cut scheduling time per user by 87%.",
     metadata: [
       { label: "Stack", value: "Chrome Extension (TypeScript) · React · Background AI agents · Encrypted local credential store" },
       { label: "Scale", value: "Multiple supply-chain portals supported per session" },
@@ -411,19 +411,19 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         id: "hypothesis",
         label: "Hypothesis",
-        heading: "AI agents as the user's hands across the portals.",
+        heading: "Human-approved browser agents that act as the user's hands across portals.",
         body: [
-          "If we built a single browser-based companion that held the user's portal credentials and dispatched AI agents to do the actual portal-clicking, schedulers could approve a recommendation in one surface and let the agents handle execution across every portal involved. The user stays in control; the agents do the work.",
-          "Encrypted on-device credential storage made the trust story manageable. The activity log made the audit story manageable.",
+          "Build a single browser-based companion that uses encrypted on-device credentials to dispatch user-approved browser agents across supplier portals. Schedulers approve a recommendation in one surface; the agents handle the repetitive cross-portal execution under human supervision. The user stays in control of every booking.",
+          "Encrypted on-device credential storage and an exportable activity log gave the workflow the trust + audit posture logistics IT teams expected before letting any automation touch their portals.",
         ],
       },
       {
         id: "implementation",
         label: "Implementation",
-        heading: "Companion tool. Agents in the background.",
+        heading: "Human-approved browser agents, one toolbar, encrypted on-device.",
         body: [
-          "The extension lived entirely in the user's Chrome and ran three jobs. (1) A PO lookup engine matched POs across portals to their correct facility IDs even when the portal UIs didn't surface that mapping. (2) AI agents, running in background tabs the user never saw, executed the cross-portal scheduling work using the user's stored credentials. (3) An activity log captured every action with enough detail to be exportable for audit.",
-          "Hard architectural constraint: agents recommend and execute, but users approve. The product never autonomously booked an appointment without a human in the loop. That made the failure mode 'agent didn't book' instead of 'agent booked the wrong thing,' which mattered a lot for adoption inside logistics IT.",
+          "The extension lived entirely in the user's Chrome and ran three jobs. (1) A PO lookup engine matched POs across portals to their correct facility IDs even when the portal UIs didn't surface that mapping. (2) Browser agents executed the cross-portal scheduling work using encrypted on-device credentials. Every action was queued for explicit user approval before execution — agents recommended and acted on direct human go-ahead, never autonomously. (3) An exportable activity log captured every action with audit-grade detail.",
+          "Hard architectural constraint: human-in-the-loop on every booking. The product never autonomously booked an appointment. That made the failure mode 'agent didn't book' instead of 'agent booked the wrong thing,' which mattered a lot for adoption inside logistics IT.",
           "No backend. The entire extension lived inside the Chrome process. Credentials never left the user's machine, which removed an entire class of compliance conversations.",
         ],
         visuals: [

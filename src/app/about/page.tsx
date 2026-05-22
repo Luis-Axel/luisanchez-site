@@ -11,6 +11,65 @@ export const metadata: Metadata = {
     "Background, current role, work timeline, and how to reach Luis Sanchez.",
 };
 
+const HOW_I_WORK = [
+  {
+    n: "01",
+    title: "Question the requirement",
+    body:
+      "I challenge specs, assumptions, and inherited processes before building anything. The most expensive mistake is optimizing work that should not exist.",
+  },
+  {
+    n: "02",
+    title: "Delete what does not need to be there",
+    body:
+      "I look for steps, fields, handoffs, reports, and checks that can be removed entirely before adding new tooling.",
+  },
+  {
+    n: "03",
+    title: "Simplify what remains",
+    body:
+      "Once the unnecessary pieces are gone, I streamline the core workflow so the system has fewer moving parts and fewer places to break.",
+  },
+  {
+    n: "04",
+    title: "Accelerate the cycle",
+    body:
+      "Only after the process is clean do I focus on speed: faster feedback loops, faster reporting, faster decisions, and faster iteration.",
+  },
+  {
+    n: "05",
+    title: "Automate last",
+    body:
+      "I use automation to lock in a validated workflow, not to preserve a broken one. Automating a bad process just scales the mess.",
+  },
+];
+
+function HowIWork() {
+  return (
+    <div className="grid gap-4 md:gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {HOW_I_WORK.map((step) => (
+        <article
+          key={step.n}
+          className="flex flex-col gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elev)] p-5 md:p-6"
+        >
+          <div className="flex items-baseline gap-3">
+            <span className="font-mono text-[12px] tracking-[0.12em] text-[var(--color-text-muted)]">
+              {step.n}
+            </span>
+            <span className="h-px flex-1 bg-[var(--color-border)]" aria-hidden />
+          </div>
+          <h3 className="font-display text-[20px] md:text-[22px] text-[var(--color-text-strong)] tracking-[-0.01em] leading-[1.2]">
+            {step.title}
+          </h3>
+          <p className="text-[14.5px] md:text-[15px] leading-[1.6] text-[var(--color-text-primary)]">
+            {step.body}
+          </p>
+        </article>
+      ))}
+    </div>
+  );
+}
+
 const JOURNEY: JourneyEntry[] = [
   {
     year: "25 ~",
@@ -147,6 +206,20 @@ export default function AboutPage() {
             </p>
           </div>
         </div>
+      </Section>
+
+      {/* How I work — first-principles operating system, sits before the journey */}
+      <Section className="mt-8 md:mt-12">
+        <div className="flex flex-col gap-6 max-w-[760px] mb-10 md:mb-14">
+          <h2 className="font-display text-[var(--color-text-strong)] text-[32px] md:text-[48px] tracking-[-0.02em] leading-[1.05]">
+            How I work
+          </h2>
+          <p className="text-[17px] md:text-[18px] leading-[1.55] text-[var(--color-text-primary)]">
+            The operating system behind the projects. First principles, in
+            order — applied to every build, every workflow, every team I lead.
+          </p>
+        </div>
+        <HowIWork />
       </Section>
 
       {/* Work journey — diagonal staircase of pills, hover reveals details */}

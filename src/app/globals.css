@@ -11,10 +11,13 @@
   --color-surface: #1a2825;              /* section-box / card surfaces */
   --color-bg-elev: #1a2825;              /* elevated chrome (nav pill, toggles) */
 
-  /* Brand */
-  --color-primary: #5eead4;              /* bright mint, Ben-Shih-like */
-  --color-primary-hover: #7af1dd;        /* a touch lighter for hover */
-  --color-primary-soft: rgba(94, 234, 212, 0.12);
+  /* Brand — deep teal everywhere. Originally the dark-mode primary was a
+   * bright mint (#5eead4) for legibility against the dark bg, but Lui
+   * preferred the deep teal #02594e (the journey-pill color) site-wide for
+   * a more executive feel. Used as button bg + accent across both themes. */
+  --color-primary: #02594e;
+  --color-primary-hover: #04766a;
+  --color-primary-soft: rgba(2, 89, 78, 0.20);
 
   /* Text */
   --color-text-strong: #f3f5f4;          /* near-white, display + lede */
