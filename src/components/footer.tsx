@@ -10,7 +10,6 @@ const PRIMARY_LINKS = [
 const SOCIAL_LINKS = [
   { href: "https://www.linkedin.com/in/luissanchez000", label: "LinkedIn" },
   { href: "mailto:lsancheznj@gmail.com", label: "Email" },
-  { href: "tel:+19733068631", label: "973.306.8631" },
 ];
 
 export function Footer() {
@@ -23,7 +22,6 @@ export function Footer() {
           </span>
           <p className="text-[14px] text-[var(--color-text-primary)] max-w-[420px] leading-[1.55]">
             Data engineer & analytics builder. Currently leading data at Genpro.
-            Based in Lodi, NJ.
           </p>
         </div>
 
@@ -72,7 +70,6 @@ export function Footer() {
 
       <div className="mx-auto max-w-[1200px] px-5 md:px-8 lg:px-[120px] flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-[12px] text-[var(--color-text-muted)]">
         <span>© {new Date().getFullYear()} Luis Sanchez. Built with Next.js + Tailwind.</span>
-        <span>Lodi, NJ</span>
       </div>
     </footer>
   );

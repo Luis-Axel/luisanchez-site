@@ -61,17 +61,28 @@ export function Hero({
  * TODO(lui): drop SVG/PNG logos in `/public/badges/<slug>.svg` and render
  * an <Image> to the left of the wordmark when the assets land.
  */
-function CompanyBadge({ name }: { name: string }) {
-  return (
-    <span className="mx-0.5 inline-block whitespace-nowrap rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-2 py-[2px] align-[1px] font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-strong)]">
+function CompanyBadge({ name, href }: { name: string; href?: string }) {
+  const inner = (
+    <>
       {/* Tiny dot placeholder for the logo slot. Swap to <Image> once we have art. */}
       <span
         aria-hidden
         className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-primary)] align-middle"
       />
       <span className="align-middle">{name}</span>
-    </span>
+    </>
   );
+  const cls =
+    "mx-0.5 inline-block whitespace-nowrap rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-2 py-[2px] align-[1px] font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-strong)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]";
+
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={cls}>
+        {inner}
+      </a>
+    );
+  }
+  return <span className={cls}>{inner}</span>;
 }
 
 /**
@@ -87,7 +98,7 @@ export function HomeHero({ className }: { className?: string }) {
   return (
     // min-w-0 + w-full on the flex children below prevent the long subtitle
     // line from forcing the column wider than the viewport on small screens.
-    <header className={cn("flex w-full min-w-0 flex-col gap-8 md:gap-10", className)}>
+    <header className={cn("hero-dots flex w-full min-w-0 flex-col gap-8 md:gap-10", className)}>
       {/* Headline */}
       <h1 className="min-w-0 font-display font-semibold text-[var(--color-primary)] text-[44px] sm:text-[56px] md:text-[80px] lg:text-[96px] leading-[1.0] tracking-[-0.035em]">
         Hi, I&apos;m Luis.
@@ -96,8 +107,9 @@ export function HomeHero({ className }: { className?: string }) {
       {/* Subtitle with inline company badges */}
       <p className="min-w-0 max-w-[820px] text-[16px] md:text-[22px] leading-[1.6] text-[var(--color-text-primary)] break-words">
         Data engineer with a supply-chain background. Shipping data, analytics,
-        and automation at <CompanyBadge name="Genpro" /> by day, building{" "}
-        <CompanyBadge name="Macro" /> by night.
+        and automation at{" "}
+        <CompanyBadge name="Genpro" href="https://genproinc.com/" /> by day,
+        building <CompanyBadge name="Macro" /> by night.
       </p>
 
       {/* Sticky-note row with hover-fan-out + video reveal */}

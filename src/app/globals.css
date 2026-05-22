@@ -102,3 +102,51 @@ body {
 html, body {
   transition: background-color 200ms ease-out, color 200ms ease-out;
 }
+
+/* ===========================================================
+   Hero dot-grid backdrop — subtle ambient texture behind the
+   homepage hero, fades to transparent at the edges so it
+   doesn't compete with the boxed sections below.
+   =========================================================== */
+
+.hero-dots {
+  position: relative;
+  isolation: isolate; /* keep ::before z-index local */
+}
+
+.hero-dots::before {
+  content: "";
+  position: absolute;
+  inset: -8% -4% 0 -4%; /* bleed slightly past the hero edges */
+  z-index: -1;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.09) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  background-position: 0 0;
+  /* Soft elliptical mask so dots are densest behind the headline and fade
+     out toward the edges (ambient texture, not a hard tiled pattern). */
+  -webkit-mask-image: radial-gradient(
+    ellipse 75% 65% at 50% 42%,
+    black 0%,
+    rgba(0, 0, 0, 0.85) 55%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 75% 65% at 50% 42%,
+    black 0%,
+    rgba(0, 0, 0, 0.85) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+[data-theme="light"] .hero-dots::before {
+  background-image: radial-gradient(
+    circle,
+    rgba(2, 89, 78, 0.14) 1px,
+    transparent 1px
+  );
+}

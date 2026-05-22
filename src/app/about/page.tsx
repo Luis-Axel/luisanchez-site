@@ -57,21 +57,9 @@ const SCHOOL = [
     org: "Rutgers Business School",
     body: "Summa Cum Laude (3.94 GPA). Led a six-student team in the New Jersey County College Case Competition.",
   },
-  {
-    year: "2018 — 2019",
-    role: "NJ STARS / Phi Theta Kappa officer",
-    org: "Bergen Community College",
-    body: "PTK Distinguished Leadership Award and one of 30 students worldwide named PTK Distinguished Chapter Officer. Helped Alpha Epsilon Phi chapter earn Most Distinguished Chapter across 800+ colleges. Co-developed the new General Studies curriculum adopted by the college, led a campus environmental sustainability initiative, and spent a year as lead researcher on the largest statistical analysis of ASMR's effects on the brain.",
-  },
 ];
 
 const SIDE = [
-  {
-    year: "2026 —",
-    role: "Cofounder",
-    org: "Macro",
-    body: "Consumer-health AI product built on top of model APIs. Current side project.",
-  },
   {
     year: "2023 — 2025",
     role: "Cofounder",
@@ -265,20 +253,6 @@ export default function AboutPage() {
                 >
                   lsancheznj@gmail.com
                 </a>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)]">
-                  Phone
-                </span>
-                <a href="tel:+19733068631" className="hover:text-[var(--color-primary)]">
-                  973.306.8631
-                </a>
-              </div>
-              <div className="flex flex-col gap-1">
-                <span className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)]">
-                  Based in
-                </span>
-                <span>Lodi, NJ</span>
               </div>
               <div className="flex flex-col gap-1">
                 <span className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)]">
