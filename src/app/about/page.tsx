@@ -83,7 +83,7 @@ const SIDE = [
 export default function AboutPage() {
   return (
     <>
-      <Section className="pt-8 md:pt-16 lg:pt-24">
+      <Section boxed={false} className="pt-4 md:pt-8 lg:pt-12">
         <Hero
           eyebrow={
             <>
@@ -111,7 +111,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Current */}
-      <Section className="pt-12 md:pt-16">
+      <Section className="mt-8 md:mt-12">
         <div className="grid gap-8 md:grid-cols-[160px_1fr] lg:[grid-template-columns:200px_1fr]">
           <div className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)] md:pt-2">
             Right now
@@ -128,7 +128,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Work timeline */}
-      <Section className="pt-12 md:pt-16">
+      <Section className="mt-8 md:mt-12">
         <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em] mb-10 md:mb-14">
           Work
         </h2>
@@ -154,7 +154,7 @@ export default function AboutPage() {
       </Section>
 
       {/* In my own words — pull quote from the LinkedIn post */}
-      <Section className="pt-12 md:pt-16">
+      <Section className="mt-8 md:mt-12">
         <div className="grid gap-8 md:grid-cols-[160px_1fr] lg:[grid-template-columns:200px_1fr]">
           <div className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)] md:pt-2">
             In my own words
@@ -185,7 +185,7 @@ export default function AboutPage() {
       </Section>
 
       {/* School */}
-      <Section className="pt-12 md:pt-16">
+      <Section className="mt-8 md:mt-12">
         <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em] mb-10 md:mb-14">
           School
         </h2>
@@ -222,7 +222,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Side projects */}
-      <Section className="pt-12 md:pt-16">
+      <Section className="mt-8 md:mt-12">
         <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em] mb-10 md:mb-14">
           Side projects
         </h2>
@@ -248,7 +248,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Contact */}
-      <Section className="pt-12 md:pt-20" tone="cream">
+      <Section className="mt-8 md:mt-12 mb-10">
         <div className="grid gap-8 md:grid-cols-[160px_1fr] lg:[grid-template-columns:200px_1fr]">
           <div className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)] md:pt-2">
             Contact

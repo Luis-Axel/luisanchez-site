@@ -1,7 +1,6 @@
 import { Section } from "@/components/section";
-import { Hero } from "@/components/hero";
+import { HomeHero } from "@/components/hero";
 import { Button, ArrowRight } from "@/components/button";
-import { StatCallout } from "@/components/stat-callout";
 import { YearRail } from "@/components/year-rail";
 import { CaseStudyCard } from "@/components/case-study-card";
 import { TestimonialCard } from "@/components/testimonial-card";
@@ -11,56 +10,18 @@ import { TESTIMONIALS } from "@/content/testimonials";
 import { PRESS } from "@/content/press";
 import Link from "next/link";
 
-const HERO_STATS = [
-  { value: "$14M+", label: "ML-driven savings", caption: "Validated across customer book + ops automation" },
-  { value: "12,500+", label: "Labor hours returned annually", caption: "Through automation across 26 sites" },
-  { value: "$150M+", label: "Data on the platform I shipped", caption: "Enterprise analytics deployed to customer accounts" },
-];
-
 export default function Home() {
   const hero = CASE_STUDIES; // 3 hero case studies, in order
 
   return (
     <>
-      {/* Hero */}
-      <Section className="pt-8 md:pt-16 lg:pt-24">
-        <Hero
-          eyebrow={
-            <>
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-primary)]" />
-              Lui Sanchez — Data engineer & analytics builder
-            </>
-          }
-          title={
-            <>
-              I build the data and{" "}
-              <span className="text-[var(--color-primary)]">automation systems</span>{" "}
-              that turn messy operations into scalable decisions.
-            </>
-          }
-          intro="Currently leading data at Genpro (freight brokerage). Previously 4 years at USCS shipping ML, analytics, and automation across 26 cold-storage sites. Most of the friction in my career hasn't been the work — it's been the role boundaries that slow it down, so I build past them."
-        >
-          <div className="flex flex-wrap gap-3 mt-2">
-            <Button href="#selected-work" trailingIcon={<ArrowRight />}>
-              See selected work
-            </Button>
-            <Button href="/Sanchez_Luis_Resume.pdf" variant="outline" download>
-              Download resume
-            </Button>
-            <Button href="/about" variant="outline">
-              About Lui
-            </Button>
-          </div>
-        </Hero>
-
-        {/* Hero stats banner */}
-        <div className="mt-16 md:mt-24">
-          <StatCallout stats={HERO_STATS} />
-        </div>
+      {/* Hero — unboxed; sits flush at the top of the page. */}
+      <Section boxed={false} className="pt-4 md:pt-8 lg:pt-12">
+        <HomeHero />
       </Section>
 
       {/* About teaser */}
-      <Section className="pt-4">
+      <Section className="mt-8 md:mt-12">
         <div className="grid gap-8 md:grid-cols-[160px_1fr] lg:[grid-template-columns:200px_1fr]">
           <div className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)] md:pt-2">
             About
@@ -78,21 +39,28 @@ export default function Home() {
               Before that, I led an 11-person team at USCS shipping ML and
               automation across 26 cold-storage sites.
             </p>
-            <div>
+            <div className="flex flex-wrap gap-3 pt-1">
               <Link
                 href="/about"
                 className="text-[var(--color-primary)] hover:underline underline-offset-4 text-[16px]"
               >
                 Read the full background →
               </Link>
+              <a
+                href="/Sanchez_Luis_Resume.pdf"
+                download
+                className="text-[var(--color-primary)] hover:underline underline-offset-4 text-[16px]"
+              >
+                Download resume ↓
+              </a>
             </div>
           </div>
         </div>
       </Section>
 
       {/* Selected Work — 3 hero case studies with year rail */}
-      <Section id="selected-work" className="pt-16 md:pt-24">
-        <div className="flex items-baseline justify-between mb-12 md:mb-16">
+      <Section id="selected-work" className="mt-8 md:mt-12">
+        <div className="flex items-baseline justify-between mb-10 md:mb-14">
           <h2 className="font-display text-[var(--color-text-strong)] text-[32px] md:text-[44px] tracking-[-0.02em]">
             Selected work
           </h2>
@@ -119,8 +87,8 @@ export default function Home() {
       </Section>
 
       {/* Working with me — testimonials */}
-      <Section id="working-with-me" className="pt-16 md:pt-24">
-        <div className="flex items-baseline justify-between mb-12 md:mb-16">
+      <Section id="working-with-me" className="mt-8 md:mt-12">
+        <div className="flex items-baseline justify-between mb-10 md:mb-14">
           <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em]">
             What it&apos;s like working with me
           </h2>
@@ -136,8 +104,8 @@ export default function Home() {
       </Section>
 
       {/* Press & recognition */}
-      <Section id="press" className="pt-16 md:pt-24">
-        <div className="flex items-baseline justify-between mb-12 md:mb-16">
+      <Section id="press" className="mt-8 md:mt-12">
+        <div className="flex items-baseline justify-between mb-10 md:mb-14">
           <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em]">
             Press & recognition
           </h2>
@@ -153,8 +121,8 @@ export default function Home() {
       </Section>
 
       {/* More work strip */}
-      <Section className="pt-16 md:pt-24">
-        <div className="flex items-baseline justify-between mb-12">
+      <Section id="more-work" className="mt-8 md:mt-12">
+        <div className="flex items-baseline justify-between mb-10">
           <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[36px] tracking-[-0.015em]">
             More work
           </h2>
@@ -204,7 +172,7 @@ export default function Home() {
       </Section>
 
       {/* Contact */}
-      <Section className="pt-16 md:pt-24" tone="cream">
+      <Section className="mt-8 md:mt-12 mb-10">
         <div className="flex flex-col gap-6 max-w-[680px]">
           <h2 className="font-display text-[var(--color-text-strong)] text-[32px] md:text-[48px] tracking-[-0.02em]">
             If you&apos;re building something at the seam of data, ML, and
@@ -224,6 +192,9 @@ export default function Home() {
               variant="outline"
             >
               LinkedIn
+            </Button>
+            <Button href="/Sanchez_Luis_Resume.pdf" variant="outline" download>
+              Download resume
             </Button>
           </div>
         </div>

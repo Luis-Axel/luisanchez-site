@@ -1,41 +1,63 @@
 @import "tailwindcss";
 
 /* ===========================================================
-   Design tokens — ported from benshih.design teardown
-   with cream-default background restored.
+   Design tokens — ported from a benshih.design teardown.
+   Dark-first: dark mode is the default; light is opt-in.
    =========================================================== */
 
 :root {
-  /* Surfaces */
-  --color-bg-cream: #f9f4ed;     /* warm off-white, page bg */
-  --color-surface: #ffffff;       /* card surfaces */
+  /* Surfaces — DARK by default (matches OS default + first paint) */
+  --color-bg-cream: #0f1a17;            /* warm dark teal-black, page bg */
+  --color-surface: #1a2825;              /* section-box / card surfaces */
+  --color-bg-elev: #1a2825;              /* elevated chrome (nav pill, toggles) */
 
   /* Brand */
-  --color-primary: #02594e;       /* deep teal-green */
-  --color-primary-soft: rgba(2, 89, 78, 0.10); /* chip / hover tints */
+  --color-primary: #5eead4;              /* bright mint, Ben-Shih-like */
+  --color-primary-hover: #7af1dd;        /* a touch lighter for hover */
+  --color-primary-soft: rgba(94, 234, 212, 0.12);
 
   /* Text */
-  --color-text-strong: #344054;   /* slate — display headings, lede */
-  --color-text-primary: #4c6763;  /* desaturated teal-grey — body */
-  --color-text-muted: rgba(52, 64, 84, 0.65); /* secondary slate */
+  --color-text-strong: #f3f5f4;          /* near-white, display + lede */
+  --color-text-primary: #c8d4d1;         /* body */
+  --color-text-secondary: #a5b3b0;       /* nav, footer, secondary */
+  --color-text-muted: rgba(200, 212, 209, 0.55);
 
   /* Lines */
-  --color-border: rgba(52, 64, 84, 0.12);
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+
+  /* Elevation */
+  --shadow-pill: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-button: 0 6px 16px rgba(0, 0, 0, 0.30);
+  --shadow-box: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 60px -30px rgba(0, 0, 0, 0.6);
 
   /* Tailwind defaults expected by some plugins */
   --background: var(--color-bg-cream);
   --foreground: var(--color-text-primary);
 }
 
-[data-theme="dark"] {
-  --color-bg-cream: #0d1614;     /* dark teal-near-black */
-  --color-surface: #142624;
-  --color-primary: #4dd4c2;      /* lighter teal for legibility on dark */
-  --color-primary-soft: rgba(77, 212, 194, 0.12);
-  --color-text-strong: #f3f5f4;
-  --color-text-primary: #c8d4d1;
-  --color-text-muted: rgba(200, 212, 209, 0.55);
-  --color-border: rgba(255, 255, 255, 0.08);
+/* Light mode kicks in only when explicitly opted-in. */
+[data-theme="light"] {
+  --color-bg-cream: #f9f4ed;             /* warm off-white, page bg */
+  --color-surface: #ffffff;
+  --color-bg-elev: #ffffff;
+
+  --color-primary: #02594e;              /* deep teal-green */
+  --color-primary-hover: #04766a;
+  --color-primary-soft: rgba(2, 89, 78, 0.10);
+
+  --color-text-strong: #344054;
+  --color-text-primary: #4c6763;
+  --color-text-secondary: #5d6f6c;
+  --color-text-muted: rgba(52, 64, 84, 0.65);
+
+  --color-border: rgba(52, 64, 84, 0.10);
+  --color-border-strong: rgba(52, 64, 84, 0.20);
+
+  --shadow-pill: 0 6px 18px rgba(52, 64, 84, 0.12);
+  --shadow-button: 0 4px 12px rgba(2, 89, 78, 0.18);
+  --shadow-box: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 16px 40px -28px rgba(52, 64, 84, 0.35);
+
   --background: var(--color-bg-cream);
   --foreground: var(--color-text-primary);
 }
@@ -51,6 +73,7 @@
   --font-display: var(--font-outfit);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-hand: var(--font-caveat);
 }
 
 /* ===========================================================
@@ -59,7 +82,9 @@
 
 html {
   background: var(--color-bg-cream);
-  color-scheme: light dark;
+  color-scheme: dark light;
+  /* Hard-clip any horizontal overflow at the document root. */
+  overflow-x: clip;
 }
 
 body {
@@ -68,6 +93,9 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Defensive: keep the hero sticky-cards / animations from triggering a
+     horizontal scrollbar on small viewports if anything translates outward. */
+  overflow-x: hidden;
 }
 
 /* Smooth theme transitions on background + text */

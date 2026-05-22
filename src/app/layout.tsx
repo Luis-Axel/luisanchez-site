@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Outfit } from "next/font/google";
+import { Geist, Geist_Mono, Outfit, Caveat } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { NavPill } from "@/components/nav-pill";
@@ -26,6 +26,15 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+// Caveat: handwritten script for small annotations (e.g. the hero
+// hover-state caption "in case you got tired of reading"). Drives `font-hand`.
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Lui Sanchez — Data engineer & analytics builder",
   description:
@@ -45,10 +54,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // data-theme="dark" pre-set so first paint matches CSS default (dark);
+    // ThemeProvider will reconcile to the stored / system preference on mount.
     <html
       lang="en"
+      data-theme="dark"
       suppressHydrationWarning
-      className={`${outfit.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${outfit.variable} ${geistSans.variable} ${geistMono.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider>

@@ -47,7 +47,7 @@ export default async function CaseStudyPage({
   return (
     <>
       {/* Breadcrumb back */}
-      <Section className="pt-4 md:pt-6 pb-0">
+      <Section boxed={false} className="pt-4 md:pt-6 pb-0">
         <Link
           href="/"
           className="text-[13px] text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"
@@ -57,7 +57,7 @@ export default async function CaseStudyPage({
       </Section>
 
       {/* Hero */}
-      <Section className="pt-6 md:pt-10">
+      <Section boxed={false} className="pt-6 md:pt-10">
         <Hero
           eyebrow={
             <>
@@ -71,7 +71,7 @@ export default async function CaseStudyPage({
       </Section>
 
       {/* Hero visual placeholder */}
-      <Section className="pt-2">
+      <Section boxed={false} className="pt-2">
         <div className="relative aspect-[1948/1080] overflow-hidden rounded-[12px] bg-black/90 dark:bg-black/60">
           <div className="absolute inset-0 grid place-items-center p-6 text-center">
             <span className="text-xs md:text-sm text-white/40 font-mono leading-relaxed max-w-[80%]">
@@ -83,17 +83,17 @@ export default async function CaseStudyPage({
       </Section>
 
       {/* Metadata grid */}
-      <Section className="pt-8">
+      <Section boxed={false} className="pt-8">
         <MetadataGrid cells={cs.metadata} />
       </Section>
 
       {/* Stats up front (per teardown: 3 numbers near the top) */}
-      <Section className="pt-8">
+      <Section boxed={false} className="pt-8">
         <StatCallout stats={cs.stats} />
       </Section>
 
       {/* Constraints chips */}
-      <Section className="pt-12">
+      <Section boxed={false} className="pt-12">
         <div className="flex flex-col gap-4 max-w-[860px]">
           <h2 className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)]">
             Constraints that shaped the build
@@ -103,12 +103,12 @@ export default async function CaseStudyPage({
       </Section>
 
       {/* TOC */}
-      <Section className="pt-10">
+      <Section boxed={false} className="pt-10">
         <OnThisPageNav items={tocItems} />
       </Section>
 
       {/* Body sections */}
-      <Section className="pt-2">
+      <Section boxed={false} className="pt-2">
         <div className="flex flex-col gap-16 md:gap-20 max-w-[820px]">
           {cs.sections.map((s) => (
             <article id={s.id} key={s.id} className="flex flex-col gap-4 scroll-mt-24">
@@ -146,7 +146,7 @@ export default async function CaseStudyPage({
       </Section>
 
       {/* Before/After (generic per case study) */}
-      <Section className="pt-16">
+      <Section boxed={false} className="pt-16">
         <div className="flex flex-col gap-6 max-w-[820px] mb-8">
           <h2 className="font-display text-[var(--color-text-strong)] text-[24px] md:text-[32px] tracking-[-0.015em]">
             Before / After
@@ -171,7 +171,7 @@ export default async function CaseStudyPage({
       </Section>
 
       {/* CTA */}
-      <Section className="pt-16" tone="cream">
+      <Section boxed={false} className="pt-16" tone="cream">
         <div className="flex flex-col gap-4 max-w-[680px]">
           <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em]">
             Want the longer version?
@@ -190,7 +190,7 @@ export default async function CaseStudyPage({
       </Section>
 
       {/* More case studies */}
-      <Section className="pt-16">
+      <Section boxed={false} className="pt-16">
         <MoreCaseStudies
           items={others.map((o) => ({
             href: `/case-studies/${o.slug}`,

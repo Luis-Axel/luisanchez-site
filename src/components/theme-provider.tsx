@@ -37,9 +37,14 @@ function subscribe(cb: () => void) {
 function readTheme(): Theme {
   const stored = window.localStorage.getItem(STORAGE_KEY) as Theme | null;
   if (stored === "light" || stored === "dark") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  // Dark by default. Only fall back to light if the user has explicitly told
+  // their OS they prefer light. (`prefers-color-scheme: light` is the only
+  // case where the user has expressed an explicit light preference; "no
+  // preference" returns false for both queries.)
+  if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+    return "light";
+  }
+  return "dark";
 }
 
 function writeTheme(t: Theme) {
@@ -52,11 +57,11 @@ function writeTheme(t: Theme) {
 /* ---------- Provider ---------- */
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Stable SSR snapshot: always "light" on the server, then resolved on client
+  // Stable SSR snapshot: dark on the server (matches CSS default), resolved on client
   const theme = React.useSyncExternalStore<Theme>(
     subscribe,
     readTheme,
-    () => "light",
+    () => "dark",
   );
 
   // Apply the resolved theme to <html data-theme>; this is a legitimate
@@ -85,7 +90,7 @@ export function useTheme() {
   const ctx = React.useContext(ThemeContext);
   if (!ctx) {
     return {
-      theme: "light" as const,
+      theme: "dark" as const,
       toggle: () => {},
       setTheme: () => {},
     };
