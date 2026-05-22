@@ -28,6 +28,278 @@ export type CaseStudy = {
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
+    slug: "smartmove-platform",
+    title: "SmartMove — Full-Stack Logistics Analytics Platform",
+    oneLiner:
+      "USCS load planners were consolidating LTL freight by hand, capped by 'that's how we've always done it.' Built a full-stack platform that systemized the workflow, modeled it as traveling-salesman + bin-packing, and rolled it out nationwide.",
+    year: "2024",
+    company: "USCS",
+    visualTodo:
+      "SmartMove platform UI — consolidation recommendation queue with route map and bin-pack visualization",
+    heroImage: "/smartmove/shared-locations.png",
+    externalLink: {
+      href: "https://www.linkedin.com/posts/united-states-cold-storage-inc-_bestincold-bestinpeople-bestinlogistics-activity-7241601204802179072-6dev/",
+      label: "Featured in The Shield, Q2 2024 ↗",
+    },
+    overview:
+      "SmartMove is USCS's full-stack platform for less-than-truckload (LTL) freight consolidation. It took a core USCS service, combining shipments from multiple customers into shared trucks, that had been done manually for years and turned it into a systemized, defensible workflow. I led product dev and rollout, working directly with load planners to map and redesign the workflow before rolling it out nationwide over the course of a year. The platform validated $9.3M in savings and was featured in USCS's company newsletter as a 'game changer for LTL load planning.'",
+    metadata: [
+      { label: "Stack", value: "Python (optimization) · React UI · BigQuery · custom data-entry tooling" },
+      { label: "Scale", value: "Nationwide USCS LTL network" },
+      { label: "Approach", value: "Traveling salesman + bin packing optimization" },
+      { label: "Outcome", value: "$9.3M validated savings · Featured in The Shield Q2 2024" },
+    ],
+    stats: [
+      { value: "$9.3M", label: "Validated savings", caption: "Across the national USCS network over the rollout year" },
+      { value: "Nationwide", label: "Rollout cycle", caption: "Site by site over a 12-month deployment" },
+      { value: "Game changer", label: "Per USCS leadership", caption: "Keith Mowery (EVP) and Lauren Fitzpatrick (Sr. Manager, Logistics Systems) on the record in The Shield" },
+    ],
+    constraints: [
+      "Solve a real combinatorial optimization in production, not in a notebook",
+      "Respect what experienced planners do, but push back on the wrong 'we've always done it this way' assumptions",
+      "Build datasets the industry didn't have (facility hours, freight-type compatibility, time windows)",
+      "Make planners trust the system enough to use it daily",
+      "Roll out across the national network without disrupting running operations",
+    ],
+    sections: [
+      {
+        id: "symptom",
+        label: "Symptom",
+        heading: "The work was done by intuition, not by system.",
+        body: [
+          "USCS's core LTL consolidation work, combining shipments from multiple customers heading to the same regions into shared trucks, had been done manually for years. Planners coordinated by tribal knowledge and individual experience. The process was slow, varied wildly by who was on shift, and capped by a stack of 'that's how we've always done it' assumptions.",
+          "Underneath the manual workflow, USCS was leaving real consolidation opportunities on the table every day. More trucks, more miles, more cost, fewer happy customers.",
+        ],
+        visuals: [
+          {
+            todo: "Baseline non-consolidated shipments: each customer gets their own truck. More trucks, more miles, more cost.",
+            aspect: "aspect-[16/9]",
+            src: "/smartmove/baseline-non-consolidated.png",
+          },
+        ],
+      },
+      {
+        id: "diagnosis",
+        label: "Diagnosis",
+        heading: "Two textbook optimization problems hiding under a custom workflow.",
+        body: [
+          "At the math level, this was traveling-salesman (route between drop-off points) plus bin-packing (pack each truck within capacity and temperature constraints). What made it hard wasn't the math. It was that the inputs the algorithms needed didn't exist anywhere in the industry as a clean dataset.",
+          "There was no normalized record of when each facility was open, which freight types each facility accepted in which time windows (a frozen-only dock won't take refrigerated mid-shift), or which temperature classes could ride together in the same trailer. All of that lived in planners' heads.",
+        ],
+      },
+      {
+        id: "hypothesis",
+        label: "Hypothesis",
+        heading: "Systemize the experts, build the missing data, then let planners stop doing the easy 80%.",
+        body: [
+          "If we could capture what the best planners were actually doing, build the datasets they were holding in their heads, and wrap the whole thing in a UI they'd trust, the platform could automate the 80% of consolidation that was rote and free planners to focus on the 20% that needed judgment.",
+          "Critically, planners had to stay in control. The platform would recommend; planners would approve, adjust, or override. Otherwise it wouldn't get used.",
+        ],
+      },
+      {
+        id: "implementation",
+        label: "Implementation",
+        heading: "Three layers: the data, the optimizer, the UI.",
+        body: [
+          "I worked directly with load planners across multiple sites to map the real workflow. Every 'that's how we've always done it' got pushed back on. About half of those rules turned out to be real constraints; the rest were assumptions that quietly capped output.",
+          "Then we built the unique datasets the industry didn't have: facility hours of operation, freight types accepted by time of day (poultry, dairy, ice cream, frozen, refrigerated), and cross-loading temperature compatibility. Critically, I built a data-entry tool so end users could maintain the dataset themselves in a data-friendly way, without needing engineering involvement every time a facility changed its hours.",
+          "On top of that data layer, I modeled the consolidation problem as traveling salesman plus bin packing and wrote the optimizer in Python, tuned against historical loads.",
+          "All of it was packaged in a clean React UI so planners stayed in control. The system recommended consolidations; planners approved, rejected, or edited. Then we rolled it out nationwide over a year, site by site, never disrupting live operations.",
+        ],
+        visuals: [
+          {
+            todo: "Cross-temperature consolidation: ice cream, frozen, and refrigerated riding together on one truck, made possible by the custom temperature-compatibility dataset.",
+            aspect: "aspect-[16/9]",
+            src: "/smartmove/cross-temp-consolidation.png",
+          },
+          {
+            todo: "Consolidated trucks heading to shared customer locations: the platform's core output. Fewer trucks, fewer miles, fewer dollars.",
+            aspect: "aspect-[16/9]",
+            src: "/smartmove/shared-locations.png",
+          },
+        ],
+      },
+      {
+        id: "results",
+        label: "Results",
+        heading: "$9.3M saved and planners promoted to problem solvers.",
+        body: [
+          "Over the rollout year SmartMove validated $9.3M in savings against the national LTL network. USCS's company newsletter, The Shield, featured the platform in its Q2 2024 issue, with Keith Mowery (EVP) calling it 'a game changer for LTL load planning.'",
+          "Lauren Fitzpatrick, Senior Manager of Logistics Systems and one of the platform's earliest champions, framed the impact this way: 'SmartMove lets load planners become more proactive problem solvers. They can focus on what truly matters: servicing customers and ensuring that when issues inevitably arise, they can quickly resolve them.'",
+          "The win underneath the savings number is that the workflow itself moved from individual intuition to a system anyone on the team could run, audit, and improve. The data planners had been carrying in their heads now lives in a dataset the org owns.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "macro",
+    title: "Macro — Consumer-Health AI Product",
+    oneLiner:
+      "Building a consumer-health AI product on top of model APIs. Current cofounder side project.",
+    year: "2026 — Present",
+    company: "Cofounder · Macro",
+    visualTodo:
+      "Macro product screenshot or onboarding flow",
+    overview:
+      "Macro is a consumer-health AI product I'm building as a cofounder. It sits on top of frontier model APIs and turns ambient personal-health signals into actions a normal person can take. [TODO — Lui to expand: positioning, target user, what shipped so far, what's in flight.]",
+    metadata: [
+      { label: "Stack", value: "[TODO — confirm: model APIs (Anthropic / OpenAI), iOS / mobile-web stack, backend]" },
+      { label: "Stage", value: "Side project · Active development" },
+      { label: "Role", value: "Cofounder · Builder" },
+      { label: "Started", value: "2026" },
+    ],
+    stats: [
+      { value: "TODO", label: "Headline product metric", caption: "TODO — pick the one number that tells the Macro story" },
+      { value: "TODO", label: "Users / cohort size", caption: "TODO — confirm before launch" },
+      { value: "TODO", label: "Model coverage", caption: "TODO — which model APIs Macro currently routes against" },
+    ],
+    constraints: [
+      "TODO — what the product CAN'T do or won't do (privacy boundary, scope discipline)",
+      "TODO — what makes Macro defensible vs. a thin wrapper on a chat API",
+      "TODO — how Macro stays cheap enough to run on consumer pricing",
+    ],
+    sections: [
+      {
+        id: "symptom",
+        label: "Symptom",
+        heading: "[TODO: the user problem Macro is solving]",
+        body: [
+          "[TODO — Lui: 1-2 sentences on what's broken in consumer health that Macro is responding to.]",
+        ],
+      },
+      {
+        id: "diagnosis",
+        label: "Diagnosis",
+        heading: "[TODO: why this problem hasn't been solved already]",
+        body: [
+          "[TODO — Lui: what's structurally different now (model capabilities, costs, distribution) that makes Macro possible.]",
+        ],
+      },
+      {
+        id: "hypothesis",
+        label: "Hypothesis",
+        heading: "[TODO: the bet Macro is taking]",
+        body: [
+          "[TODO — Lui: 1-2 sentences on the specific bet — product hypothesis + go-to-market hypothesis.]",
+        ],
+      },
+      {
+        id: "implementation",
+        label: "Implementation",
+        heading: "[TODO: how it's built]",
+        body: [
+          "[TODO — Lui: the architecture in one paragraph. Where the model APIs sit, what's deterministic vs. prompted, what's persistent vs. ephemeral.]",
+        ],
+      },
+      {
+        id: "results",
+        label: "Results",
+        heading: "[TODO: traction]",
+        body: [
+          "[TODO — Lui: what's shipped, who's using it, what's measured. If pre-launch, that's fine: name what's in flight and what the next milestone is.]",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "etl-integration-replacement",
+    title: "Replacing Cleo: an Internal EDI + ETL + API Integration Service",
+    oneLiner:
+      "Genpro was paying ~$80K/year for Cleo, a third-party EDI middleware that held trading-partner data behind a vendor wall. When a new TMS onboarding made the Cleo dev work absurd, I built the replacement instead.",
+    year: "2025",
+    company: "Genpro",
+    visualTodo:
+      "Architecture diagram: trading partners → internal ingestion service (EDI parser, ETL pipelines, API connectors) → BigQuery → internal consumers",
+    overview:
+      "Designed and built the internal EDI/ETL/API integration system that replaced Cleo at Genpro. The replacement handles EDI parsing, ETL pipelines, and REST integrations from one in-house codebase and lands all trading-partner data directly in our BigQuery warehouse, where the pricing platform, data governance layer, and the rest of the analytics stack can use it natively. The $80K/year Cleo subscription was decommissioned.",
+    metadata: [
+      { label: "Stack", value: "Python · BigQuery · custom EDI parser · REST/API connectors" },
+      { label: "Scope", value: "All Genpro trading-partner integrations" },
+      { label: "Replaces", value: "Cleo middleware ($80K/yr eliminated)" },
+      { label: "Outcome", value: "Trading-partner data lives in BigQuery, accessible internally" },
+    ],
+    stats: [
+      { value: "$80K", label: "Annual licensing eliminated", caption: "Cleo subscription decommissioned after cut-over" },
+      { value: "EDI + ETL + API", label: "All channels in one system", caption: "From ingestion through warehouse landing" },
+      { value: "BigQuery", label: "Where data lands by default", caption: "Same warehouse the rest of analytics already uses" },
+    ],
+    constraints: [
+      "Cut over without dropping any trading-partner connection",
+      "Match Cleo's reliability and ack-handling behavior on every transaction",
+      "Land data in the warehouse schemas the rest of the org already uses",
+      "Stay maintainable by a small in-house team",
+    ],
+    sections: [
+      {
+        id: "symptom",
+        label: "Symptom",
+        heading: "$80K a year for a black box, and a new TMS that needed to talk through it.",
+        body: [
+          "Cleo was the EDI middleware Genpro used to exchange data with trading partners: purchase orders, invoices, shipment statuses, the usual freight-industry traffic. It worked, but it worked behind a vendor wall. Every schema change took a vendor ticket. Trading-partner data was effectively trapped inside Cleo and had to be manually re-exported to land anywhere we could query it.",
+          "The forcing function was a new TMS onboarding. The development required to fit the new TMS through Cleo's platform was so extensive that just building the integration ourselves made more sense than paying Cleo to extend their model. Once we'd built that, backfilling the rest of the partner connections in-house followed naturally.",
+        ],
+        visuals: [
+          {
+            todo: "Why people use Cleo: dozens of messy B2B applications and partner systems that need normalizing into one feed. Cleo's pitch.",
+            aspect: "aspect-[16/9]",
+            src: "/cleo/usecase.png",
+          },
+        ],
+      },
+      {
+        id: "diagnosis",
+        label: "Diagnosis",
+        heading: "Modern tooling can do this in-house at a fraction of the cost.",
+        body: [
+          "What Cleo was actually doing, parse EDI messages, normalize schemas, route data to downstream systems, is well-defined and increasingly straightforward with modern data tooling. What the $80K/year was buying us was vendor lock-in, plus the integration overhead of keeping Cleo wired into the rest of our stack.",
+          "Bringing it in-house unlocked something Cleo never could: every trading-partner record would land directly in BigQuery, alongside the operational and pricing data the rest of the analytics work depended on.",
+        ],
+        visuals: [
+          {
+            todo: "Cleo's integration cloud: how Cleo positions itself as the connective tissue between data providers, customers, suppliers, and internal apps. We replaced this entire surface with an in-house service.",
+            aspect: "aspect-[16/9]",
+            src: "/cleo/integration-cloud.png",
+          },
+        ],
+      },
+      {
+        id: "hypothesis",
+        label: "Hypothesis",
+        heading: "One internal service that handles EDI, ETL, and API in the same codebase.",
+        body: [
+          "A single integration service, owned in-house, that ingests trading-partner traffic in any format the partner uses (EDI, file-based ETL, REST APIs), normalizes everything into our warehouse schemas, and makes the data immediately queryable to internal systems.",
+          "Trading partners shouldn't notice the cut-over. They keep sending data the same way; we change what's on our side.",
+        ],
+      },
+      {
+        id: "implementation",
+        label: "Implementation",
+        heading: "Cut over partner-by-partner, never broke a connection.",
+        body: [
+          "I mapped every Cleo connection first: protocol, schema, downstream consumer, ack expectations. Each was a contract we had to preserve exactly.",
+          "The replacement was built in Python on top of BigQuery as the warehouse: an EDI parser handling the common transaction sets (810, 850, 856, etc.), an ETL pipeline framework for file-based feeds, and a REST connector layer for API-driven partners. Schema normalization happened once on ingestion. Monitoring and KPI reporting got built into the service from day one, so the team could see exactly what Cleo had been doing for us, but now in our own dashboards instead of theirs.",
+          "Then we migrated connection by connection, validating data parity against Cleo at each step before cutting traffic over. After every partner was on the new system, we cancelled the Cleo subscription.",
+        ],
+        visuals: [
+          {
+            todo: "Cleo's KPI dashboard: the kind of reporting we'd been paying for, that the in-house service now produces itself. Errors, throughput, partner-level health, all visible to the team that runs the integrations.",
+            aspect: "aspect-[16/9]",
+            src: "/cleo/kpis.jpg",
+          },
+        ],
+      },
+      {
+        id: "results",
+        label: "Results",
+        heading: "$80K saved, data unlocked, foundation for everything that came next.",
+        body: [
+          "The Cleo line item is gone. Every byte of trading-partner data now lands inside Genpro's BigQuery warehouse alongside the rest of our operational data.",
+          "The bigger win was downstream. The pricing intelligence platform and the data governance layer both rely on this integration. They wouldn't exist if trading-partner data still lived inside a vendor system we couldn't query directly.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "pricing-intelligence-platform",
     title: "ML Pricing Intelligence Platform",
     oneLiner:
@@ -65,20 +337,20 @@ export const CASE_STUDIES: CaseStudy[] = [
         heading: "Pricing was a bottleneck, not a moat.",
         body: [
           "Brokers were quoting lanes by intuition and recent memory, which meant inconsistent rates across the desk and slow turnarounds on RFPs. The pricing process couldn't keep up with how fast the freight market actually moved.",
-          "Sales and capacity were targeting different lanes than pricing thought were attractive — three teams, three views of the same market, and no shared source of truth.",
+          "Sales and capacity were targeting different lanes than pricing thought were attractive: three teams, three views of the same market, and no shared source of truth.",
         ],
       },
       {
         id: "diagnosis",
         label: "Diagnosis",
-        heading: "The data existed — it just wasn't wired into the decision.",
+        heading: "The data existed. It just wasn't wired into the decision.",
         body: [
           "We had years of historical loads in BigQuery, plus external market signals, but nothing turned that into a lane-level price a broker could use in the moment. The gap was operational, not analytical.",
           "Existing dashboards were retrospective. To change behavior at quote time, the model had to live where the quote was actually being made.",
         ],
         visuals: [
           {
-            todo: "architecture diagram for Pricing Platform — React frontend → API gateway → Python ML service → BigQuery warehouse, with sidecars for retraining + feature store",
+            todo: "architecture diagram for Pricing Platform: React frontend → API gateway → Python ML service → BigQuery warehouse, with sidecars for retraining + feature store",
           },
         ],
       },
@@ -88,7 +360,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         heading: "One model, three surfaces.",
         body: [
           "If we trained a single pricing model on the same warehouse data the entire commercial org used, then exposed it through (1) a quoting UI, (2) a GTM targeting view, and (3) a market forecasting feed, all three teams would converge on the same picture of the market.",
-          "That meant we couldn't ship a notebook — we had to ship a product. React + Python ML + BigQuery, deployed to brokers' actual workflow.",
+          "That meant we couldn't ship a notebook. We had to ship a product. React + Python ML + BigQuery, deployed to brokers' actual workflow.",
         ],
       },
       {
@@ -97,11 +369,11 @@ export const CASE_STUDIES: CaseStudy[] = [
         heading: "Led the build end-to-end with a third-party engineering team.",
         body: [
           "I owned the spec, the data model, and the integration into broker workflows; the third-party team owned the React frontend and the Python ML service implementation. We standardized on scikit-learn and XGBoost for the core pricing models, BigQuery as the system of record, and a thin API layer to keep retraining decoupled from quote-time serving.",
-          "The hardest part wasn't the model — it was making the outputs trustworthy. Every recommended price needed an explainability trail a broker could push back on, and every aggregate needed to reconcile against finance's monthly numbers.",
+          "The hardest part wasn't the model. It was making the outputs trustworthy. Every recommended price needed an explainability trail a broker could push back on, and every aggregate needed to reconcile against finance's monthly numbers.",
         ],
         visuals: [
           {
-            todo: "dashboard screenshot for Pricing Platform — broker view showing recommended rate, recent comparable lanes, and confidence band",
+            todo: "dashboard screenshot for Pricing Platform: broker view showing recommended rate, recent comparable lanes, and confidence band",
             aspect: "aspect-[16/9]",
           },
         ],
@@ -112,309 +384,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         heading: "From spreadsheet pricing to a system the GTM org runs on.",
         body: [
           "The platform is now the default surface for lane pricing and is wired directly into daily GTM market-targeting decisions. Sales, capacity, and pricing work off the same numbers for the first time.",
-          "Just as importantly, the underlying warehouse, models, and serving layer are now the substrate the next set of internal ML projects sit on — not a one-off.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "enterprise-analytics-platform",
-    title: "Enterprise Analytics Platform",
-    oneLiner:
-      "Enterprise customers had no commercial-data visibility into their cold-storage operations.",
-    year: "2024",
-    company: "USCS",
-    visualTodo:
-      "dashboard hero screenshot showing the customer-facing analytics view (operational + commercial metrics for a single customer account)",
-    overview:
-      "I architected and shipped a React + Google Kubernetes Engine analytics platform processing $150M+ in operational and commercial data, deployed directly to enterprise customer accounts so their teams could make pricing and operational decisions off the same numbers we did.",
-    metadata: [
-      { label: "Stack", value: "React • Google Kubernetes Engine • BigQuery" },
-      { label: "Scale", value: "$150M+ in operational data" },
-      { label: "SLA", value: "Enterprise-grade, customer-facing" },
-      {
-        label: "Outcome",
-        value: "Customer accounts using it for pricing + operational decisions",
-      },
-    ],
-    stats: [
-      { value: "$150M+", label: "Operational data processed", caption: "Across the customer book that opted into the platform" },
-      { value: "TODO", label: "Enterprise accounts on the platform", caption: "TODO: confirm exact count before launch" },
-      { value: "TODO", label: "Customer business teams using it", caption: "TODO: confirm — was at least pricing, ops, and finance per account" },
-    ],
-    constraints: [
-      "Customer-facing — every chart had to be defensible externally",
-      "Multi-tenant data isolation, no cross-customer leakage",
-      "GKE deployment had to survive enterprise security review",
-      "Same warehouse had to feed internal and external surfaces",
-    ],
-    sections: [
-      {
-        id: "symptom",
-        label: "Symptom",
-        heading: "Customers couldn't see what we could see.",
-        body: [
-          "Enterprise cold-storage customers were running their supply chain through us but only got visibility through monthly PDFs and ad-hoc requests. They had no way to interrogate their own operational and commercial data in real time.",
-          "Every account renewal turned into a custom data pull. The volume of one-off requests was eating analyst time that should have been spent on actual analysis.",
-        ],
-      },
-      {
-        id: "diagnosis",
-        label: "Diagnosis",
-        heading: "The data was a product. We were treating it as a report.",
-        body: [
-          "We were sitting on $150M+ in operational and commercial data per year for these accounts. Customers were already paying for it — they just couldn't access it on their own terms.",
-          "Building a delivery vehicle for that data wasn't a reporting project. It was a product project: multi-tenant, customer-facing, with the security posture of an enterprise SaaS.",
-        ],
-        visuals: [
-          {
-            todo: "architecture diagram for Enterprise Analytics Platform — React app on GKE, multi-tenant data layer, BigQuery as the system of record, auth/isolation boundaries highlighted",
-          },
-        ],
-      },
-      {
-        id: "hypothesis",
-        label: "Hypothesis",
-        heading: "Ship the same view we use, scoped per customer.",
-        body: [
-          "If we exposed the same operational dashboards we used internally — scoped per-customer with hard tenant isolation — customers would self-serve the questions that currently came in as tickets, and account teams would have a shared surface to talk through performance.",
-          "That meant React for the frontend, GKE for the deployment to survive enterprise IT review, and BigQuery as the system of record so internal and external views stayed in sync.",
-        ],
-      },
-      {
-        id: "implementation",
-        label: "Implementation",
-        heading: "Architected, built, and deployed into enterprise accounts.",
-        body: [
-          "I owned the architecture and led the build — React frontend, GKE for the orchestration layer, BigQuery as the warehouse. Tenant isolation was enforced at the data layer, not just the UI, so a misconfigured frontend couldn't leak across accounts.",
-          "Deployment was the slow part: each enterprise customer ran the platform through their own security review. Getting through those reviews shaped a lot of decisions about how data flowed and how auth was structured.",
-        ],
-        visuals: [
-          {
-            todo: "dashboard hero screenshot for Enterprise Analytics Platform — single-customer view with operational + commercial KPIs side by side",
-            aspect: "aspect-[16/9]",
-          },
-        ],
-      },
-      {
-        id: "results",
-        label: "Results",
-        heading: "From PDFs to a platform.",
-        body: [
-          "The platform is live in enterprise customer accounts and is used by their pricing and operational teams to make decisions that previously required pulling our analysts into the room.",
-          "On our side, the analyst time we recovered from killing one-off data pulls now goes back into the next layer of the product — and the warehouse those dashboards sit on top of is the same one the pricing and causal-inference work runs against.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "causal-inference-evaluation-framework",
-    title: "Causal-Inference Evaluation Framework",
-    oneLiner:
-      "‘Did this ML actually work?’ had no rigorous answer — heterogeneous customer scenarios made simple A/B impossible.",
-    year: "2024",
-    company: "USCS",
-    visualTodo:
-      "methodology diagram + before/after savings-validation table showing a per-customer counterfactual lift estimate",
-    overview:
-      "I designed a regression and causal-inference framework to quantify the impact of ML and pricing changes across heterogeneous customer scenarios — and used it to validate $9.3M+ in ML-driven savings on a standardized methodology the org now reuses.",
-    metadata: [
-      {
-        label: "Stack",
-        value: "Python • statsmodels • custom causal-inference toolkit",
-      },
-      { label: "Scope", value: "Enterprise customer accounts" },
-      { label: "Adoption", value: "Standardized eval methodology org-wide" },
-      { label: "Outcome", value: "Validated $9.3M+ in ML-driven savings" },
-    ],
-    stats: [
-      { value: "$9.3M+", label: "ML-driven savings validated", caption: "Quantified through the framework across active customer scenarios" },
-      { value: "TODO", label: "Customer scenarios evaluated", caption: "TODO: confirm exact count of distinct customer × intervention pairs" },
-      { value: "1", label: "Standardized methodology", caption: "Replaced ad-hoc, per-project evaluation across the org" },
-    ],
-    constraints: [
-      "Customers are not interchangeable — no clean control group exists",
-      "Interventions overlap in time and across accounts",
-      "Results must be defensible to finance, not just data science",
-      "Reusable as a methodology, not a one-off study",
-    ],
-    sections: [
-      {
-        id: "symptom",
-        label: "Symptom",
-        heading: "Every project claimed savings. Nobody could prove them.",
-        body: [
-          "Multiple ML and pricing initiatives were running across the customer book at the same time. Each one had an intuition for the impact it was creating, and each one was effectively un-auditable — the customers were too different from each other to A/B test in any clean way.",
-          "Finance, naturally, wanted a number they could put in front of leadership. The existing answer was a stack of one-off analyses that didn't agree with each other.",
-        ],
-      },
-      {
-        id: "diagnosis",
-        label: "Diagnosis",
-        heading: "We needed a framework, not another study.",
-        body: [
-          "The problem wasn't that any single analysis was wrong — it was that every analyst was answering the question differently, with different assumptions, on different time windows. There was no shared methodology to even disagree against.",
-          "Causal inference was the right toolset: regression-based estimators with explicit controls for customer-level heterogeneity, applied the same way across every intervention.",
-        ],
-        visuals: [
-          {
-            todo: "methodology diagram for Causal-Inference Framework — DGP cartoon → estimator choice tree → counterfactual lift calculation per customer × intervention",
-          },
-        ],
-      },
-      {
-        id: "hypothesis",
-        label: "Hypothesis",
-        heading: "Standardize the estimator. Vary the inputs.",
-        body: [
-          "If we picked a small set of estimators (regression, fixed-effects, simple synthetic-control style methods) and standardized how they got applied across customer scenarios, the outputs would become comparable across projects — and the methodology itself would become an asset, not a one-time deliverable.",
-          "That meant making the framework usable by analysts who weren't necessarily causal-inference specialists. Documentation, sensible defaults, and explicit error bars mattered as much as the math.",
-        ],
-      },
-      {
-        id: "implementation",
-        label: "Implementation",
-        heading: "A Python toolkit + a playbook the team actually uses.",
-        body: [
-          "I built the framework in Python on top of statsmodels with a thin custom layer that encoded the conventions (treatment definition, control selection, lift calculation, confidence reporting). The toolkit got paired with a short playbook so a non-specialist could run a defensible evaluation without re-deriving the methodology each time.",
-          "Working through it on real interventions exposed the rough edges quickly — most of the engineering effort went into making it robust to messy real-world data, not into the estimators themselves.",
-        ],
-        visuals: [
-          {
-            todo: "before/after savings-validation table for Causal-Inference Framework — pre vs. post intervention lift, with confidence intervals, for 3–5 example customers",
-            aspect: "aspect-[16/9]",
-          },
-        ],
-      },
-      {
-        id: "results",
-        label: "Results",
-        heading: "$9.3M+ defended — and a methodology the org keeps reaching for.",
-        body: [
-          "The framework was used to validate $9.3M+ in ML-driven savings across the customer book, with results finance was willing to stand behind. It also retired several competing one-off methodologies and became the default way the team evaluates new interventions.",
-          "The bigger win was cultural: ‘did this actually work?’ stopped being a debate about methodology and started being a debate about the underlying business.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "mutuall-chrome-extension",
-    title: "Mutuall — Chrome Extension for Supply-Chain Portal Automation",
-    oneLiner:
-      "Logistics teams were burning hours every week clicking through brittle supply-chain portals to schedule appointments. We shipped a Chrome extension that did the clicking for them.",
-    year: "2023 — 2025",
-    company: "Cofounder · Mutuall",
-    visualTodo:
-      "Mutuall extension UI screenshot — appointment scheduling dropdown over a freight portal",
-    heroImage: "/mutuall/product-1.png",
-    externalLink: {
-      href: "https://chromewebstore.google.com/detail/mutuall/mfpagiocmfjfmphagndihhfclhhpjebd",
-      label: "Live on the Chrome Web Store ↗",
-    },
-    overview:
-      "Mutuall was a Chrome extension that integrated with supply-chain portals to automate purchase-order management and appointment scheduling. I cofounded it and led the technical build from 2023 through its 2025 sunset; the extension shipped publicly on the Chrome Web Store and let logistics teams collapse a stack of portal tabs into a single toolbar.",
-    metadata: [
-      {
-        label: "Stack",
-        value:
-          "Chrome Extension (TypeScript) · React · Background workers · Encrypted local credential store",
-      },
-      { label: "Scale", value: "Multiple supply-chain portals supported" },
-      { label: "Lifetime", value: "2-year cycle · Sunset 2025" },
-      {
-        label: "Outcome",
-        value: "Cofounded + technical lead; live on Chrome Web Store",
-      },
-    ],
-    stats: [
-      {
-        value: "Hours/week",
-        label: "Saved per user",
-        caption: "Replaced repetitive portal clicks with one-click scheduling",
-      },
-      {
-        value: "Multi-portal",
-        label: "Coverage from one toolbar",
-        caption: "Logistics teams stopped tab-switching between supplier portals",
-      },
-      {
-        value: "Live",
-        label: "On the Chrome Web Store",
-        caption: "Public listing maintained through 2025",
-      },
-    ],
-    constraints: [
-      "Run inside the host portal's DOM without breaking it",
-      "Encrypt credentials on-device — never send to a server",
-      "Survive portal layout changes without redeploying for every site",
-      "Single Chrome process — no backend dependency at runtime",
-      "Auditable trail for every scheduled appointment",
-    ],
-    sections: [
-      {
-        id: "symptom",
-        label: "Symptom",
-        heading: "Logistics teams were paying the portal tax.",
-        body: [
-          "Supply-chain operators were spending hours every week clicking through five or six different supplier portals to manage purchase orders and book delivery appointments. Each portal had its own login, its own facility-ID conventions, and its own brittle scheduling UI.",
-          "The actual work — matching a PO to the right facility, picking a time slot, confirming the booking — was minutes of decision-making buried under hours of browser context-switching, password retrieval, and copy-paste between tabs.",
-        ],
-      },
-      {
-        id: "diagnosis",
-        label: "Diagnosis",
-        heading: "The work wasn't the bottleneck — the UI was.",
-        body: [
-          "When we shadowed users, the scheduling logic itself was almost trivial. What was killing them was the path to it: logging into the right portal, drilling into the right account, hunting for the PO, decoding which facility ID the portal expected, and only then getting to the actual slot picker.",
-          "The leverage point wasn't replacing the portals — that was a non-starter for vendor-relationship reasons — it was collapsing the workflow into a single surface that lived where the user already was. The browser tab they were already staring at.",
-        ],
-      },
-      {
-        id: "hypothesis",
-        label: "Hypothesis",
-        heading: "A Chrome extension can do the clicking for them.",
-        body: [
-          "If we injected a small extension into whichever supplier portal the user was already on, we could read the PO context off the page, resolve the right facility ID behind the scenes, fetch the available appointment slots, and let the user book in one click — without ever leaving the tab.",
-          "Encrypted on-device credential storage handled the portal-login overhead once. An activity log captured every booking so logistics teams stopped maintaining the spreadsheet they were keeping on the side anyway.",
-        ],
-      },
-      {
-        id: "implementation",
-        label: "Implementation",
-        heading: "Three jobs running quietly inside the browser.",
-        body: [
-          "The extension did three things and nothing else. (1) A PO lookup engine that matched POs to the correct facility ID even when the portal UI didn't surface that mapping. (2) An appointment scheduling layer that fetched available slots across facilities and let users book in one click from a dropdown. (3) A secure credential vault that stored portal logins encrypted, on-device, so users never re-entered passwords.",
-          "An intentional architectural constraint: nothing ran on a backend. The entire extension lived inside the user's Chrome process. That simplified the trust story — we never touched their credentials — and removed an entire class of compliance conversations with logistics IT teams who were rightly suspicious of any tool that wanted to proxy their portal sessions through a third-party server.",
-          "The activity history layer wrote every PO action and scheduled appointment into a local log that users could export. It was the difference between a tool that did work and a tool that proved it.",
-        ],
-        visuals: [
-          {
-            todo: "Mutuall appointment scheduling UI — one-click slot picker inside the host portal",
-            aspect: "aspect-[16/9]",
-            src: "/mutuall/product-1.png",
-          },
-          {
-            todo: "Mutuall PO lookup view — matched POs with facility IDs resolved",
-            aspect: "aspect-[16/9]",
-            src: "/mutuall/product-2.png",
-          },
-        ],
-      },
-      {
-        id: "results",
-        label: "Results",
-        heading: "Hours back to the operator + a live audit trail.",
-        body: [
-          "Users got hours of their week back. The portal tax — login, navigate, look up, copy, paste, confirm — collapsed into the dropdown next to the address bar. Multi-portal coverage came from one toolbar instead of five tabs.",
-          "The activity log turned out to be the quiet win. Logistics teams had been hand-maintaining appointment trackers in spreadsheets for audit purposes; the extension gave them that for free, exportable, and accurate by construction.",
-          "We ran the product for two years and sunset it in 2025 after an amicable wind-down. The Chrome Web Store listing stayed live through the cycle.",
-        ],
-        visuals: [
-          {
-            todo: "Mutuall activity history — exportable log of recent POs and scheduled appointments",
-            aspect: "aspect-[16/9]",
-            src: "/mutuall/product-3.png",
-          },
+          "Just as importantly, the underlying warehouse, models, and serving layer are now the substrate the next set of internal ML projects sit on, not a one-off.",
         ],
       },
     ],
@@ -446,12 +416,5 @@ export const MORE_WORK: {
     description:
       "Standardized metric definitions, schemas, lineage, and access controls so reporting reconciles across operations, finance, and sales.",
     visualTodo: "lineage diagram or governance model screenshot",
-  },
-  {
-    title: "EDI / Cleo Integration Replacement",
-    tag: "Genpro · 2025",
-    description:
-      "Replaced an $80K/year third-party EDI middleware platform with an internal integration system handling EDI, ETL, and API data exchange.",
-    visualTodo: "EDI/integration architecture diagram, before vs. after vendor",
   },
 ];
