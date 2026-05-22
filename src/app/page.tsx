@@ -91,17 +91,17 @@ export default function Home() {
         <WorkingWithMeShowcase />
       </Section>
 
-      {/* Press & recognition */}
+      {/* Press & recognition — compact horizontal cards, less vertical real estate */}
       <Section id="press" className="mt-8 md:mt-12">
-        <div className="flex items-baseline justify-between mb-10 md:mb-14">
-          <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em]">
+        <div className="flex items-baseline justify-between mb-6 md:mb-8">
+          <h2 className="font-display text-[var(--color-text-strong)] text-[24px] md:text-[32px] tracking-[-0.015em]">
             Press & recognition
           </h2>
           <span className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)]">
             {PRESS.length} mentions
           </span>
         </div>
-        <div className="grid gap-10 md:gap-12 md:grid-cols-2">
+        <div className="grid gap-3 md:gap-4 md:grid-cols-2 xl:grid-cols-3">
           {PRESS.map((p) => (
             <PressCard key={p.url} {...p} />
           ))}

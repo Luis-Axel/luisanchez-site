@@ -13,6 +13,12 @@ export type PressCardProps = {
   className?: string;
 };
 
+/**
+ * Compact horizontal press card. Image (square thumbnail) on the left,
+ * tag + title + blurb stacked on the right. Designed to keep the Press
+ * & Recognition section flat horizontally rather than tall vertically.
+ * Mobile collapses to image-on-top.
+ */
 export function PressCard({
   outlet,
   title,
@@ -26,7 +32,10 @@ export function PressCard({
   return (
     <article
       className={cn(
-        "relative flex flex-col gap-4 border-t border-[var(--color-border)] pt-6",
+        "group relative flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4",
+        "rounded-[16px] border border-[var(--color-border)] bg-[var(--color-surface)]/40",
+        "p-3 sm:p-4 transition-colors duration-200",
+        "hover:bg-[var(--color-surface)] hover:border-[var(--color-border-strong)]",
         className,
       )}
     >
@@ -38,35 +47,45 @@ export function PressCard({
         className="absolute inset-0 z-10"
       />
 
-      <div className="flex items-baseline justify-between gap-3 flex-wrap">
-        <span className="font-mono uppercase tracking-[0.12em] text-[10px] md:text-[11px] text-[var(--color-text-muted)]">
-          {tag ?? "Press"} · {date}
-        </span>
-        <span className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
-          {outlet} ↗
-        </span>
-      </div>
-
-      <h3 className="font-display text-[20px] md:text-[24px] text-[var(--color-text-strong)] tracking-[-0.01em] max-w-[680px]">
-        {title}
-      </h3>
-
-      <p className="text-[15px] md:text-[16px] leading-[1.6] text-[var(--color-text-primary)] max-w-[680px]">
-        {blurb}
-      </p>
-
-      {image ? (
-        <div className="mt-2 rounded-[12px] overflow-hidden border border-[var(--color-border)] bg-black/[0.03] dark:bg-white/[0.04]">
+      {/* Thumbnail (or initial placeholder) — fixed size, doesn't grow */}
+      <div className="shrink-0 w-full sm:w-[120px] sm:h-[120px] aspect-[16/9] sm:aspect-square overflow-hidden rounded-[12px] bg-[var(--color-bg-elev)] border border-[var(--color-border)]">
+        {image ? (
           <Image
             src={image}
             alt={`${outlet}: ${title}`}
-            width={1600}
-            height={900}
-            className="w-full h-auto object-cover"
-            sizes="(min-width: 768px) 50vw, 100vw"
+            width={400}
+            height={400}
+            className="w-full h-full object-cover"
+            sizes="(min-width: 640px) 120px, 100vw"
           />
+        ) : (
+          <div className="grid h-full w-full place-items-center bg-[var(--color-primary-soft)]">
+            <span className="font-display text-[22px] text-[var(--color-primary)]">
+              {outlet[0]}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Text content — grows */}
+      <div className="flex-1 min-w-0 flex flex-col gap-1.5">
+        <div className="flex items-baseline justify-between gap-2 flex-wrap">
+          <span className="font-mono uppercase tracking-[0.12em] text-[10px] text-[var(--color-text-muted)]">
+            {tag ?? "Press"} · {date}
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-muted)] truncate max-w-full">
+            {outlet} ↗
+          </span>
         </div>
-      ) : null}
+
+        <h3 className="font-display text-[16px] md:text-[17px] text-[var(--color-text-strong)] tracking-[-0.005em] leading-[1.25] line-clamp-2">
+          {title}
+        </h3>
+
+        <p className="text-[13px] leading-[1.5] text-[var(--color-text-primary)] line-clamp-3">
+          {blurb}
+        </p>
+      </div>
     </article>
   );
 }

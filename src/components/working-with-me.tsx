@@ -69,17 +69,30 @@ const POSTS: LinkedInPost[] = [
     positionMd:
       "absolute bottom-[2%] right-[1%] rotate-3 z-20 md:w-[320px] lg:w-[360px]",
   },
-  // TODO entries — clean skeletons that visually match the real cards.
+  // DRAFT entries — content Luis should review/edit before launch. Marked
+  // visually with a "DRAFT" badge in place of the verified glyph so it's
+  // obvious which still need a green light.
   {
-    name: "[TODO]",
-    title: "Engineering peer",
+    name: "Former teammate",
+    title: "Reported to Luis at United States Cold Storage",
     avatar: "",
-    meta: "Coming soon · Add a LinkedIn recommendation",
+    meta: "DRAFT · Confirm voice, name, and consent before launch",
     body: [
-      "Drop their LinkedIn profile photo at /public/img/<slug>.jpg, paste the recommendation text here, and replace this stub with a real POSTS entry.",
+      "Luis built an environment where my work mattered. He handed me hard problems, taught me how to think through them, and trusted me to ship. I grew more in the year he led our team than in any role since.",
     ],
     positionMd:
-      "absolute top-[4%] right-[3%] rotate-2 z-10 md:w-[300px] lg:w-[330px]",
+      "absolute top-[4%] right-[3%] rotate-2 z-10 md:w-[320px] lg:w-[350px]",
+  },
+  {
+    name: "Cross-functional partner",
+    title: "Operations / Finance partner, USCS",
+    avatar: "",
+    meta: "DRAFT · Confirm voice, name, and consent before launch",
+    body: [
+      "Working with Luis meant I stopped having to translate between Operations and Engineering. He spoke both languages, shipped what we asked for, and pushed back honestly when we were asking for the wrong thing.",
+    ],
+    positionMd:
+      "absolute top-[42%] right-[-1%] rotate-1 z-10 md:w-[280px] lg:w-[300px]",
   },
 ];
 
@@ -103,8 +116,11 @@ const QUOTES: QuoteCard[] = [
     attribution: "[TODO: manager's name] · Manager at Genpro",
     quote:
       "Luis is a strong catalyst for building scalable workflows, improving pricing operations, and turning complex process challenges into better systems.",
+    // Bottom-center, wide — sits like a foundation card UNDER the cutout so
+    // the image's bottom edge appears to land on it instead of cutting off
+    // abruptly into background.
     positionMd:
-      "absolute bottom-[8%] left-[3%] -rotate-2 z-10 md:w-[330px] lg:w-[360px]",
+      "absolute bottom-[2%] left-1/2 -translate-x-1/2 rotate-[-1deg] z-30 md:w-[460px] lg:w-[520px]",
   },
 ];
 
@@ -123,16 +139,21 @@ export function WorkingWithMeShowcase() {
       </header>
 
       {/* Desktop showcase */}
-      <div className="relative hidden md:block min-h-[760px] lg:min-h-[820px]">
-        {/* Cutout — bottom-centered behind cards */}
-        <div className="absolute inset-x-0 bottom-0 z-0 flex justify-center pointer-events-none select-none">
-          <div className="relative h-[560px] lg:h-[640px] aspect-[3/4]">
+      <div className="relative hidden md:block min-h-[720px] lg:min-h-[780px]">
+        {/*
+          Cutout — bottom-centered, sized slightly smaller than before so it
+          doesn't dominate, and sitting BEHIND the bottom-center quote card
+          (which is z-30) so the image's bottom edge transitions onto the
+          card instead of cutting off abruptly. Cutout is z-10.
+        */}
+        <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center pointer-events-none select-none">
+          <div className="relative h-[480px] lg:h-[540px] aspect-[3/4]">
             <Image
               src="/img/luis-cutout.png"
               alt="Luis Sanchez"
               fill
               className="object-contain object-bottom drop-shadow-[0_30px_60px_rgba(0,0,0,0.45)]"
-              sizes="(min-width: 1024px) 480px, 420px"
+              sizes="(min-width: 1024px) 405px, 360px"
             />
           </div>
         </div>
@@ -155,13 +176,13 @@ export function WorkingWithMeShowcase() {
 
       {/* Mobile stack */}
       <div className="md:hidden flex flex-col gap-6">
-        <div className="relative h-[300px]">
+        <div className="relative h-[260px]">
           <Image
             src="/img/luis-cutout.png"
             alt="Luis Sanchez"
             fill
             className="object-contain object-bottom drop-shadow-[0_18px_40px_rgba(0,0,0,0.35)]"
-            sizes="320px"
+            sizes="280px"
           />
         </div>
         <div className="flex flex-col gap-4">
