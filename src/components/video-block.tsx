@@ -40,8 +40,10 @@ export function VideoCard({ className }: { className?: string }) {
         onClick={() => setOpen(true)}
         aria-label="Watch Luis introduce himself"
         className={cn(
-          // Sized to match StickyCard's footprint so the row stays balanced.
-          "group/video relative w-[240px] h-[280px] md:w-[280px] md:h-[320px]",
+          // Square footprint so the landscape poster/video can be cropped
+          // cleanly via object-cover. Luis is dead-center in frame, so
+          // trimming the sides is safe and the box reads as a solid card.
+          "group/video relative w-[240px] h-[240px] md:w-[280px] md:h-[280px]",
           "overflow-visible rounded-2xl",
           // Focus ring for keyboard users
           "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)]",
@@ -133,7 +135,7 @@ export function VideoCard({ className }: { className?: string }) {
           aria-label="Luis Sanchez introduction video"
         >
           <div
-            className="relative w-full max-w-[460px] rounded-[28px] overflow-hidden bg-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)]"
+            className="relative w-full max-w-[720px] rounded-[28px] overflow-hidden bg-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
