@@ -12,7 +12,7 @@ const TONE_BG: Record<StickyTone, string> = {
 
 export type StickyCardProps = {
   label: string;
-  description: string;
+  description: React.ReactNode;
   cta: string;
   href: string;
   tone: StickyTone;

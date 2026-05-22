@@ -101,20 +101,33 @@ export function HomeHero({ className }: { className?: string }) {
   return (
     // min-w-0 + w-full on the flex children below prevent the long subtitle
     // line from forcing the column wider than the viewport on small screens.
-    <header className={cn("hero-dots flex w-full min-w-0 flex-col gap-8 md:gap-10", className)}>
-      {/* Headline */}
-      <h1 className="min-w-0 font-display font-semibold text-[var(--color-accent)] text-[40px] sm:text-[52px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.035em]">
+    <header className={cn("hero-dots flex w-full min-w-0 flex-col gap-5 md:gap-7", className)}>
+      {/* Personal intro — small, light, sits above the value-prop headline. */}
+      <p className="min-w-0 text-[18px] sm:text-[20px] md:text-[24px] font-medium text-[var(--color-accent)] leading-none">
+        Hi, I&apos;m Luis Sanchez.
+      </p>
+
+      {/* Headline — the main value prop. Slightly tamed from the previous
+          84px max so it stops feeling cramped on smaller laptops. */}
+      <h1 className="min-w-0 font-display font-semibold text-[var(--color-accent)] text-[36px] sm:text-[44px] md:text-[60px] lg:text-[72px] leading-[1.05] tracking-[-0.03em]">
         I build data and ML systems for messy real-world operations.
       </h1>
 
-      {/* Subtitle */}
+      {/* Subcopy — no inline brand pill interrupting the sentence. */}
       <p className="min-w-0 max-w-[820px] text-[16px] md:text-[20px] leading-[1.6] text-[var(--color-text-primary)] break-words">
         I&apos;m a supply-chain operator turned data builder, currently leading
-        data and analytics at{" "}
-        <CompanyBadge name="Genpro" href="https://genproinc.com/" />. My work
-        turns fragmented workflows into pricing platforms, automation systems,
-        and decision tools teams rely on.
+        data and analytics at Genpro. My work turns fragmented workflows into
+        pricing platforms, automation systems, and decision tools teams rely
+        on.
       </p>
+
+      {/* Standalone metadata chip — Genpro pill demoted out of the sentence flow. */}
+      <div className="min-w-0 flex flex-wrap items-center gap-2 text-[12px] md:text-[13px] text-[var(--color-text-muted)]">
+        <span className="font-mono uppercase tracking-[0.14em] text-[10px] md:text-[11px]">
+          Current
+        </span>
+        <CompanyBadge name="Genpro" href="https://genproinc.com/" />
+      </div>
 
       {/* Sticky-note row (Card 2 is the introduction video) */}
       <StickyRow />
@@ -153,7 +166,7 @@ function StickyRow() {
           <StickyCard
             tone="orange"
             label="Recent work"
-            description="See how I turn messy operation problems into shipped solutions."
+            description="See how I turn messy operational problems into shipped solutions."
             cta="Read case studies →"
             href="#selected-work"
             baseTilt="-rotate-2"
@@ -171,7 +184,16 @@ function StickyRow() {
           <StickyCard
             tone="blue"
             label="Working with me"
-            description="Notes from peers and mentees."
+            description={
+              <>
+                <span className="block italic text-[#fdf6ec]/95">
+                  &ldquo;Luis is a strong catalyst…&rdquo;
+                </span>
+                <span className="block text-[11px] md:text-[12px] text-[#fdf6ec]/65 mt-1">
+                  Manager feedback · Genpro
+                </span>
+              </>
+            }
             cta="Read testimonials →"
             href="#working-with-me"
             baseTilt="-rotate-1"
