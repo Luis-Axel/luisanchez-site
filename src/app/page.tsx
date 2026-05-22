@@ -11,7 +11,7 @@ import { PRESS } from "@/content/press";
 import Link from "next/link";
 
 export default function Home() {
-  const hero = CASE_STUDIES; // 3 hero case studies, in order
+  const hero = CASE_STUDIES; // hero case studies, in order
 
   return (
     <>
@@ -58,7 +58,7 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Selected Work — 3 hero case studies with year rail */}
+      {/* Selected Work — hero case studies with year rail */}
       <Section id="selected-work" className="mt-8 md:mt-12">
         <div className="flex items-baseline justify-between mb-10 md:mb-14">
           <h2 className="font-display text-[var(--color-text-strong)] text-[32px] md:text-[44px] tracking-[-0.02em]">
@@ -77,6 +77,7 @@ export default function Home() {
                 title={cs.title}
                 oneLiner={cs.oneLiner}
                 visualTodo={cs.visualTodo}
+                heroImage={cs.heroImage}
                 tag={cs.company}
                 size="hero"
                 cta="Read the case study"

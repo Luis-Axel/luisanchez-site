@@ -70,21 +70,44 @@ export default async function CaseStudyPage({
         />
       </Section>
 
-      {/* Hero visual placeholder */}
+      {/* Hero visual — real image if available, otherwise placeholder */}
       <Section boxed={false} className="pt-2">
-        <div className="relative aspect-[1948/1080] overflow-hidden rounded-[12px] bg-black/90 dark:bg-black/60">
-          <div className="absolute inset-0 grid place-items-center p-6 text-center">
-            <span className="text-xs md:text-sm text-white/40 font-mono leading-relaxed max-w-[80%]">
-              [Hero visual placeholder — TODO: {cs.visualTodo}]
-            </span>
+        {cs.heroImage ? (
+          <div className="relative aspect-[1948/1080] overflow-hidden rounded-[12px] bg-black/90 dark:bg-black/60">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={cs.heroImage}
+              alt={cs.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
           </div>
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
-        </div>
+        ) : (
+          <div className="relative aspect-[1948/1080] overflow-hidden rounded-[12px] bg-black/90 dark:bg-black/60">
+            <div className="absolute inset-0 grid place-items-center p-6 text-center">
+              <span className="text-xs md:text-sm text-white/40 font-mono leading-relaxed max-w-[80%]">
+                [Hero visual placeholder — TODO: {cs.visualTodo}]
+              </span>
+            </div>
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
+          </div>
+        )}
       </Section>
 
       {/* Metadata grid */}
       <Section boxed={false} className="pt-8">
         <MetadataGrid cells={cs.metadata} />
+        {cs.externalLink ? (
+          <div className="mt-4">
+            <a
+              href={cs.externalLink.href}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[14px] text-[var(--color-primary)] hover:underline underline-offset-4"
+            >
+              {cs.externalLink.label}
+            </a>
+          </div>
+        ) : null}
       </Section>
 
       {/* Stats up front (per teardown: 3 numbers near the top) */}
@@ -130,12 +153,23 @@ export default async function CaseStudyPage({
                       key={i}
                       className={`relative ${v.aspect ?? "aspect-[1948/1080]"} overflow-hidden rounded-[12px] bg-black/90 dark:bg-black/60`}
                     >
-                      <div className="absolute inset-0 grid place-items-center p-6 text-center">
-                        <span className="text-xs text-white/40 font-mono leading-relaxed max-w-[80%]">
-                          [Inline visual — TODO: {v.todo}]
-                        </span>
-                      </div>
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
+                      {v.src ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={v.src}
+                          alt={v.todo}
+                          className="absolute inset-0 w-full h-full object-contain"
+                        />
+                      ) : (
+                        <>
+                          <div className="absolute inset-0 grid place-items-center p-6 text-center">
+                            <span className="text-xs text-white/40 font-mono leading-relaxed max-w-[80%]">
+                              [Inline visual — TODO: {v.todo}]
+                            </span>
+                          </div>
+                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
+                        </>
+                      )}
                     </div>
                   ))}
                 </div>

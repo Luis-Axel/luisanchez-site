@@ -9,6 +9,8 @@ export type CaseStudyCardProps = {
   oneLiner: string;
   /** TODO label describing what visual goes here */
   visualTodo: string;
+  /** Optional path under /public to a real image. When set, replaces the TODO placeholder. */
+  heroImage?: string;
   /** Optional explicit aspect ratio class. Default 16/9-ish. */
   aspect?: string;
   tag?: string;
@@ -21,6 +23,7 @@ export function CaseStudyCard({
   title,
   oneLiner,
   visualTodo,
+  heroImage,
   aspect = "aspect-[1948/1080]",
   tag,
   cta = "Read the case study",
@@ -58,14 +61,26 @@ export function CaseStudyCard({
           aspect,
         )}
       >
-        {/* TODO: replace placeholder with autoplay <video> or <Image /> */}
-        <div className="absolute inset-0 grid place-items-center p-6 text-center">
-          <div className="text-xs md:text-sm text-white/40 font-mono leading-relaxed">
-            [Visual placeholder — TODO: {visualTodo}]
-          </div>
-        </div>
-        {/* Subtle gradient to suggest depth */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
+        {heroImage ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={heroImage}
+              alt={title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </>
+        ) : (
+          <>
+            <div className="absolute inset-0 grid place-items-center p-6 text-center">
+              <div className="text-xs md:text-sm text-white/40 font-mono leading-relaxed">
+                [Visual placeholder — TODO: {visualTodo}]
+              </div>
+            </div>
+            {/* Subtle gradient to suggest depth */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
+          </>
+        )}
       </div>
 
       {/* Subtitle line */}

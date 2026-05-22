@@ -8,6 +8,10 @@ export type CaseStudy = {
   year: string;
   company: string;
   visualTodo: string; // for the hero card visual
+  /** Optional path under /public to a real image for the hero card + page hero. */
+  heroImage?: string;
+  /** Optional external link surfaced near the metadata (e.g. live product URL). */
+  externalLink?: { href: string; label: string };
   overview: string;
   metadata: MetadataCell[];
   stats: Stat[];
@@ -17,8 +21,8 @@ export type CaseStudy = {
     label: string;
     heading: string;
     body: string[];
-    /** Optional inline visual placeholder TODOs */
-    visuals?: { todo: string; aspect?: string }[];
+    /** Optional inline visual placeholder TODOs (or real images when `src` is set) */
+    visuals?: { todo: string; aspect?: string; src?: string }[];
   }[];
 };
 
@@ -293,6 +297,128 @@ export const CASE_STUDIES: CaseStudy[] = [
       },
     ],
   },
+  {
+    slug: "mutuall-chrome-extension",
+    title: "Mutuall — Chrome Extension for Supply-Chain Portal Automation",
+    oneLiner:
+      "Logistics teams were burning hours every week clicking through brittle supply-chain portals to schedule appointments. We shipped a Chrome extension that did the clicking for them.",
+    year: "2023 — 2025",
+    company: "Cofounder · Mutuall",
+    visualTodo:
+      "Mutuall extension UI screenshot — appointment scheduling dropdown over a freight portal",
+    heroImage: "/mutuall/product-1.png",
+    externalLink: {
+      href: "https://chromewebstore.google.com/detail/mutuall/mfpagiocmfjfmphagndihhfclhhpjebd",
+      label: "Live on the Chrome Web Store ↗",
+    },
+    overview:
+      "Mutuall was a Chrome extension that integrated with supply-chain portals to automate purchase-order management and appointment scheduling. I cofounded it and led the technical build from 2023 through its 2025 sunset; the extension shipped publicly on the Chrome Web Store and let logistics teams collapse a stack of portal tabs into a single toolbar.",
+    metadata: [
+      {
+        label: "Stack",
+        value:
+          "Chrome Extension (TypeScript) · React · Background workers · Encrypted local credential store",
+      },
+      { label: "Scale", value: "Multiple supply-chain portals supported" },
+      { label: "Lifetime", value: "2-year cycle · Sunset 2025" },
+      {
+        label: "Outcome",
+        value: "Cofounded + technical lead; live on Chrome Web Store",
+      },
+    ],
+    stats: [
+      {
+        value: "Hours/week",
+        label: "Saved per user",
+        caption: "Replaced repetitive portal clicks with one-click scheduling",
+      },
+      {
+        value: "Multi-portal",
+        label: "Coverage from one toolbar",
+        caption: "Logistics teams stopped tab-switching between supplier portals",
+      },
+      {
+        value: "Live",
+        label: "On the Chrome Web Store",
+        caption: "Public listing maintained through 2025",
+      },
+    ],
+    constraints: [
+      "Run inside the host portal's DOM without breaking it",
+      "Encrypt credentials on-device — never send to a server",
+      "Survive portal layout changes without redeploying for every site",
+      "Single Chrome process — no backend dependency at runtime",
+      "Auditable trail for every scheduled appointment",
+    ],
+    sections: [
+      {
+        id: "symptom",
+        label: "Symptom",
+        heading: "Logistics teams were paying the portal tax.",
+        body: [
+          "Supply-chain operators were spending hours every week clicking through five or six different supplier portals to manage purchase orders and book delivery appointments. Each portal had its own login, its own facility-ID conventions, and its own brittle scheduling UI.",
+          "The actual work — matching a PO to the right facility, picking a time slot, confirming the booking — was minutes of decision-making buried under hours of browser context-switching, password retrieval, and copy-paste between tabs.",
+        ],
+      },
+      {
+        id: "diagnosis",
+        label: "Diagnosis",
+        heading: "The work wasn't the bottleneck — the UI was.",
+        body: [
+          "When we shadowed users, the scheduling logic itself was almost trivial. What was killing them was the path to it: logging into the right portal, drilling into the right account, hunting for the PO, decoding which facility ID the portal expected, and only then getting to the actual slot picker.",
+          "The leverage point wasn't replacing the portals — that was a non-starter for vendor-relationship reasons — it was collapsing the workflow into a single surface that lived where the user already was. The browser tab they were already staring at.",
+        ],
+      },
+      {
+        id: "hypothesis",
+        label: "Hypothesis",
+        heading: "A Chrome extension can do the clicking for them.",
+        body: [
+          "If we injected a small extension into whichever supplier portal the user was already on, we could read the PO context off the page, resolve the right facility ID behind the scenes, fetch the available appointment slots, and let the user book in one click — without ever leaving the tab.",
+          "Encrypted on-device credential storage handled the portal-login overhead once. An activity log captured every booking so logistics teams stopped maintaining the spreadsheet they were keeping on the side anyway.",
+        ],
+      },
+      {
+        id: "implementation",
+        label: "Implementation",
+        heading: "Three jobs running quietly inside the browser.",
+        body: [
+          "The extension did three things and nothing else. (1) A PO lookup engine that matched POs to the correct facility ID even when the portal UI didn't surface that mapping. (2) An appointment scheduling layer that fetched available slots across facilities and let users book in one click from a dropdown. (3) A secure credential vault that stored portal logins encrypted, on-device, so users never re-entered passwords.",
+          "An intentional architectural constraint: nothing ran on a backend. The entire extension lived inside the user's Chrome process. That simplified the trust story — we never touched their credentials — and removed an entire class of compliance conversations with logistics IT teams who were rightly suspicious of any tool that wanted to proxy their portal sessions through a third-party server.",
+          "The activity history layer wrote every PO action and scheduled appointment into a local log that users could export. It was the difference between a tool that did work and a tool that proved it.",
+        ],
+        visuals: [
+          {
+            todo: "Mutuall appointment scheduling UI — one-click slot picker inside the host portal",
+            aspect: "aspect-[16/9]",
+            src: "/mutuall/product-1.png",
+          },
+          {
+            todo: "Mutuall PO lookup view — matched POs with facility IDs resolved",
+            aspect: "aspect-[16/9]",
+            src: "/mutuall/product-2.png",
+          },
+        ],
+      },
+      {
+        id: "results",
+        label: "Results",
+        heading: "Hours back to the operator + a live audit trail.",
+        body: [
+          "Users got hours of their week back. The portal tax — login, navigate, look up, copy, paste, confirm — collapsed into the dropdown next to the address bar. Multi-portal coverage came from one toolbar instead of five tabs.",
+          "The activity log turned out to be the quiet win. Logistics teams had been hand-maintaining appointment trackers in spreadsheets for audit purposes; the extension gave them that for free, exportable, and accurate by construction.",
+          "We ran the product for two years and sunset it in 2025 after an amicable wind-down. The Chrome Web Store listing stayed live through the cycle.",
+        ],
+        visuals: [
+          {
+            todo: "Mutuall activity history — exportable log of recent POs and scheduled appointments",
+            aspect: "aspect-[16/9]",
+            src: "/mutuall/product-3.png",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export const MORE_WORK: {
@@ -313,15 +439,6 @@ export const MORE_WORK: {
     visualTodo:
       "thumbnail strip showing 3 representative automations: e.g. a CV inspection still, a UiPath workflow, an inventory model",
     image: "/press/smartmove.png",
-  },
-  {
-    title: "Mutuall — Chrome Extension for Supply-Chain Portal Automation",
-    tag: "Cofounder · 2023 – 2025",
-    description:
-      "Chrome extension that automated purchase-order management and one-click appointment scheduling across supply-chain portals. Smart PO lookup matched orders to the correct facility ID, encrypted credential storage handled portal logins, and an activity log made every booking auditable. Sunset after a 2-year cycle.",
-    visualTodo: "Mutuall product screenshot or schema diagram",
-    image: "/mutuall/product-1.png",
-    href: "https://chromewebstore.google.com/detail/mutuall/mfpagiocmfjfmphagndihhfclhhpjebd",
   },
   {
     title: "BigQuery Enterprise Data Governance",
