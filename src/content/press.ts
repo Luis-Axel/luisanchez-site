@@ -16,32 +16,33 @@ export type PressItem = {
 
 export const PRESS: PressItem[] = [
   {
-    outlet: "Bergen Community College",
-    title: "Spotlight: Luis Sanchez",
-    date: "May 2023",
+    outlet: "USCS — National Carrier Conference",
+    title: "Educating carriers on SmartMove",
+    date: "Oct 2024",
     blurb:
-      "Profile piece on my path from Bergen → Rutgers, leading PTK at Bergen (Distinguished Leadership Award + Distinguished Chapter Officer, one of 30 in the world), publishing the largest statistical analysis on ASMR's effects on the brain, and entering USCS's Leadership Development Program.",
-    url: "https://bergen.edu/posts/spotlight/luis-sanchez/",
-    tag: "Recognition",
+      "Presented SmartMove, our route optimization platform combining traditional methods with ML to plan ColdShare Consolidation trucks, to USCS's national carrier partners.",
+    url: "https://www.instagram.com/p/DA9d9RTRA3c/",
+    image: "/press/speech.png",
+    tag: "Talk",
   },
   {
     outlet: "United States Cold Storage — The Shield, Q2 2024",
     title: "SmartMove platform a “game changer” for LTL load planning",
     date: "Sep 2024",
     blurb:
-      "USCS's company newsletter wrote up SmartMove — the route-optimization platform I helped build — and credited the breakthrough to soliciting direct input from load planners.",
+      "USCS's company newsletter wrote up SmartMove, the route-optimization platform I helped build, and credited the breakthrough to soliciting direct input from load planners.",
     url: "https://www.linkedin.com/posts/united-states-cold-storage-inc-_bestincold-bestinpeople-bestinlogistics-activity-7241601204802179072-6dev/",
     image: "/press/smartmove.png",
     tag: "Press",
   },
   {
-    outlet: "USCS — National Carrier Conference",
-    title: "Educating carriers on SmartMove",
-    date: "Oct 2024",
+    outlet: "Bergen Community College",
+    title: "Spotlight: Luis Sanchez",
+    date: "May 2023",
     blurb:
-      "Presented SmartMove — our route optimization platform combining traditional methods with ML to plan ColdShare Consolidation trucks — to USCS's national carrier partners.",
-    url: "https://www.instagram.com/p/DA9d9RTRA3c/",
-    image: "/press/speech.png",
-    tag: "Talk",
+      "Profile piece on my path from Bergen to Rutgers, leading PTK at Bergen (Distinguished Leadership Award and Distinguished Chapter Officer, one of 30 in the world), publishing the largest statistical analysis on ASMR's effects on the brain, and entering USCS's Leadership Development Program.",
+    url: "https://bergen.edu/posts/spotlight/luis-sanchez/",
+    image: "/press/bergen.webp",
+    tag: "Recognition",
   },
 ];

@@ -5,7 +5,7 @@ import { YearRail } from "@/components/year-rail";
 import { CaseStudyCard } from "@/components/case-study-card";
 import { PressCard } from "@/components/press-card";
 import { WorkingWithMeShowcase } from "@/components/working-with-me";
-import { CASE_STUDIES, MORE_WORK } from "@/content/case-studies";
+import { CASE_STUDIES } from "@/content/case-studies";
 import { PRESS } from "@/content/press";
 import Link from "next/link";
 
@@ -104,67 +104,6 @@ export default function Home() {
         <div className="grid gap-3 md:gap-4 md:grid-cols-2 xl:grid-cols-3">
           {PRESS.map((p) => (
             <PressCard key={p.url} {...p} />
-          ))}
-        </div>
-      </Section>
-
-      {/* More work strip */}
-      <Section id="more-work" className="mt-8 md:mt-12">
-        <div className="flex items-baseline justify-between mb-10">
-          <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[36px] tracking-[-0.015em]">
-            More work
-          </h2>
-          <span className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)]">
-            {MORE_WORK.length} projects
-          </span>
-        </div>
-        <div className="grid gap-10 md:gap-12 md:grid-cols-2">
-          {MORE_WORK.map((item, i) => (
-            <article
-              key={i}
-              className="flex flex-col gap-3 border-t border-[var(--color-border)] pt-6"
-            >
-              <div className="flex items-baseline justify-between gap-3">
-                <h3 className="font-display text-[20px] md:text-[22px] text-[var(--color-text-strong)] tracking-[-0.01em]">
-                  {item.title}
-                </h3>
-                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)] whitespace-nowrap">
-                  {item.tag}
-                </span>
-              </div>
-              <p className="text-[15px] leading-[1.6] text-[var(--color-text-primary)]">
-                {item.description}
-              </p>
-              {item.image ? (
-                <div className="mt-2 aspect-[16/9] overflow-hidden rounded-[12px] border border-[var(--color-border)] bg-black/[0.03] dark:bg-white/[0.04]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ) : (
-                <div
-                  className="mt-2 aspect-[16/9] bg-black/10 dark:bg-white/[0.04] rounded-[12px] grid place-items-center text-center p-4 border border-[var(--color-border)]"
-                  aria-hidden
-                >
-                  <span className="text-[11px] md:text-xs text-[var(--color-text-muted)] font-mono leading-relaxed">
-                    [TODO: {item.visualTodo}]
-                  </span>
-                </div>
-              )}
-              {item.href ? (
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="self-start text-[14px] text-[var(--color-primary)] hover:underline underline-offset-4 mt-1"
-                >
-                  View on the Chrome Web Store ↗
-                </a>
-              ) : null}
-            </article>
           ))}
         </div>
       </Section>
