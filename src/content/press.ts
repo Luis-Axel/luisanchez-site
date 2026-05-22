@@ -45,4 +45,14 @@ export const PRESS: PressItem[] = [
     image: "/press/bergen.webp",
     tag: "Recognition",
   },
+  {
+    outlet: "LinkedIn",
+    title: "In my own words: on my work at USCS",
+    date: "Jun 2023",
+    blurb:
+      "A LinkedIn post reflecting on what I built and what I learned during my time at United States Cold Storage.",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7065447818877960192/",
+    image: "/press/uscs-lui-statement.jpeg",
+    tag: "Recognition",
+  },
 ];

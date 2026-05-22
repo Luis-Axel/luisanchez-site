@@ -2,7 +2,6 @@ import { Section } from "@/components/section";
 import { Hero } from "@/components/hero";
 import { Button, ArrowRight } from "@/components/button";
 import { YearRail } from "@/components/year-rail";
-import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -138,37 +137,6 @@ export default function AboutPage() {
               </div>
             </YearRail>
           ))}
-        </div>
-      </Section>
-
-      {/* In my own words — pull quote from the LinkedIn post */}
-      <Section className="mt-8 md:mt-12">
-        <div className="grid gap-8 md:grid-cols-[160px_1fr] lg:[grid-template-columns:200px_1fr]">
-          <div className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)] md:pt-2">
-            In my own words
-          </div>
-          <figure className="flex flex-col gap-4 max-w-[820px]">
-            <div className="rounded-[12px] overflow-hidden border border-[var(--color-border)] bg-black/[0.03] dark:bg-white/[0.04]">
-              <Image
-                src="/press/uscs-lui-statement.jpeg"
-                alt="LinkedIn post: Luis Sanchez statement on his work at USCS"
-                width={1600}
-                height={1200}
-                className="w-full h-auto object-contain"
-                sizes="(min-width: 1024px) 760px, 100vw"
-              />
-            </div>
-            <figcaption className="text-[13px] text-[var(--color-text-muted)]">
-              <a
-                href="https://www.linkedin.com/feed/update/urn:li:activity:7065447818877960192/"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-[var(--color-primary)]"
-              >
-                Original post on LinkedIn ↗
-              </a>
-            </figcaption>
-          </figure>
         </div>
       </Section>
 
