@@ -173,8 +173,10 @@ function StickyRow() {
         </div>
 
         {/* Card 2 — Introduction video. Always visible. Click opens modal;
-            hover reveals "In case you're tired of reading" caption. */}
-        <div className={cn(cardWrapper, "rotate-1")}>
+            hover reveals "In case you're tired of reading" caption.
+            Sits at z-20 (vs. z-10 on the side cards) so the Working-With-Me
+            card to the right of it doesn't paint over the video at rest. */}
+        <div className={cn(cardWrapper, "rotate-1 z-20")}>
           <VideoCard />
         </div>
 
