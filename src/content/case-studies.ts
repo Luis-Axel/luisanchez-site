@@ -303,64 +303,65 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: "pricing-intelligence-platform",
     title: "ML Pricing Intelligence Platform",
     oneLiner:
-      "Freight brokerage needed to price thousands of lanes in real time; manual quoting was slow and inconsistent.",
+      "Freight brokers were quoting off DAT, the industry-standard peer-rate feed everyone in logistics uses. DAT is noisy on its own. I led the build of an ML platform that cleans the noise, protects the brokerage's downside, and prices thousands of lanes systemically.",
     year: "2025 — Present",
     company: "Genpro",
     visualTodo:
-      "insert dashboard screenshot or short autoplay loop of the pricing UI (lane lookup → recommended rate + forecast)",
+      "Network mapping visualization showing pricing flow across lanes (geo + model output)",
+    heroImage: "/pricing/network-mapping.png",
     overview:
-      "I led the third-party engineering team that built Genpro's ML-driven pricing and lane analytics platform — a React frontend over a Python ML stack and BigQuery warehouse — to give brokers real-time, model-backed quoting and to power daily GTM market targeting.",
+      "I led the third-party engineering team that built Genpro's ML pricing and lane analytics platform. A React frontend over a Python ML stack (scikit-learn, XGBoost) and a BigQuery warehouse, it takes the messy industry-standard DAT peer-rate feed plus our own historical loads and turns them into clean, model-backed lane prices brokers can use in the moment. The same model powers daily GTM market targeting across the desk.",
     metadata: [
-      { label: "Stack", value: "React • Python (scikit-learn, XGBoost) • BigQuery" },
+      { label: "Stack", value: "React · Python (scikit-learn, XGBoost) · BigQuery" },
       { label: "Scale", value: "Thousands of lanes priced daily" },
-      { label: "Latency", value: "Real-time at quote time" },
-      {
-        label: "Outcome",
-        value: "Powers daily GTM market-targeting + lane pricing decisions",
-      },
+      { label: "Inputs", value: "DAT peer rates · Genpro historical loads · external market signals" },
+      { label: "Outcome", value: "Powers daily GTM market-targeting + lane pricing decisions" },
     ],
     stats: [
-      { value: "1000s", label: "Lanes priced daily", caption: "Across the active U.S. truckload network" },
+      { value: "1000s", label: "Lanes priced daily", caption: "Across the active U.S. truckload network, off cleaned DAT + internal signals" },
       { value: "Real-time", label: "Quote-time latency", caption: "Brokers get a model-backed price before they pick up the phone" },
-      { value: "Daily", label: "GTM cadence", caption: "Sales and capacity teams target lanes off the same model output" },
+      { value: "Daily", label: "GTM cadence", caption: "Sales and capacity teams target lanes off the same model output as pricing" },
     ],
     constraints: [
-      "Pricing must be defensible to a broker, not just accurate",
-      "Model retrains must not block live quoting",
-      "Same data must serve sales targeting and quote pricing",
-      "Outputs need to reconcile against finance reporting",
+      "DAT is industry-standard but noisy: peer-reported, sparse on thin lanes, biased on volatile ones",
+      "Pricing must be defensible to a broker, not just accurate. Every rec needs an explainability trail",
+      "Genpro's downside must be protected: a bad print should never get quoted to a customer",
+      "Same model has to serve sales targeting and quote pricing without divergence",
+      "Outputs need to reconcile against finance reporting at the month-end view",
     ],
     sections: [
       {
         id: "symptom",
         label: "Symptom",
-        heading: "Pricing was a bottleneck, not a moat.",
+        heading: "Brokers were quoting off a feed everyone knows is messy.",
         body: [
-          "Brokers were quoting lanes by intuition and recent memory, which meant inconsistent rates across the desk and slow turnarounds on RFPs. The pricing process couldn't keep up with how fast the freight market actually moved.",
-          "Sales and capacity were targeting different lanes than pricing thought were attractive: three teams, three views of the same market, and no shared source of truth.",
+          "DAT is the leading rate feed in trucking. Everyone in the industry uses it. The problem is that DAT is peer-reported, which means it's noisy on its own: thin coverage on uncommon lanes, lagging signal on volatile ones, and rate bands wide enough to drive a truck through.",
+          "Genpro brokers were quoting off DAT directly, padded with intuition and recent memory. Rates came out inconsistent across the desk, slow on RFPs, and structurally exposed to whichever way the peer noise was leaning that week.",
+        ],
+        visuals: [
+          {
+            todo: "DAT trendlines — the industry-standard peer rate feed every brokerage in trucking quotes off. Useful, but visibly noisy, especially on thinner lanes.",
+            aspect: "aspect-[16/9]",
+            src: "/pricing/dat-trendlines.avif",
+          },
         ],
       },
       {
         id: "diagnosis",
         label: "Diagnosis",
-        heading: "The data existed. It just wasn't wired into the decision.",
+        heading: "The feed isn't broken. The relationship with the feed is.",
         body: [
-          "We had years of historical loads in BigQuery, plus external market signals, but nothing turned that into a lane-level price a broker could use in the moment. The gap was operational, not analytical.",
-          "Existing dashboards were retrospective. To change behavior at quote time, the model had to live where the quote was actually being made.",
-        ],
-        visuals: [
-          {
-            todo: "architecture diagram for Pricing Platform: React frontend → API gateway → Python ML service → BigQuery warehouse, with sidecars for retraining + feature store",
-          },
+          "DAT is fine as an input. It is not fine as a quote. The leverage point wasn't replacing DAT. It was wrapping it with a model that knew where DAT was reliable, where it wasn't, and what to do in either case.",
+          "Underneath that, we had years of Genpro historical loads in BigQuery and external market signals nobody had wired together yet. Combined with DAT, that was enough to clean the noise, fill the sparse lanes, and produce a single defensible price per lane.",
         ],
       },
       {
         id: "hypothesis",
         label: "Hypothesis",
-        heading: "One model, three surfaces.",
+        heading: "One model, three surfaces, downside-protected by construction.",
         body: [
-          "If we trained a single pricing model on the same warehouse data the entire commercial org used, then exposed it through (1) a quoting UI, (2) a GTM targeting view, and (3) a market forecasting feed, all three teams would converge on the same picture of the market.",
-          "That meant we couldn't ship a notebook. We had to ship a product. React + Python ML + BigQuery, deployed to brokers' actual workflow.",
+          "If we trained a pricing model on Genpro's historical loads and market signals together with DAT (treating DAT as one input among many, not the answer), we could (1) clean DAT's noise on the lanes it covered, (2) infer prices on the lanes it didn't, and (3) flag the lanes where our confidence was too low to quote at all.",
+          "That same model then powers three surfaces from one source of truth: the quoting UI brokers use, the GTM targeting view sales uses, and the market view capacity uses. Three teams, one set of numbers.",
         ],
       },
       {
@@ -368,13 +369,15 @@ export const CASE_STUDIES: CaseStudy[] = [
         label: "Implementation",
         heading: "Led the build end-to-end with a third-party engineering team.",
         body: [
-          "I owned the spec, the data model, and the integration into broker workflows; the third-party team owned the React frontend and the Python ML service implementation. We standardized on scikit-learn and XGBoost for the core pricing models, BigQuery as the system of record, and a thin API layer to keep retraining decoupled from quote-time serving.",
-          "The hardest part wasn't the model. It was making the outputs trustworthy. Every recommended price needed an explainability trail a broker could push back on, and every aggregate needed to reconcile against finance's monthly numbers.",
+          "I owned the spec, the data model, and the broker workflow integration. The third-party engineering team I led owned the React frontend and the Python ML service implementation. We standardized on scikit-learn and XGBoost for the core pricing models, BigQuery as the system of record, and a thin API layer so retraining never blocks quote-time serving.",
+          "On the data side, the work was building the lane network: mapping every active and adjacent lane, attaching DAT, internal load history, and market signals to each, and producing a continuous price surface where lanes that DAT covered well, lanes it covered sparsely, and lanes it didn't cover at all all came out with the same shape of answer.",
+          "The hardest part wasn't the model. It was making the outputs trustworthy. Every recommended price gets an explainability trail a broker can push back on, every low-confidence lane is flagged before it gets quoted (downside protection), and every aggregate reconciles against finance's monthly numbers.",
         ],
         visuals: [
           {
-            todo: "dashboard screenshot for Pricing Platform: broker view showing recommended rate, recent comparable lanes, and confidence band",
+            todo: "Network mapping for pricing: model output projected across the active and adjacent lane network. Where DAT is reliable, where it isn't, and where we have enough internal signal to price anyway.",
             aspect: "aspect-[16/9]",
+            src: "/pricing/network-mapping.png",
           },
         ],
       },
@@ -383,8 +386,8 @@ export const CASE_STUDIES: CaseStudy[] = [
         label: "Results",
         heading: "From spreadsheet pricing to a system the GTM org runs on.",
         body: [
-          "The platform is now the default surface for lane pricing and is wired directly into daily GTM market-targeting decisions. Sales, capacity, and pricing work off the same numbers for the first time.",
-          "Just as importantly, the underlying warehouse, models, and serving layer are now the substrate the next set of internal ML projects sit on, not a one-off.",
+          "The platform is the default surface for lane pricing at Genpro and is wired directly into daily GTM market-targeting decisions. Sales, capacity, and pricing are working off the same numbers for the first time, and the broker desk is no longer exposed to whichever way the DAT peer noise leaned that week.",
+          "Just as important, the underlying warehouse, models, and serving layer are now the substrate the next set of internal ML projects sit on. Not a one-off. (The platform's internal UI isn't shown here for IP reasons.)",
         ],
       },
     ],
