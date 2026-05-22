@@ -41,21 +41,6 @@ type LinkedInPost = {
 
 const POSTS: LinkedInPost[] = [
   {
-    name: "Timothy Park",
-    title: "Technology Account Executive",
-    avatar: "/img/timothy-park.jpg",
-    connection: "1st",
-    verified: true,
-    meta: "March 24, 2021 · Timothy and Luis studied together",
-    body: [
-      "Luis and I worked on a semester-long supply chain project that was both challenging in scope and required extensive time investment. He extended himself above and beyond, calculating complex logistical problems that most within our group could not figure out.",
-      "Yet, it is not just his technical ability that shines, but also his excellent communication skills that helped conceptualize high-level mathematics in simple terms. Luis provided the confidence the group required to skillfully present and execute the final group presentation.",
-    ],
-    href: "https://www.linkedin.com/in/luissanchez000/details/recommendations/",
-    positionMd:
-      "absolute top-[1%] left-[1%] -rotate-3 z-20 md:w-[320px] lg:w-[360px]",
-  },
-  {
     name: "Chris McGinley",
     title: "Logistics Co-op, United States Cold Storage",
     avatar: "/img/chris-mcginley.jpg",
@@ -66,6 +51,20 @@ const POSTS: LinkedInPost[] = [
       "I am grateful for the opportunity to have been mentored by Luis Sanchez. His guidance and the way he invested in my development shaped how I approach problems and grow on the job.",
     ],
     href: "https://www.linkedin.com/posts/chrismcginly_i-am-grateful-for-the-opportunity-to-have-ugcPost-7211080013817724929-LN_x",
+    positionMd:
+      "absolute top-[1%] left-[1%] -rotate-3 z-20 md:w-[320px] lg:w-[360px]",
+  },
+  {
+    name: "Timothy Park",
+    title: "Technology Account Executive · Rutgers classmate",
+    avatar: "/img/timothy-park.jpg",
+    connection: "1st",
+    verified: true,
+    meta: "March 24, 2021 · Timothy and Luis studied together",
+    body: [
+      "On our semester-long supply chain project, Luis worked through complex logistical problems most of our group couldn't crack — then explained the math so simply that the team could confidently present it.",
+    ],
+    href: "https://www.linkedin.com/in/luissanchez000/details/recommendations/",
     positionMd:
       "absolute bottom-[2%] right-[1%] rotate-3 z-20 md:w-[320px] lg:w-[360px]",
   },
@@ -113,7 +112,7 @@ type QuoteCard = {
 const QUOTES: QuoteCard[] = [
   {
     source: "Performance review",
-    attribution: "[TODO: manager's name] · Manager at Genpro",
+    attribution: "Manager · Genpro",
     quote:
       "Luis is a strong catalyst for building scalable workflows, improving pricing operations, and turning complex process challenges into better systems.",
     // Bottom-center, wide — sits like a foundation card UNDER the cutout so
