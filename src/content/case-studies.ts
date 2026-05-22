@@ -442,7 +442,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         id: "results",
         label: "Results",
-        heading: "Scheduling time down 87%, and an audit trail for free.",
+        heading: "Scheduling time down 87%, plus an audit trail as a side effect.",
         body: [
           "Across active users, scheduling time per load dropped by 87%. The same scheduler now did in a morning what used to fill an entire day.",
           "The activity log turned out to be the quiet second win. Logistics teams had been hand-maintaining appointment trackers in spreadsheets for audit purposes; the extension produced that as a side effect, exportable and accurate by construction.",

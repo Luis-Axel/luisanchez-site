@@ -2,6 +2,7 @@ import { Section } from "@/components/section";
 import { Hero } from "@/components/hero";
 import { Button, ArrowRight } from "@/components/button";
 import { YearRail } from "@/components/year-rail";
+import { JourneyTimeline, type JourneyEntry } from "@/components/journey-timeline";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,42 +11,76 @@ export const metadata: Metadata = {
     "Background, current role, work timeline, and how to reach Luis Sanchez.",
 };
 
-const TIMELINE = [
+const JOURNEY: JourneyEntry[] = [
   {
-    year: "2025 —",
-    role: "Data Manager",
+    year: "25 ~",
     org: "Genpro",
-    body: "Leading a 4-person data team. Built and shipped the ML pricing intelligence platform; standing up enterprise data governance and replacing legacy EDI middleware with internal systems.",
+    role: "Data Manager",
+    type: "Full-time",
+    dateRange: "Jan 2025 — Present",
+    summary:
+      "Leading a 4-person data team that supports the GTM organization.",
+    bullets: [
+      "Built the ML pricing intelligence platform serving thousands of lanes daily.",
+      "Stood up enterprise data governance and replaced legacy EDI middleware (Cleo) with internal systems.",
+      "Partner with leadership on market targeting, pricing intelligence, and commercial decision support.",
+    ],
+    tags: ["ML pricing", "GTM strategy", "Data governance"],
   },
   {
-    year: "2024",
+    year: "24",
+    org: "USCS",
     role: "Supervisor, Data & Automation",
-    org: "USCS",
-    body: "Led an 11-person team across data engineering, ML, and automation. Shipped the enterprise analytics platform and the causal-inference evaluation framework used to validate $9.3M+ in ML-driven savings.",
+    type: "Full-time",
+    dateRange: "Feb 2024 — Dec 2024",
+    summary:
+      "Led an 11-person team across data engineering, ML, and automation.",
+    bullets: [
+      "Shipped SmartMove, the LTL load-planning platform ($9.3M validated savings).",
+      "Designed the causal-inference framework used to validate ML impact across heterogeneous customer scenarios.",
+      "Partnered with USCS leadership across operations and commercial.",
+    ],
+    tags: ["Team leadership", "SmartMove", "Causal inference"],
   },
   {
-    year: "2022 — 2024",
+    year: "22 - 24",
+    org: "USCS",
     role: "Automation Specialist",
-    org: "USCS",
-    body: "Built ML, computer vision, and RPA automations across 26 cold-storage sites. Procurement, inventory, fulfillment — wherever a workflow needed to become a system.",
+    type: "Full-time",
+    dateRange: "Aug 2022 — Feb 2024",
+    summary:
+      "Built ML, computer vision, and RPA automations across 26 cold-storage sites.",
+    bullets: [
+      "Procurement, inventory, and fulfillment workflows became systems.",
+      "Stack: UiPath, Power Platform, Python.",
+    ],
+    tags: ["Automation", "Applied ML"],
   },
   {
-    year: "2022",
+    year: "22",
+    org: "USCS",
     role: "Systems Analyst",
-    org: "USCS",
-    body: "Moved from analytics into systems work — building the connective tissue between operational software, the warehouse, and downstream reporting.",
+    type: "Full-time",
+    dateRange: "Jun 2022 — Aug 2022",
+    summary:
+      "Connective tissue between operational software, the warehouse, and downstream reporting.",
+    bullets: [
+      "Built systems integrations across logistics and finance domains.",
+      "Designed the data flows that the analytics work later sat on.",
+    ],
   },
   {
-    year: "2021",
-    role: "Logistics Analyst",
+    year: "21 - 22",
     org: "USCS",
-    body: "Operational analytics on cold-storage logistics — the foundation everything after this was built on.",
-  },
-  {
-    year: "2021 — 2024",
-    role: "Leadership Development Program",
-    org: "USCS",
-    body: "Rotational program across logistics, customer experience, and load planning. Gave me end-to-end exposure to the supply chain before specializing in automation and analytics.",
+    role: "Logistics Analyst · LDP",
+    type: "Full-time",
+    dateRange: "Jun 2021 — Jun 2022",
+    summary:
+      "First role out of school as part of USCS's Leadership Development Program.",
+    bullets: [
+      "Operational analytics on cold-storage logistics.",
+      "Rotational exposure across logistics, customer experience, and load planning.",
+    ],
   },
 ];
 
@@ -114,30 +149,19 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* Work timeline */}
+      {/* Work journey — diagonal staircase of pills, hover reveals details */}
       <Section className="mt-8 md:mt-12">
-        <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em] mb-10 md:mb-14">
-          Work
-        </h2>
-        <div className="flex flex-col gap-12 md:gap-16">
-          {TIMELINE.map((t, i) => (
-            <YearRail key={i} year={t.year}>
-              <div className="flex flex-col gap-2 max-w-[760px]">
-                <div className="flex items-baseline gap-3 flex-wrap">
-                  <h3 className="font-display text-[20px] md:text-[24px] text-[var(--color-text-strong)] tracking-[-0.01em]">
-                    {t.role}
-                  </h3>
-                  <span className="text-[14px] text-[var(--color-text-muted)]">
-                    {t.org}
-                  </span>
-                </div>
-                <p className="text-[15px] md:text-[16px] leading-[1.6] text-[var(--color-text-primary)]">
-                  {t.body}
-                </p>
-              </div>
-            </YearRail>
-          ))}
+        <div className="flex flex-col gap-6 max-w-[760px] mb-10 md:mb-14">
+          <h2 className="font-display text-[var(--color-text-strong)] text-[32px] md:text-[48px] tracking-[-0.02em] leading-[1.05]">
+            My journey
+          </h2>
+          <p className="text-[17px] md:text-[18px] leading-[1.55] text-[var(--color-text-primary)]">
+            Five years of operational and analytical work, plus the side bets
+            that kept it interesting. Hover any pill on desktop for the full
+            story; mobile shows it inline.
+          </p>
         </div>
+        <JourneyTimeline entries={JOURNEY} />
       </Section>
 
       {/* School */}
