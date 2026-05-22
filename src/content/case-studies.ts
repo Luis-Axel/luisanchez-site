@@ -36,7 +36,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     company: "USCS",
     visualTodo:
       "SmartMove platform UI — consolidation recommendation queue with route map and bin-pack visualization",
-    heroImage: "/smartmove/shared-locations.png",
+    heroImage: "/smartmove/uscs-consolidation.jpg",
     externalLink: {
       href: "https://www.linkedin.com/posts/united-states-cold-storage-inc-_bestincold-bestinpeople-bestinlogistics-activity-7241601204802179072-6dev/",
       label: "Featured in The Shield, Q2 2024 ↗",
@@ -113,9 +113,9 @@ export const CASE_STUDIES: CaseStudy[] = [
             src: "/smartmove/cross-temp-consolidation.png",
           },
           {
-            todo: "Consolidated trucks heading to shared customer locations: the platform's core output. Fewer trucks, fewer miles, fewer dollars.",
+            todo: "One truck, four shippers: Shipper 1, Shipper 2, Shipper 3, Shipper 4 consolidated onto a single trailer. The platform's core output, on a single visual.",
             aspect: "aspect-[16/9]",
-            src: "/smartmove/shared-locations.png",
+            src: "/smartmove/uscs-consolidation.jpg",
           },
         ],
       },
