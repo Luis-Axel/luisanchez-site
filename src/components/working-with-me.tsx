@@ -46,7 +46,7 @@ const POSTS: LinkedInPost[] = [
     ],
     href: "https://www.linkedin.com/posts/chrismcginly_i-am-grateful-for-the-opportunity-to-have-ugcPost-7211080013817724929-LN_x",
     positionMd:
-      "absolute top-[1%] left-[1%] -rotate-3 z-20 md:w-[300px] lg:w-[330px]",
+      "absolute top-[2%] left-[3%] -rotate-3 z-20 md:w-[280px] lg:w-[300px]",
   },
   {
     name: "Keith Mowery",
@@ -60,7 +60,7 @@ const POSTS: LinkedInPost[] = [
     ],
     href: "https://www.linkedin.com/posts/united-states-cold-storage-inc-_bestincold-bestinpeople-bestinlogistics-activity-7241601204802179072-6dev/",
     positionMd:
-      "absolute top-[1%] right-[1%] rotate-2 z-20 md:w-[300px] lg:w-[330px]",
+      "absolute top-[2%] right-[3%] rotate-2 z-20 md:w-[280px] lg:w-[300px]",
   },
   {
     name: "Timothy Park",
@@ -74,7 +74,7 @@ const POSTS: LinkedInPost[] = [
     ],
     href: "https://www.linkedin.com/in/luissanchez000/details/recommendations/",
     positionMd:
-      "absolute top-[38%] right-[-2%] rotate-2 z-20 md:w-[300px] lg:w-[330px]",
+      "absolute top-[42%] right-[2%] rotate-2 z-20 md:w-[280px] lg:w-[300px]",
   },
 ];
 
@@ -98,7 +98,7 @@ const QUOTES: ReviewQuote[] = [
       "Luis is a strong catalyst for building scalable workflows, improving pricing operations, and turning complex process challenges into better systems.",
     // Bottom-center, wide — foundation card under the cutout.
     positionMd:
-      "absolute bottom-[2%] left-1/2 -translate-x-1/2 rotate-[-1deg] z-30 md:w-[440px] lg:w-[500px]",
+      "absolute bottom-[3%] left-1/2 -translate-x-1/2 rotate-[-1deg] z-30 md:w-[420px] lg:w-[460px]",
   },
   {
     source: "Endorsement",
@@ -106,7 +106,7 @@ const QUOTES: ReviewQuote[] = [
     quote:
       "Luis was the engineer who actually showed up in the meeting and asked what we needed before he built it. The systems came back working the first time. That doesn't happen often.",
     positionMd:
-      "absolute top-[38%] left-[-1%] -rotate-2 z-10 md:w-[300px] lg:w-[330px]",
+      "absolute top-[42%] left-[2%] -rotate-2 z-10 md:w-[280px] lg:w-[300px]",
   },
 ];
 
@@ -116,7 +116,7 @@ const QUOTES: ReviewQuote[] = [
 
 export function WorkingWithMeShowcase() {
   return (
-    <div className="flex flex-col gap-10 md:gap-14">
+    <div className="flex flex-col gap-6 md:gap-10">
       {/* Heading */}
       <header className="flex flex-col gap-3 items-center text-center max-w-[760px] mx-auto">
         <h2 className="font-display text-[var(--color-text-strong)] text-[34px] md:text-[52px] tracking-[-0.02em] leading-[1.05]">
@@ -129,10 +129,10 @@ export function WorkingWithMeShowcase() {
       </header>
 
       {/* Desktop showcase */}
-      <div className="relative hidden md:block min-h-[780px] lg:min-h-[840px]">
+      <div className="relative hidden md:block min-h-[640px] lg:min-h-[700px]">
         {/* Cutout — bottom-centered with soft mask-image fade at bottom. */}
         <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center pointer-events-none select-none">
-          <div className="relative h-[440px] lg:h-[500px] aspect-[447/558]">
+          <div className="relative h-[380px] lg:h-[420px] aspect-[447/558]">
             <Image
               src="/img/luis-cutout.png"
               alt="Luis Sanchez"
