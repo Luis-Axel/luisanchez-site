@@ -133,6 +133,104 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
+    slug: "etl-integration-replacement",
+    title: "Replacing Cleo: an Internal EDI + ETL + API Integration Service",
+    oneLiner:
+      "Genpro was paying ~$80K/year for Cleo, a third-party EDI middleware that held trading-partner data behind a vendor wall. When a new TMS onboarding made the Cleo dev work absurd, I built the replacement instead.",
+    year: "2025",
+    company: "Genpro",
+    visualTodo:
+      "Architecture diagram: trading partners → internal ingestion service (EDI parser, ETL pipelines, API connectors) → BigQuery → internal consumers",
+    overview:
+      "Designed and built the internal EDI/ETL/API integration system that replaced Cleo at Genpro. The replacement handles EDI parsing, ETL pipelines, and REST integrations from one in-house codebase and lands all trading-partner data directly in our BigQuery warehouse, where the pricing platform, data governance layer, and the rest of the analytics stack can use it natively. The $80K/year Cleo subscription was decommissioned.",
+    metadata: [
+      { label: "Stack", value: "Python · BigQuery · custom EDI parser · REST/API connectors" },
+      { label: "Scope", value: "All Genpro trading-partner integrations" },
+      { label: "Replaces", value: "Cleo middleware ($80K/yr eliminated)" },
+      { label: "Outcome", value: "Trading-partner data lives in BigQuery, accessible internally" },
+    ],
+    stats: [
+      { value: "$80K", label: "Annual licensing eliminated", caption: "Cleo subscription decommissioned after cut-over" },
+      { value: "EDI + ETL + API", label: "All channels in one system", caption: "From ingestion through warehouse landing" },
+      { value: "BigQuery", label: "Where data lands by default", caption: "Same warehouse the rest of analytics already uses" },
+    ],
+    constraints: [
+      "Cut over without dropping any trading-partner connection",
+      "Match Cleo's reliability and ack-handling behavior on every transaction",
+      "Land data in the warehouse schemas the rest of the org already uses",
+      "Stay maintainable by a small in-house team",
+    ],
+    sections: [
+      {
+        id: "symptom",
+        label: "Symptom",
+        heading: "$80K a year for a black box, and a new TMS that needed to talk through it.",
+        body: [
+          "Cleo was the EDI middleware Genpro used to exchange data with trading partners: purchase orders, invoices, shipment statuses, the usual freight-industry traffic. It worked, but it worked behind a vendor wall. Every schema change took a vendor ticket. Trading-partner data was effectively trapped inside Cleo and had to be manually re-exported to land anywhere we could query it.",
+          "The forcing function was a new TMS onboarding. The development required to fit the new TMS through Cleo's platform was so extensive that just building the integration ourselves made more sense than paying Cleo to extend their model. Once we'd built that, backfilling the rest of the partner connections in-house followed naturally.",
+        ],
+        visuals: [
+          {
+            todo: "Why people use Cleo: dozens of messy B2B applications and partner systems that need normalizing into one feed. Cleo's pitch.",
+            aspect: "aspect-[16/9]",
+            src: "/cleo/usecase.png",
+          },
+        ],
+      },
+      {
+        id: "diagnosis",
+        label: "Diagnosis",
+        heading: "Modern tooling can do this in-house at a fraction of the cost.",
+        body: [
+          "What Cleo was actually doing, parse EDI messages, normalize schemas, route data to downstream systems, is well-defined and increasingly straightforward with modern data tooling. What the $80K/year was buying us was vendor lock-in, plus the integration overhead of keeping Cleo wired into the rest of our stack.",
+          "Bringing it in-house unlocked something Cleo never could: every trading-partner record would land directly in BigQuery, alongside the operational and pricing data the rest of the analytics work depended on.",
+        ],
+        visuals: [
+          {
+            todo: "Cleo's integration cloud: how Cleo positions itself as the connective tissue between data providers, customers, suppliers, and internal apps. We replaced this entire surface with an in-house service.",
+            aspect: "aspect-[16/9]",
+            src: "/cleo/integration-cloud.png",
+          },
+        ],
+      },
+      {
+        id: "hypothesis",
+        label: "Hypothesis",
+        heading: "One internal service that handles EDI, ETL, and API in the same codebase.",
+        body: [
+          "A single integration service, owned in-house, that ingests trading-partner traffic in any format the partner uses (EDI, file-based ETL, REST APIs), normalizes everything into our warehouse schemas, and makes the data immediately queryable to internal systems.",
+          "Trading partners shouldn't notice the cut-over. They keep sending data the same way; we change what's on our side.",
+        ],
+      },
+      {
+        id: "implementation",
+        label: "Implementation",
+        heading: "Cut over partner-by-partner, never broke a connection.",
+        body: [
+          "I mapped every Cleo connection first: protocol, schema, downstream consumer, ack expectations. Each was a contract we had to preserve exactly.",
+          "The replacement was built in Python on top of BigQuery as the warehouse: an EDI parser handling the common transaction sets (810, 850, 856, etc.), an ETL pipeline framework for file-based feeds, and a REST connector layer for API-driven partners. Schema normalization happened once on ingestion. Monitoring and KPI reporting got built into the service from day one, so the team could see exactly what Cleo had been doing for us, but now in our own dashboards instead of theirs.",
+          "Then we migrated connection by connection, validating data parity against Cleo at each step before cutting traffic over. After every partner was on the new system, we cancelled the Cleo subscription.",
+        ],
+        visuals: [
+          {
+            todo: "Cleo's KPI dashboard: the kind of reporting we'd been paying for, that the in-house service now produces itself. Errors, throughput, partner-level health, all visible to the team that runs the integrations.",
+            aspect: "aspect-[16/9]",
+            src: "/cleo/kpis.jpg",
+          },
+        ],
+      },
+      {
+        id: "results",
+        label: "Results",
+        heading: "$80K saved, data unlocked, foundation for everything that came next.",
+        body: [
+          "The Cleo line item is gone. Every byte of trading-partner data now lands inside Genpro's BigQuery warehouse alongside the rest of our operational data.",
+          "The bigger win was downstream. The pricing intelligence platform and the data governance layer both rely on this integration. They wouldn't exist if trading-partner data still lived inside a vendor system we couldn't query directly.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "smartmove-platform",
     title: "SmartMove — Full-Stack Logistics Analytics Platform",
     oneLiner:
@@ -237,182 +335,84 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
-    slug: "etl-integration-replacement",
-    title: "Replacing Cleo: an Internal EDI + ETL + API Integration Service",
-    oneLiner:
-      "Genpro was paying ~$80K/year for Cleo, a third-party EDI middleware that held trading-partner data behind a vendor wall. When a new TMS onboarding made the Cleo dev work absurd, I built the replacement instead.",
-    year: "2025",
-    company: "Genpro",
-    visualTodo:
-      "Architecture diagram: trading partners → internal ingestion service (EDI parser, ETL pipelines, API connectors) → BigQuery → internal consumers",
-    overview:
-      "Designed and built the internal EDI/ETL/API integration system that replaced Cleo at Genpro. The replacement handles EDI parsing, ETL pipelines, and REST integrations from one in-house codebase and lands all trading-partner data directly in our BigQuery warehouse, where the pricing platform, data governance layer, and the rest of the analytics stack can use it natively. The $80K/year Cleo subscription was decommissioned.",
-    metadata: [
-      { label: "Stack", value: "Python · BigQuery · custom EDI parser · REST/API connectors" },
-      { label: "Scope", value: "All Genpro trading-partner integrations" },
-      { label: "Replaces", value: "Cleo middleware ($80K/yr eliminated)" },
-      { label: "Outcome", value: "Trading-partner data lives in BigQuery, accessible internally" },
-    ],
-    stats: [
-      { value: "$80K", label: "Annual licensing eliminated", caption: "Cleo subscription decommissioned after cut-over" },
-      { value: "EDI + ETL + API", label: "All channels in one system", caption: "From ingestion through warehouse landing" },
-      { value: "BigQuery", label: "Where data lands by default", caption: "Same warehouse the rest of analytics already uses" },
-    ],
-    constraints: [
-      "Cut over without dropping any trading-partner connection",
-      "Match Cleo's reliability and ack-handling behavior on every transaction",
-      "Land data in the warehouse schemas the rest of the org already uses",
-      "Stay maintainable by a small in-house team",
-    ],
-    sections: [
-      {
-        id: "symptom",
-        label: "Symptom",
-        heading: "$80K a year for a black box, and a new TMS that needed to talk through it.",
-        body: [
-          "Cleo was the EDI middleware Genpro used to exchange data with trading partners: purchase orders, invoices, shipment statuses, the usual freight-industry traffic. It worked, but it worked behind a vendor wall. Every schema change took a vendor ticket. Trading-partner data was effectively trapped inside Cleo and had to be manually re-exported to land anywhere we could query it.",
-          "The forcing function was a new TMS onboarding. The development required to fit the new TMS through Cleo's platform was so extensive that just building the integration ourselves made more sense than paying Cleo to extend their model. Once we'd built that, backfilling the rest of the partner connections in-house followed naturally.",
-        ],
-        visuals: [
-          {
-            todo: "Why people use Cleo: dozens of messy B2B applications and partner systems that need normalizing into one feed. Cleo's pitch.",
-            aspect: "aspect-[16/9]",
-            src: "/cleo/usecase.png",
-          },
-        ],
-      },
-      {
-        id: "diagnosis",
-        label: "Diagnosis",
-        heading: "Modern tooling can do this in-house at a fraction of the cost.",
-        body: [
-          "What Cleo was actually doing, parse EDI messages, normalize schemas, route data to downstream systems, is well-defined and increasingly straightforward with modern data tooling. What the $80K/year was buying us was vendor lock-in, plus the integration overhead of keeping Cleo wired into the rest of our stack.",
-          "Bringing it in-house unlocked something Cleo never could: every trading-partner record would land directly in BigQuery, alongside the operational and pricing data the rest of the analytics work depended on.",
-        ],
-        visuals: [
-          {
-            todo: "Cleo's integration cloud: how Cleo positions itself as the connective tissue between data providers, customers, suppliers, and internal apps. We replaced this entire surface with an in-house service.",
-            aspect: "aspect-[16/9]",
-            src: "/cleo/integration-cloud.png",
-          },
-        ],
-      },
-      {
-        id: "hypothesis",
-        label: "Hypothesis",
-        heading: "One internal service that handles EDI, ETL, and API in the same codebase.",
-        body: [
-          "A single integration service, owned in-house, that ingests trading-partner traffic in any format the partner uses (EDI, file-based ETL, REST APIs), normalizes everything into our warehouse schemas, and makes the data immediately queryable to internal systems.",
-          "Trading partners shouldn't notice the cut-over. They keep sending data the same way; we change what's on our side.",
-        ],
-      },
-      {
-        id: "implementation",
-        label: "Implementation",
-        heading: "Cut over partner-by-partner, never broke a connection.",
-        body: [
-          "I mapped every Cleo connection first: protocol, schema, downstream consumer, ack expectations. Each was a contract we had to preserve exactly.",
-          "The replacement was built in Python on top of BigQuery as the warehouse: an EDI parser handling the common transaction sets (810, 850, 856, etc.), an ETL pipeline framework for file-based feeds, and a REST connector layer for API-driven partners. Schema normalization happened once on ingestion. Monitoring and KPI reporting got built into the service from day one, so the team could see exactly what Cleo had been doing for us, but now in our own dashboards instead of theirs.",
-          "Then we migrated connection by connection, validating data parity against Cleo at each step before cutting traffic over. After every partner was on the new system, we cancelled the Cleo subscription.",
-        ],
-        visuals: [
-          {
-            todo: "Cleo's KPI dashboard: the kind of reporting we'd been paying for, that the in-house service now produces itself. Errors, throughput, partner-level health, all visible to the team that runs the integrations.",
-            aspect: "aspect-[16/9]",
-            src: "/cleo/kpis.jpg",
-          },
-        ],
-      },
-      {
-        id: "results",
-        label: "Results",
-        heading: "$80K saved, data unlocked, foundation for everything that came next.",
-        body: [
-          "The Cleo line item is gone. Every byte of trading-partner data now lands inside Genpro's BigQuery warehouse alongside the rest of our operational data.",
-          "The bigger win was downstream. The pricing intelligence platform and the data governance layer both rely on this integration. They wouldn't exist if trading-partner data still lived inside a vendor system we couldn't query directly.",
-        ],
-      },
-    ],
-  },
-  {
     slug: "mutuall-chrome-extension",
-    title: "Mutuall — Chrome Extension for Supply-Chain Portal Automation",
+    title: "Mutuall — Chrome Extension for Logistics Scheduling Consolidation",
     oneLiner:
-      "Logistics teams were burning hours every week clicking through brittle supply-chain portals to schedule appointments. We shipped a Chrome extension that did the clicking for them.",
+      "Scheduling five loads in trucking often meant logging into fifteen different supplier portals in an afternoon. We built a Chrome extension that did it all from one toolbar — AI agents dispatched the user's credentials in the background; the user just approved.",
     year: "2023 — 2025",
     company: "Cofounder · Mutuall",
     visualTodo:
-      "Mutuall extension UI screenshot: appointment scheduling dropdown over a freight portal",
+      "Mutuall scheduling UI: companion-tool dropdown showing cross-portal slot recommendations",
     heroImage: "/mutuall/product-1.png",
     externalLink: {
       href: "https://chromewebstore.google.com/detail/mutuall/mfpagiocmfjfmphagndihhfclhhpjebd",
       label: "Live on the Chrome Web Store ↗",
     },
     overview:
-      "Mutuall was a Chrome extension that integrated with supply-chain portals to automate purchase-order management and appointment scheduling. I cofounded it and led the technical build from 2023 through its 2025 sunset. The extension shipped publicly on the Chrome Web Store and let logistics teams collapse a stack of portal tabs into a single toolbar.",
+      "Mutuall was a Chrome extension that collapsed logistics appointment scheduling from a stack of supplier-portal tabs into a single companion tool. Where scheduling five loads typically required logging into fifteen different supplier websites, Mutuall used the user's stored credentials and AI agents running in the background to handle scheduling across portals from one surface. Users approved the recommendations; the agents did the clicking. Cut scheduling time per user by 87%.",
     metadata: [
-      { label: "Stack", value: "Chrome Extension (TypeScript) · React · Background workers · Encrypted local credential store" },
-      { label: "Scale", value: "Multiple supply-chain portals supported" },
+      { label: "Stack", value: "Chrome Extension (TypeScript) · React · Background AI agents · Encrypted local credential store" },
+      { label: "Scale", value: "Multiple supply-chain portals supported per session" },
+      { label: "Outcome", value: "87% reduction in scheduling time per user" },
       { label: "Lifetime", value: "2-year cycle · Sunset 2025" },
-      { label: "Outcome", value: "Cofounded + technical lead; live on Chrome Web Store" },
     ],
     stats: [
-      { value: "Hours/week", label: "Saved per user", caption: "Replaced repetitive portal clicks with one-click scheduling" },
-      { value: "Multi-portal", label: "Coverage from one toolbar", caption: "Logistics teams stopped tab-switching between supplier portals" },
+      { value: "87%", label: "Scheduling time reduction", caption: "Per-user time-to-schedule dropped across active sessions; what used to fill an afternoon now fit a morning" },
+      { value: "15 → 1", label: "Portals collapsed into one toolbar", caption: "Five loads used to require ~15 different supplier-portal logins. Mutuall did them all from one surface" },
       { value: "Live", label: "On the Chrome Web Store", caption: "Public listing maintained through 2025" },
     ],
     constraints: [
-      "Run inside the host portal's DOM without breaking it",
-      "Encrypt credentials on-device. Never send to a server",
+      "Run inside the host portals' DOM without breaking them",
+      "Encrypt credentials on-device; never send them to a server",
+      "AI agents stay a companion, never an autonomous booker — every action requires user approval",
       "Survive portal layout changes without redeploying for every site",
-      "Single Chrome process, no backend dependency at runtime",
       "Auditable trail for every scheduled appointment",
     ],
     sections: [
       {
         id: "symptom",
         label: "Symptom",
-        heading: "Logistics teams were paying the portal tax.",
+        heading: "Five loads meant fifteen portals.",
         body: [
-          "Supply-chain operators were spending hours every week clicking through five or six different supplier portals to manage purchase orders and book delivery appointments. Each portal had its own login, its own facility-ID conventions, and its own brittle scheduling UI.",
-          "The actual work, matching a PO to the right facility, picking a time slot, confirming the booking, was minutes of decision-making buried under hours of browser context-switching, password retrieval, and copy-paste between tabs.",
+          "Scheduling a single freight booking already means juggling a supplier portal, the receiving facility, and any intermediaries. Scheduling five loads typically meant logging into roughly fifteen different sites in a single afternoon. Five separate sets of credentials, five separate UIs, five separate copy-paste cycles between PO and slot picker.",
+          "The work itself, picking the right slot at the right facility, was minutes of decision-making per load. Everything around it was hours of browser tax.",
         ],
       },
       {
         id: "diagnosis",
         label: "Diagnosis",
-        heading: "The work wasn't the bottleneck. The UI was.",
+        heading: "The scheduling work was solvable. The portal-switching was the cost.",
         body: [
-          "When we shadowed users, the scheduling logic itself was almost trivial. What was killing them was the path to it: logging into the right portal, drilling into the right account, hunting for the PO, decoding which facility ID the portal expected, and only then getting to the slot picker.",
-          "The leverage point wasn't replacing the portals. That was a non-starter for vendor-relationship reasons. It was collapsing the workflow into a single surface that lived where the user already was. The browser tab they were already staring at.",
+          "When we shadowed logistics teams, the actual scheduling decisions (which slot, which carrier, which facility) were a small fraction of their day. Hours of it went into context-switching between portals to execute those decisions. The leverage point wasn't smarter scheduling; it was collapsing the switching cost to zero.",
+          "Replacing the portals was a non-starter. We had to live inside them.",
         ],
       },
       {
         id: "hypothesis",
         label: "Hypothesis",
-        heading: "A Chrome extension can do the clicking for them.",
+        heading: "AI agents as the user's hands across the portals.",
         body: [
-          "If we injected a small extension into whichever supplier portal the user was already on, we could read the PO context off the page, resolve the right facility ID behind the scenes, fetch the available appointment slots, and let the user book in one click without leaving the tab.",
-          "Encrypted on-device credential storage handled the portal-login overhead once. An activity log captured every booking so logistics teams stopped maintaining the spreadsheet they were keeping on the side anyway.",
+          "If we built a single browser-based companion that held the user's portal credentials and dispatched AI agents to do the actual portal-clicking, schedulers could approve a recommendation in one surface and let the agents handle execution across every portal involved. The user stays in control; the agents do the work.",
+          "Encrypted on-device credential storage made the trust story manageable. The activity log made the audit story manageable.",
         ],
       },
       {
         id: "implementation",
         label: "Implementation",
-        heading: "Three jobs running quietly inside the browser.",
+        heading: "Companion tool. Agents in the background.",
         body: [
-          "The extension did three things and nothing else. (1) A PO lookup engine that matched POs to the correct facility ID even when the portal UI didn't surface that mapping. (2) An appointment scheduling layer that fetched available slots across facilities and let users book in one click from a dropdown. (3) A secure credential vault that stored portal logins encrypted, on-device, so users never re-entered passwords.",
-          "An intentional architectural constraint: nothing ran on a backend. The entire extension lived inside the user's Chrome process. That simplified the trust story (we never touched their credentials) and removed an entire class of compliance conversations with logistics IT teams.",
-          "The activity history layer wrote every PO action and scheduled appointment into a local log that users could export. It was the difference between a tool that did work and a tool that proved it.",
+          "The extension lived entirely in the user's Chrome and ran three jobs. (1) A PO lookup engine matched POs across portals to their correct facility IDs even when the portal UIs didn't surface that mapping. (2) AI agents, running in background tabs the user never saw, executed the cross-portal scheduling work using the user's stored credentials. (3) An activity log captured every action with enough detail to be exportable for audit.",
+          "Hard architectural constraint: agents recommend and execute, but users approve. The product never autonomously booked an appointment without a human in the loop. That made the failure mode 'agent didn't book' instead of 'agent booked the wrong thing,' which mattered a lot for adoption inside logistics IT.",
+          "No backend. The entire extension lived inside the Chrome process. Credentials never left the user's machine, which removed an entire class of compliance conversations.",
         ],
         visuals: [
           {
-            todo: "Mutuall appointment scheduling UI: one-click slot picker inside the host portal.",
+            todo: "Mutuall companion tool: single-surface slot picker pulling availability across multiple portals via background agents.",
             aspect: "aspect-[16/9]",
             src: "/mutuall/product-1.png",
           },
           {
-            todo: "Mutuall PO lookup view: matched POs with facility IDs resolved.",
+            todo: "Mutuall PO lookup view: POs matched to correct facility IDs across portals.",
             aspect: "aspect-[16/9]",
             src: "/mutuall/product-2.png",
           },
@@ -421,10 +421,10 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         id: "results",
         label: "Results",
-        heading: "Hours back to the operator and a live audit trail.",
+        heading: "Scheduling time down 87%, and an audit trail for free.",
         body: [
-          "Users got hours of their week back. The portal tax (login, navigate, look up, copy, paste, confirm) collapsed into the dropdown next to the address bar. Multi-portal coverage came from one toolbar instead of five tabs.",
-          "The activity log turned out to be the quiet win. Logistics teams had been hand-maintaining appointment trackers in spreadsheets for audit purposes. The extension gave them that for free, exportable, and accurate by construction.",
+          "Across active users, scheduling time per load dropped by 87%. The same scheduler now did in a morning what used to fill an entire day.",
+          "The activity log turned out to be the quiet second win. Logistics teams had been hand-maintaining appointment trackers in spreadsheets for audit purposes; the extension produced that as a side effect, exportable and accurate by construction.",
           "We ran the product for two years and sunset it in 2025 after an amicable wind-down. The Chrome Web Store listing stayed live through the cycle.",
         ],
         visuals: [
