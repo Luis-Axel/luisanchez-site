@@ -145,8 +145,22 @@ function StickyRow() {
           in case you got tired of reading
         </span>
 
-        {/* Card 1 — orange, slides LEFT on hover */}
-        <div className="relative z-10">
+        {/*
+          Each card lives in its own wrapper that owns BOTH:
+          (a) a group-hover transform (cards fan out when ANY card in the row is hovered)
+          (b) a direct :hover transform (the specific card the cursor is over pops
+              forward — lifts, scales up, bumps z-index). So each card feels uniquely
+              responsive while still participating in the shared fan-out reveal.
+        */}
+
+        {/* Card 1 — orange, slides LEFT on group hover; pops forward on direct hover */}
+        <div
+          className={cn(
+            "relative z-10 transition-transform duration-500 ease-out",
+            "group-hover:-translate-x-[120px] md:group-hover:-translate-x-[180px] group-hover:-rotate-[6deg]",
+            "hover:!translate-x-0 hover:!rotate-[-4deg] hover:!scale-[1.05] hover:!-translate-y-2 hover:z-30",
+          )}
+        >
           <StickyCard
             tone="orange"
             label="Recent work"
@@ -154,12 +168,17 @@ function StickyRow() {
             cta="Read case studies →"
             href="#selected-work"
             baseTilt="-rotate-2"
-            hoverTransform="group-hover:-translate-x-[120px] md:group-hover:-translate-x-[180px] group-hover:-rotate-[6deg]"
           />
         </div>
 
-        {/* Card 2 — green, stays put (slight lift). */}
-        <div className="relative z-10">
+        {/* Card 2 — green, stays put on group hover; lifts up on direct hover */}
+        <div
+          className={cn(
+            "relative z-10 transition-transform duration-500 ease-out",
+            "group-hover:-translate-y-1",
+            "hover:!-translate-y-4 hover:!scale-[1.05] hover:z-30",
+          )}
+        >
           <StickyCard
             tone="green"
             label="Currently building"
@@ -167,12 +186,17 @@ function StickyRow() {
             cta="See Macro →"
             href="#more-work"
             baseTilt="rotate-1"
-            hoverTransform="group-hover:-translate-y-1"
           />
         </div>
 
-        {/* Card 3 — blue, slides RIGHT on hover */}
-        <div className="relative z-10">
+        {/* Card 3 — blue, slides RIGHT on group hover; pops forward on direct hover */}
+        <div
+          className={cn(
+            "relative z-10 transition-transform duration-500 ease-out",
+            "group-hover:translate-x-[120px] md:group-hover:translate-x-[180px] group-hover:rotate-[6deg]",
+            "hover:!translate-x-0 hover:!rotate-[4deg] hover:!scale-[1.05] hover:!-translate-y-2 hover:z-30",
+          )}
+        >
           <StickyCard
             tone="blue"
             label="Working with me"
@@ -180,7 +204,6 @@ function StickyRow() {
             cta="Read testimonials →"
             href="#working-with-me"
             baseTilt="-rotate-1"
-            hoverTransform="group-hover:translate-x-[120px] md:group-hover:translate-x-[180px] group-hover:rotate-[6deg]"
           />
         </div>
       </div>
@@ -200,8 +223,8 @@ function VideoSlot() {
       className={cn(
         // Absolutely centered inside the row, behind the cards.
         "absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2",
-        // Circle
-        "h-[240px] w-[240px] md:h-[300px] md:w-[300px] rounded-full overflow-hidden",
+        // Rounded portrait rectangle (matches benshih.design image (11))
+        "h-[300px] w-[240px] md:h-[400px] md:w-[320px] rounded-[28px] overflow-hidden rotate-1",
         // Frame
         "border-4 border-[var(--color-surface)] bg-black",
         "shadow-[0_30px_60px_-20px_rgba(0,0,0,0.55)]",
@@ -213,8 +236,8 @@ function VideoSlot() {
       <Image
         src="/press/speech.png"
         alt="Luis Sanchez speaking at a conference"
-        width={600}
-        height={600}
+        width={640}
+        height={800}
         className="h-full w-full object-cover"
         priority={false}
       />
