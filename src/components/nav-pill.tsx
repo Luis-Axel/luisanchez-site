@@ -26,110 +26,116 @@ export function NavPill() {
 
   return (
     <>
-      {/* Desktop nav row — pinned, three-column layout (brand / nav / actions) */}
+      {/* Desktop nav — fixed at top, content constrained to the SAME
+          max-w-[1200px] as the section boxes below so the left/right pills
+          line up with the section content edges. Pills themselves are
+          larger (taller, bigger text, bigger headshot) for visual weight. */}
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between gap-3 px-5 md:px-8 lg:px-[40px] pt-4 transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300",
+          "pt-4",
           scrolled && "pt-3",
         )}
       >
-        {/* LEFT — circular headshot + name */}
-        <Link
-          href="/"
-          aria-label="Luis Sanchez — home"
-          className={cn(
-            "flex items-center gap-2.5 rounded-full border border-[var(--color-border)] backdrop-blur-md transition-all duration-300 pl-1.5 pr-3 py-1",
-            scrolled
-              ? "bg-[var(--color-bg-elev)]/95 shadow-[var(--shadow-pill)]"
-              : "bg-[var(--color-bg-elev)]/70",
-          )}
-        >
-          <span className="relative inline-block h-7 w-7 overflow-hidden rounded-full bg-[var(--color-surface)] ring-1 ring-[var(--color-border)]">
-            <Image
-              src="/img/headshot.png"
-              alt="Luis Sanchez"
-              width={56}
-              height={56}
-              priority
-              className="h-full w-full object-cover"
-            />
-          </span>
-          <span className="font-display text-[14px] text-[var(--color-text-strong)] leading-none">
-            Luis Sanchez
-          </span>
-        </Link>
+        <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-[120px] flex items-center justify-between gap-3">
+          {/* LEFT — circular headshot + name */}
+          <Link
+            href="/"
+            aria-label="Luis Sanchez — home"
+            className={cn(
+              "flex items-center gap-3 rounded-full border border-[var(--color-border)] backdrop-blur-md transition-all duration-300 pl-2 pr-5 py-1.5",
+              scrolled
+                ? "bg-[var(--color-bg-elev)]/95 shadow-[var(--shadow-pill)]"
+                : "bg-[var(--color-bg-elev)]/70",
+            )}
+          >
+            <span className="relative inline-block h-10 w-10 overflow-hidden rounded-full bg-[var(--color-surface)] ring-1 ring-[var(--color-border)]">
+              <Image
+                src="/img/headshot.png"
+                alt="Luis Sanchez"
+                width={80}
+                height={80}
+                priority
+                className="h-full w-full object-cover"
+              />
+            </span>
+            <span className="font-display text-[16px] text-[var(--color-text-strong)] leading-none">
+              Luis Sanchez
+            </span>
+          </Link>
 
-        {/* CENTER — primary nav pill */}
-        <nav
-          className={cn(
-            "flex items-center gap-1 rounded-full border px-2 py-1 text-sm transition-all duration-300",
-            "border-[var(--color-border)] backdrop-blur-md",
-            scrolled
-              ? "bg-[var(--color-bg-elev)]/95 shadow-[var(--shadow-pill)]"
-              : "bg-[var(--color-bg-elev)]/70",
-          )}
-        >
-          {NAV.map((item) => {
-            const isHome = item.href === "/";
-            const active = isHome
-              ? pathname === "/"
-              : item.href.startsWith("/")
-                ? pathname === item.href || pathname.startsWith(item.href + "/")
-                : false;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "px-3 py-1.5 rounded-full transition-colors leading-none",
-                  active
-                    ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)]"
-                    : "text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]",
-                )}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
+          {/* CENTER — primary nav pill */}
+          <nav
+            className={cn(
+              "flex items-center gap-1 rounded-full border px-2 py-1.5 transition-all duration-300",
+              "border-[var(--color-border)] backdrop-blur-md",
+              scrolled
+                ? "bg-[var(--color-bg-elev)]/95 shadow-[var(--shadow-pill)]"
+                : "bg-[var(--color-bg-elev)]/70",
+            )}
+          >
+            {NAV.map((item) => {
+              const isHome = item.href === "/";
+              const active = isHome
+                ? pathname === "/"
+                : item.href.startsWith("/")
+                  ? pathname === item.href || pathname.startsWith(item.href + "/")
+                  : false;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-[15px] font-medium transition-colors leading-none",
+                    active
+                      ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)]"
+                      : "text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
 
-        {/* RIGHT — Say Hello + LinkedIn + Resume + theme toggle */}
-        <div
-          className={cn(
-            "flex items-center gap-1 rounded-full border px-2 py-1 text-sm transition-all duration-300",
-            "border-[var(--color-border)] backdrop-blur-md",
-            scrolled
-              ? "bg-[var(--color-bg-elev)]/95 shadow-[var(--shadow-pill)]"
-              : "bg-[var(--color-bg-elev)]/70",
-          )}
-        >
-          <a
-            href="mailto:lsancheznj@gmail.com"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[13px] font-medium text-[var(--color-text-strong)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)] transition-colors leading-none"
+          {/* RIGHT — Say Hello + LinkedIn + Resume + theme toggle */}
+          <div
+            className={cn(
+              "flex items-center gap-1 rounded-full border px-2 py-1.5 transition-all duration-300",
+              "border-[var(--color-border)] backdrop-blur-md",
+              scrolled
+                ? "bg-[var(--color-bg-elev)]/95 shadow-[var(--shadow-pill)]"
+                : "bg-[var(--color-bg-elev)]/70",
+            )}
           >
-            <MailIcon className="h-3.5 w-3.5" />
-            Say Hello
-          </a>
-          <a
-            href="https://www.linkedin.com/in/luissanchez000"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="LinkedIn"
-            className="inline-flex items-center justify-center h-8 w-8 rounded-full text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)] transition-colors"
-          >
-            <LinkedInIcon className="h-4 w-4" />
-          </a>
-          <a
-            href="/Sanchez_Luis_Resume.pdf"
-            download
-            aria-label="Download resume PDF"
-            className="inline-flex items-center justify-center h-8 w-8 rounded-full text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)] transition-colors"
-            title="Download resume"
-          >
-            <ResumeIcon className="h-4 w-4" />
-          </a>
-          <span className="mx-0.5 h-5 w-px bg-[var(--color-border)]" />
-          <ThemeToggle className="!h-7 !w-7" />
+            <a
+              href="mailto:lsancheznj@gmail.com"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[14px] font-medium text-[var(--color-text-strong)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)] transition-colors leading-none"
+            >
+              <MailIcon className="h-4 w-4" />
+              Say Hello
+            </a>
+            <a
+              href="https://www.linkedin.com/in/luissanchez000"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              className="inline-flex items-center justify-center h-9 w-9 rounded-full text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)] transition-colors"
+            >
+              <LinkedInIcon className="h-[18px] w-[18px]" />
+            </a>
+            <a
+              href="/Sanchez_Luis_Resume.pdf"
+              download
+              aria-label="Download resume PDF"
+              className="inline-flex items-center justify-center h-9 w-9 rounded-full text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)] transition-colors"
+              title="Download resume"
+            >
+              <ResumeIcon className="h-[18px] w-[18px]" />
+            </a>
+            <span className="mx-0.5 h-5 w-px bg-[var(--color-border)]" />
+            <ThemeToggle className="!h-8 !w-8" />
+          </div>
         </div>
       </header>
 

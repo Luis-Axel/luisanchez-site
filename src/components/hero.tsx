@@ -1,7 +1,10 @@
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { StickyCard } from "./sticky-card";
+import { VideoBlock } from "./video-block";
+import { CASE_STUDIES } from "@/content/case-studies";
 
 /* ===========================================================
    Generic Hero — declarative header used on inner pages (e.g. /about).
@@ -111,8 +114,11 @@ export function HomeHero({ className }: { className?: string }) {
         <CompanyBadge name="Genpro" href="https://genproinc.com/" />.
       </p>
 
-      {/* Sticky-note row with hover-fan-out + video reveal */}
+      {/* Sticky-note row */}
       <StickyRow />
+
+      {/* Hero video — "In case you're tired of reading" → opens modal on click */}
+      <VideoBlock />
     </header>
   );
 }
@@ -138,8 +144,10 @@ function StickyRow() {
   return (
     <div className="relative mt-2 md:mt-4">
       <div className="relative flex flex-col items-center gap-5 md:flex-row md:items-start md:justify-center md:gap-6 px-2 py-6 md:py-10">
-        {/* Card 1 — Recent work */}
-        <div className={cardWrapper}>
+        {/* Card 1 — Recent work. Wrapped in `group/recent` so 3 mini case-study
+            thumbnails can fan out from behind the card on hover. */}
+        <div className={cn(cardWrapper, "group/recent")}>
+          <ProjectThumbsFan />
           <StickyCard
             tone="orange"
             label="Recent work"
@@ -230,6 +238,70 @@ function VideoSlot() {
           </svg>
         </div>
       </div>
+    </div>
+  );
+}
+
+/* ===========================================================
+   ProjectThumbsFan — 3 mini case-study chips that fan out from
+   behind the Recent work card when it's hovered. Pure CSS;
+   parent wrapper owns `group/recent`.
+   =========================================================== */
+
+const THUMB_TONES: Record<string, string> = {
+  "pricing-intelligence-platform": "bg-gradient-to-br from-[#3a5b9a] to-[#1f2d52]",
+  "enterprise-analytics-platform": "bg-gradient-to-br from-[#27695e] to-[#0f342f]",
+  "causal-inference-evaluation-framework":
+    "bg-gradient-to-br from-[#8a3b5d] to-[#3c1a29]",
+};
+
+function ProjectThumbsFan() {
+  // Tailwind doesn't ship transform combinations in arbitrary properties at
+  // runtime, so we list each thumb's resting offset/rotation + hover offset.
+  // On hover they fan upward + outward, slightly fading in.
+  const thumbs = CASE_STUDIES.map((cs) => ({
+    slug: cs.slug,
+    title: cs.title,
+    tone: THUMB_TONES[cs.slug] ?? "bg-[var(--color-surface)]",
+  }));
+
+  const slots = [
+    // index 0: left, tilts further left, lifts up
+    "left-[10%] top-1/2 -translate-x-[40%] -translate-y-1/2 rotate-[-6deg] group-hover/recent:-translate-x-[140%] group-hover/recent:-translate-y-[95%] group-hover/recent:rotate-[-14deg]",
+    // index 1: center, lifts straight up
+    "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[2deg] group-hover/recent:-translate-y-[110%] group-hover/recent:rotate-[3deg]",
+    // index 2: right, tilts further right
+    "right-[10%] top-1/2 translate-x-[40%] -translate-y-1/2 rotate-[6deg] group-hover/recent:translate-x-[140%] group-hover/recent:-translate-y-[95%] group-hover/recent:rotate-[14deg]",
+  ];
+
+  return (
+    <div
+      className="pointer-events-none absolute inset-0 z-0"
+      aria-hidden
+    >
+      {thumbs.map((t, i) => (
+        <Link
+          key={t.slug}
+          href={`/case-studies/${t.slug}`}
+          tabIndex={-1}
+          className={cn(
+            "group-hover/recent:pointer-events-auto absolute h-[110px] w-[140px] md:h-[120px] md:w-[160px] rounded-xl border border-white/10 shadow-[0_18px_36px_-18px_rgba(0,0,0,0.6)]",
+            t.tone,
+            slots[i],
+            "opacity-0 transition-all duration-500 ease-out",
+            "group-hover/recent:opacity-100",
+          )}
+        >
+          <div className="flex h-full flex-col justify-end p-3 text-[#fdf6ec]">
+            <span className="font-mono uppercase tracking-[0.12em] text-[9px] opacity-70 mb-1">
+              Case study
+            </span>
+            <span className="font-display text-[12px] md:text-[13px] leading-[1.15] text-[#fdf6ec]">
+              {t.title}
+            </span>
+          </div>
+        </Link>
+      ))}
     </div>
   );
 }
