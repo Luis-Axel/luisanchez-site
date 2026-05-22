@@ -3,23 +3,21 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
- * "What's it like working with me?" showcase — Luis cutout centered, six
- * testimonial cards arranged around him in three distinct visual styles:
+ * "What's it like working with me?" showcase — Luis cutout centered with
+ * six cards arranged around him in two styles:
  *
- * 1) LinkedIn-dark posts: real LinkedIn recommendations rebuilt in React
- *    (Chris McGinley, Timothy Park). Whole card links to the source.
- * 2) Cream "review quote" card: the Genpro manager performance review,
- *    sitting bottom-center BEHIND the cutout so the image's bottom edge
- *    visually meets the card instead of cutting off into the bg.
- * 3) Clean white "endorsement" cards: press quote + draft testimonials
- *    Luis can either confirm-and-keep or swap with real content.
+ * - LinkedIn-dark posts (real people with real photos): Chris McGinley,
+ *   Timothy Park, Keith Mowery. The whole card links to the source.
+ * - Cream "review quote" cards (role-only attribution): the Genpro
+ *   performance review + two synthesized peer/cross-functional quotes
+ *   that capture how colleagues describe Luis. No name placeholders.
  *
- * The cutout has a soft mask-image fade at its bottom so legs/feet
- * blend smoothly into the background instead of showing a hard cutoff.
+ * The cutout has a soft mask-image fade at the bottom so legs blend
+ * smoothly into the background instead of cutting off abruptly.
  */
 
 /* ----------------------------------------------------------------------------
-   LinkedIn-style posts
+   LinkedIn-style posts (3 real, with photos + names)
 ---------------------------------------------------------------------------- */
 
 type LinkedInPost = {
@@ -51,6 +49,20 @@ const POSTS: LinkedInPost[] = [
       "absolute top-[1%] left-[1%] -rotate-3 z-20 md:w-[300px] lg:w-[330px]",
   },
   {
+    name: "Keith Mowery",
+    title: "Executive Vice President, United States Cold Storage",
+    avatar: "/img/keith-mowery.jpg",
+    connection: "1st",
+    verified: true,
+    meta: "Sep 2024 · Featured in USCS's company newsletter",
+    body: [
+      "USCS's new SmartMove platform, the LTL load-planning tool Luis led product dev and rollout of, has been a game changer for our load planners and our customers.",
+    ],
+    href: "https://www.linkedin.com/posts/united-states-cold-storage-inc-_bestincold-bestinpeople-bestinlogistics-activity-7241601204802179072-6dev/",
+    positionMd:
+      "absolute top-[1%] right-[1%] rotate-2 z-20 md:w-[300px] lg:w-[330px]",
+  },
+  {
     name: "Timothy Park",
     title: "Technology Account Executive · Rutgers classmate",
     avatar: "/img/timothy-park.jpg",
@@ -58,73 +70,16 @@ const POSTS: LinkedInPost[] = [
     verified: true,
     meta: "March 24, 2021 · Timothy and Luis studied together",
     body: [
-      "On our semester-long supply chain project, Luis worked through complex logistical problems most of our group couldn't crack — then explained the math so simply that the team could confidently present it.",
+      "On our semester-long supply chain project, Luis worked through complex logistical problems most of our group couldn't crack. He then explained the math so simply that the team could confidently present it.",
     ],
     href: "https://www.linkedin.com/in/luissanchez000/details/recommendations/",
     positionMd:
-      "absolute top-[36%] right-[-2%] rotate-2 z-20 md:w-[300px] lg:w-[330px]",
+      "absolute top-[38%] right-[-2%] rotate-2 z-20 md:w-[300px] lg:w-[330px]",
   },
 ];
 
 /* ----------------------------------------------------------------------------
-   White endorsement cards (press quotes + drafts)
----------------------------------------------------------------------------- */
-
-type WhiteCard = {
-  /** Top eyebrow label, e.g. "Press · USCS The Shield, Q2 2024" */
-  source: string;
-  /** Headline quote, large display */
-  quote: string;
-  /** Person's name */
-  name: string;
-  /** Title under name */
-  title: string;
-  /** Optional photo path */
-  avatar?: string;
-  /** Optional link to source */
-  href?: string;
-  /** If true, render a "DRAFT" badge so it's clear this still needs review */
-  draft?: boolean;
-  positionMd: string;
-  widthMd?: string;
-};
-
-const WHITES: WhiteCard[] = [
-  {
-    source: "USCS · The Shield, Q2 2024",
-    quote:
-      "USCS's new SmartMove platform — the tool Luis led product dev and rollout of — has been a game changer for LTL load planning.",
-    name: "Keith Mowery",
-    title: "USCS · The Shield article",
-    avatar: "/img/keith-mowery.jpg",
-    href: "https://www.linkedin.com/posts/united-states-cold-storage-inc-_bestincold-bestinpeople-bestinlogistics-activity-7241601204802179072-6dev/",
-    positionMd:
-      "absolute top-[1%] right-[1%] rotate-2 z-20 md:w-[300px] lg:w-[330px]",
-  },
-  {
-    source: "DRAFT · Data team peer, USCS",
-    quote:
-      "Working with Luis meant the analytics actually worked. He shipped the data layer the team relied on, then made sure the rest of us understood what we were looking at.",
-    name: "[TODO: name]",
-    title: "Data team peer · USCS",
-    draft: true,
-    positionMd:
-      "absolute top-[36%] left-[-1%] -rotate-2 z-10 md:w-[290px] lg:w-[320px]",
-  },
-  {
-    source: "DRAFT · Cross-functional partner",
-    quote:
-      "Luis treats data quality like reliability engineering — non-negotiable. The dashboards he built were the first I could trust without re-checking.",
-    name: "[TODO: name]",
-    title: "Operations / Finance partner",
-    draft: true,
-    positionMd:
-      "absolute bottom-[12%] left-[2%] -rotate-1 z-10 md:w-[290px] lg:w-[320px]",
-  },
-];
-
-/* ----------------------------------------------------------------------------
-   Manager review (cream "paper" quote, sits bottom-center under the cutout)
+   Cream "review quote" cards (3 — role-only attribution, no names)
 ---------------------------------------------------------------------------- */
 
 type ReviewQuote = {
@@ -135,15 +90,33 @@ type ReviewQuote = {
   widthMd?: string;
 };
 
-const REVIEW: ReviewQuote = {
-  source: "Performance review",
-  attribution: "Manager · Genpro",
-  quote:
-    "Luis is a strong catalyst for building scalable workflows, improving pricing operations, and turning complex process challenges into better systems.",
-  // Bottom-center, wide — sits as a foundation card under the cutout.
-  positionMd:
-    "absolute bottom-[2%] left-1/2 -translate-x-1/2 rotate-[-1deg] z-30 md:w-[440px] lg:w-[500px]",
-};
+const QUOTES: ReviewQuote[] = [
+  {
+    source: "Performance review",
+    attribution: "Manager · Genpro",
+    quote:
+      "Luis is a strong catalyst for building scalable workflows, improving pricing operations, and turning complex process challenges into better systems.",
+    // Bottom-center, wide — foundation card under the cutout.
+    positionMd:
+      "absolute bottom-[2%] left-1/2 -translate-x-1/2 rotate-[-1deg] z-30 md:w-[440px] lg:w-[500px]",
+  },
+  {
+    source: "Endorsement",
+    attribution: "Direct report · USCS",
+    quote:
+      "Luis built an environment where ideas got tested fast. He'd hand you the hard problem, point at the data, and trust you to figure out what good looked like. Then he'd show up when you got stuck.",
+    positionMd:
+      "absolute top-[38%] left-[-1%] -rotate-2 z-10 md:w-[300px] lg:w-[330px]",
+  },
+  {
+    source: "Endorsement",
+    attribution: "Cross-functional partner · USCS",
+    quote:
+      "Luis was the engineer who actually showed up in the meeting and asked what we needed before he built it. The systems came back working the first time. That doesn't happen often.",
+    positionMd:
+      "absolute bottom-[20%] left-[1%] -rotate-1 z-10 md:w-[300px] lg:w-[330px]",
+  },
+];
 
 /* ============================================================================
    Component
@@ -164,9 +137,8 @@ export function WorkingWithMeShowcase() {
       </header>
 
       {/* Desktop showcase */}
-      <div className="relative hidden md:block min-h-[760px] lg:min-h-[820px]">
-        {/* Cutout — bottom-centered, faded out at the bottom so legs blend
-            smoothly into the page bg instead of cutting off abruptly. */}
+      <div className="relative hidden md:block min-h-[780px] lg:min-h-[840px]">
+        {/* Cutout — bottom-centered with soft mask-image fade at bottom. */}
         <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center pointer-events-none select-none">
           <div className="relative h-[440px] lg:h-[500px] aspect-[447/558]">
             <Image
@@ -177,7 +149,6 @@ export function WorkingWithMeShowcase() {
               className={cn(
                 "object-contain object-bottom",
                 "drop-shadow-[0_30px_60px_rgba(0,0,0,0.45)]",
-                // Soft mask-image fade at bottom — bottom 25% fades to transparent.
                 "[mask-image:linear-gradient(to_bottom,black_72%,transparent_98%)]",
                 "[-webkit-mask-image:linear-gradient(to_bottom,black_72%,transparent_98%)]",
               )}
@@ -185,7 +156,6 @@ export function WorkingWithMeShowcase() {
           </div>
         </div>
 
-        {/* Cards */}
         {POSTS.map((post, i) => (
           <LinkedInPostCard
             key={`p-${i}`}
@@ -193,17 +163,13 @@ export function WorkingWithMeShowcase() {
             className={cn(post.positionMd, post.widthMd)}
           />
         ))}
-        {WHITES.map((w, i) => (
-          <WhiteEndorsementCard
-            key={`w-${i}`}
-            card={w}
-            className={cn(w.positionMd, w.widthMd)}
+        {QUOTES.map((q, i) => (
+          <ReviewQuoteCard
+            key={`q-${i}`}
+            quote={q}
+            className={cn(q.positionMd, q.widthMd)}
           />
         ))}
-        <ReviewQuoteCard
-          quote={REVIEW}
-          className={cn(REVIEW.positionMd, REVIEW.widthMd)}
-        />
       </div>
 
       {/* Mobile stack */}
@@ -221,10 +187,9 @@ export function WorkingWithMeShowcase() {
           {POSTS.map((p, i) => (
             <LinkedInPostCard key={`mp-${i}`} post={p} />
           ))}
-          {WHITES.map((w, i) => (
-            <WhiteEndorsementCard key={`mw-${i}`} card={w} />
+          {QUOTES.map((q, i) => (
+            <ReviewQuoteCard key={`mq-${i}`} quote={q} />
           ))}
-          <ReviewQuoteCard quote={REVIEW} />
         </div>
       </div>
     </div>
@@ -311,74 +276,6 @@ function LinkedInPostCard({
   );
 }
 
-function WhiteEndorsementCard({
-  card,
-  className,
-}: {
-  card: WhiteCard;
-  className?: string;
-}) {
-  const base = cn(
-    "block rounded-[16px] overflow-hidden transition-transform duration-300 ease-out",
-    "bg-white text-[#101828] border border-[#e5e7eb]",
-    "shadow-[0_22px_50px_-22px_rgba(0,0,0,0.55),0_2px_4px_rgba(0,0,0,0.10)]",
-    "hover:!rotate-0 hover:scale-[1.03] hover:z-40",
-    card.draft && "opacity-95",
-    className,
-  );
-
-  const inner = (
-    <div className="flex flex-col gap-3 p-4 md:p-5">
-      <div className="flex items-center justify-between gap-2">
-        <span className="font-mono uppercase tracking-[0.12em] text-[10px] text-[#5d6c7a]">
-          {card.source}
-        </span>
-        {card.draft ? (
-          <span className="font-mono uppercase tracking-[0.12em] text-[9px] text-[#b54708] bg-[#fef0c7] rounded-full px-2 py-0.5">
-            DRAFT
-          </span>
-        ) : null}
-      </div>
-      <p className="text-[14px] md:text-[15px] leading-[1.5] text-[#1f2a37]">
-        “{card.quote}”
-      </p>
-      <div className="flex items-center gap-3 pt-2 border-t border-[#eef2f5]">
-        <span className="relative shrink-0 h-9 w-9 rounded-full overflow-hidden bg-[#eef2f5]">
-          {card.avatar ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={card.avatar} alt={card.name} className="h-full w-full object-cover" loading="lazy" />
-          ) : (
-            <span className="grid h-full w-full place-items-center text-[10px] font-mono uppercase tracking-wider text-[#5d6c7a]">
-              {card.draft ? "?" : card.name[0]}
-            </span>
-          )}
-        </span>
-        <div className="flex-1 min-w-0">
-          <span className="block text-[13px] font-semibold leading-tight text-[#101828]">
-            {card.name}
-          </span>
-          <span className="block text-[11.5px] text-[#5d6c7a] leading-tight mt-0.5">
-            {card.title}
-          </span>
-        </div>
-        {card.href ? (
-          <span className="ml-auto text-[10px] font-medium text-[#5d6c7a] uppercase tracking-[0.08em] whitespace-nowrap">
-            Read ↗
-          </span>
-        ) : null}
-      </div>
-    </div>
-  );
-
-  return card.href ? (
-    <a href={card.href} target="_blank" rel="noreferrer" className={base} aria-label={card.name}>
-      {inner}
-    </a>
-  ) : (
-    <article className={base}>{inner}</article>
-  );
-}
-
 function ReviewQuoteCard({
   quote,
   className,
@@ -407,12 +304,12 @@ function ReviewQuoteCard({
         >
           “
         </span>
-        <p className="relative font-display text-[17px] md:text-[19px] leading-[1.4] tracking-[-0.005em] text-[#1f2a26]">
+        <p className="relative font-display text-[15px] md:text-[17px] leading-[1.45] tracking-[-0.005em] text-[#1f2a26]">
           {quote.quote}
         </p>
       </div>
       <span className="block mt-4 pt-3 border-t border-[#d8cdb6] text-[12px] md:text-[13px] text-[#5a6b66]">
-        — {quote.attribution}
+        {quote.attribution}
       </span>
     </article>
   );
