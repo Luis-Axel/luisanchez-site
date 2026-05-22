@@ -57,11 +57,12 @@ export function VideoCard({ className }: { className?: string }) {
           )}
         >
           <Image
-            src="/press/speech.png"
+            src="/hero/lui-poster.jpg"
             alt="Luis Sanchez"
-            width={560}
-            height={640}
+            width={720}
+            height={1280}
             className="h-full w-full object-cover"
+            priority
           />
           {/* Dark wash for play-button contrast */}
           <span className="pointer-events-none absolute inset-0 bg-black/30" aria-hidden />
@@ -135,26 +136,15 @@ export function VideoCard({ className }: { className?: string }) {
             className="relative w-full max-w-[460px] rounded-[28px] overflow-hidden bg-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)]"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
-              src="/press/speech.png"
-              alt="Luis Sanchez introduction (placeholder)"
-              width={800}
-              height={1000}
-              className="h-auto w-full"
-              priority
+            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+            <video
+              src="/hero/lui-video.mp4"
+              poster="/hero/lui-poster.jpg"
+              controls
+              autoPlay
+              playsInline
+              className="h-auto w-full block"
             />
-            {/*
-              TODO(lui): drop a real video at /public/hero/lui-video.mp4 and
-              replace the <Image> above with:
-
-              <video
-                src="/hero/lui-video.mp4"
-                controls
-                autoPlay
-                playsInline
-                className="h-auto w-full"
-              />
-            */}
             <button
               type="button"
               onClick={() => setOpen(false)}
@@ -173,9 +163,6 @@ export function VideoCard({ className }: { className?: string }) {
                 <path d="M6 6l12 12M6 18L18 6" />
               </svg>
             </button>
-            <div className="absolute bottom-4 left-4 right-4 rounded-full bg-black/55 backdrop-blur-sm px-4 py-2 text-center text-[12px] text-white/90">
-              Placeholder — real video lands at <span className="font-mono">/hero/lui-video.mp4</span>
-            </div>
           </div>
         </div>
       )}
