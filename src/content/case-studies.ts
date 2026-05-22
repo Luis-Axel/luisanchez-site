@@ -43,7 +43,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     company: "Genpro",
     visualTodo:
       "Network mapping visualization showing pricing flow across lanes (geo + model output)",
-    heroImage: "/pricing/ccm-ui.webp",
+    heroImage: "/pricing/final-pricing.webp",
     overview:
       "I led the third-party engineering team that built Genpro's ML pricing and lane analytics platform. A React frontend over a Python ML stack (scikit-learn, XGBoost) and a BigQuery warehouse, it takes the messy industry-standard DAT peer-rate feed plus our own historical loads and turns them into clean, model-backed lane prices brokers can use in the moment. The same model powers daily GTM market targeting across the desk.",
     metadata: [
@@ -117,7 +117,7 @@ export const CASE_STUDIES: CaseStudy[] = [
           {
             todo: "The CCM tool in action: the in-product UI brokers and pricing analysts use to interact with the model, configure lane rules, and review recommendations.",
             aspect: "aspect-[16/9]",
-            src: "/pricing/ccm-ui.webp",
+            src: "/pricing/final-pricing.webp",
           },
         ],
       },
