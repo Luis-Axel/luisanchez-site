@@ -150,7 +150,7 @@ function StickyRow() {
           <StickyCard
             tone="orange"
             label="Recent work"
-            description="Three case studies — pricing intelligence, enterprise analytics, causal inference."
+            description="See how I turn messy operation problems into shipped solutions."
             cta="Read case studies →"
             href="#selected-work"
             baseTilt="-rotate-2"
