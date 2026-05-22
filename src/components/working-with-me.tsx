@@ -4,112 +4,84 @@ import { cn } from "@/lib/utils";
 
 /**
  * "What's it like working with me?" showcase — Luis cutout centered with
- * testimonial chips arranged around him at varied tilts and pastel tones.
- * Inspired by benshih.design's same-named section.
+ * real social-post SCREENSHOTS framed as tilted cards arranged around him.
  *
- * Desktop: absolute-positioned chips around the centerpiece.
- * Mobile: stacks vertically with the cutout on top and chips below.
+ * Pattern from benshih.design: the cards are visually authentic because they
+ * ARE authentic — they're actual LinkedIn / Slack / email screenshots, just
+ * framed with rounded corners, a subtle border, and a slight rotation. Fake
+ * avatar+initial chips never read as real.
  *
- * Chips data is hand-positioned inline (rather than data-driven) so each
- * card's tilt + screen position can be tuned individually. Two chips have
- * real quotes (Chris McGinley + the Bergen student awaiting transcription);
- * the rest are TODO placeholders styled identically so the visual stays
- * full while we collect real testimonials.
+ * Currently 2 real screenshots ship + 3 TODO slots styled identically so the
+ * grid stays full while Lui collects more screenshots. Once he sends the
+ * photos/URLs for additional LinkedIn recommendations, drop a screenshot at
+ * /public/press/<slug>.png and replace the corresponding TODO entry in
+ * SHOWCASE below.
+ *
+ * Desktop: absolute-positioned cards around the cutout, varied tilts.
+ * Mobile: stacks vertically with cutout on top.
  */
 
-type Chip = {
-  name: string;
-  context: string;
-  quote: string;
-  // Visual: which pastel color theme
-  tone: "rose" | "amber" | "sky" | "violet" | "emerald";
-  // Desktop position (Tailwind absolute classes + rotation)
+type Card = {
+  /** Path under /public to the screenshot; falls back to TODO if missing */
+  src?: string;
+  /** Short label shown above the card (e.g. "LinkedIn — Chris McGinley") */
+  label: string;
+  /** Optional source URL clicked through */
+  href?: string;
+  /** TODO description if there's no real screenshot yet */
+  todoNote?: string;
+  /** Desktop absolute-position + rotation classes */
   positionMd: string;
-  // Optional initial for the avatar circle
-  initial?: string;
-  // Width override on desktop
+  /** Override aspect ratio of the screenshot frame */
+  aspect?: string;
+  /** Desktop width override */
   widthMd?: string;
-  // Marker for TODO chips
-  todo?: boolean;
 };
 
-const TONE_STYLES: Record<Chip["tone"], { card: string; avatar: string }> = {
-  rose: {
-    card: "border-rose-300/60 bg-rose-50 dark:border-rose-400/30 dark:bg-rose-900/15",
-    avatar: "bg-rose-400 text-rose-50",
-  },
-  amber: {
-    card: "border-amber-300/70 bg-amber-50 dark:border-amber-400/30 dark:bg-amber-900/15",
-    avatar: "bg-amber-400 text-amber-50",
-  },
-  sky: {
-    card: "border-sky-300/60 bg-sky-50 dark:border-sky-400/30 dark:bg-sky-900/15",
-    avatar: "bg-sky-400 text-sky-50",
-  },
-  violet: {
-    card: "border-violet-300/60 bg-violet-50 dark:border-violet-400/30 dark:bg-violet-900/15",
-    avatar: "bg-violet-400 text-violet-50",
-  },
-  emerald: {
-    card: "border-emerald-300/60 bg-emerald-50 dark:border-emerald-400/30 dark:bg-emerald-900/15",
-    avatar: "bg-emerald-400 text-emerald-50",
-  },
-};
-
-const CHIPS: Chip[] = [
+const SHOWCASE: Card[] = [
   {
-    name: "Chris McGinley",
-    context: "Logistics Co-op, USCS",
-    quote:
-      "I am grateful for the opportunity to have been mentored by Luis Sanchez. His guidance and the way he invested in my development shaped how I approach problems and grow on the job.",
-    tone: "rose",
-    initial: "C",
+    label: "LinkedIn · Chris McGinley",
+    src: "/press/coop-thanks.png",
+    href: "https://www.linkedin.com/posts/chrismcginly_i-am-grateful-for-the-opportunity-to-have-ugcPost-7211080013817724929-LN_x",
+    aspect: "aspect-[4/5]",
+    widthMd: "md:w-[280px] lg:w-[300px]",
     positionMd:
-      "absolute top-[6%] left-[2%] -rotate-3 md:w-[300px] lg:w-[320px]",
+      "absolute top-[2%] left-[1%] -rotate-3 z-20",
   },
   {
-    name: "[TODO: peer name]",
-    context: "Engineering peer",
-    quote:
-      "[TODO — paste a peer's quote about working with Luis. Slack screenshot, LinkedIn recommendation, or written endorsement all work.]",
-    tone: "amber",
-    initial: "•",
-    todo: true,
+    label: "LinkedIn · Bergen Community College",
+    src: "/press/linkedin-review-from-college.png",
+    aspect: "aspect-[4/5]",
+    widthMd: "md:w-[270px] lg:w-[290px]",
     positionMd:
-      "absolute top-[2%] right-[4%] rotate-2 md:w-[280px] lg:w-[300px]",
+      "absolute bottom-[3%] right-[2%] rotate-3 z-20",
   },
   {
-    name: "[TODO: leadership name]",
-    context: "Manager or director",
-    quote:
-      "[TODO — quote from a former manager or executive sponsor on what it was like to have Luis on the team.]",
-    tone: "sky",
-    initial: "•",
-    todo: true,
+    label: "TODO · Engineering peer",
+    todoNote:
+      "Drop a LinkedIn recommendation or Slack screenshot at /public/press/<slug>.png and wire it in.",
+    aspect: "aspect-[4/5]",
+    widthMd: "md:w-[260px] lg:w-[280px]",
     positionMd:
-      "absolute bottom-[8%] left-[4%] -rotate-2 md:w-[300px] lg:w-[320px]",
+      "absolute top-[4%] right-[3%] rotate-2 z-10",
   },
   {
-    name: "[TODO: name]",
-    context: "Bergen Community College",
-    quote:
-      "[TODO: paste the actual recommendation text from public/press/linkedin-review-from-college.png.]",
-    tone: "violet",
-    initial: "•",
-    todo: true,
+    label: "TODO · Manager / Director",
+    todoNote:
+      "LinkedIn recommendation or written endorsement from a former manager.",
+    aspect: "aspect-[4/5]",
+    widthMd: "md:w-[260px] lg:w-[280px]",
     positionMd:
-      "absolute bottom-[2%] right-[2%] rotate-3 md:w-[290px] lg:w-[310px]",
+      "absolute bottom-[8%] left-[3%] -rotate-2 z-10",
   },
   {
-    name: "[TODO: name]",
-    context: "Cross-functional partner",
-    quote:
-      "[TODO — quote from Finance, Sales, Ops, or another team you partnered with at USCS or Genpro.]",
-    tone: "emerald",
-    initial: "•",
-    todo: true,
+    label: "TODO · Cross-functional partner",
+    todoNote:
+      "Finance / Sales / Ops partner who collaborated with you on a shipped project.",
+    aspect: "aspect-[4/5]",
+    widthMd: "md:w-[240px] lg:w-[260px]",
     positionMd:
-      "absolute top-[44%] right-[0%] rotate-1 md:w-[260px] lg:w-[280px]",
+      "absolute top-[42%] right-[-1%] rotate-1 z-10",
   },
 ];
 
@@ -127,31 +99,35 @@ export function WorkingWithMeShowcase() {
         </p>
       </header>
 
-      {/* Desktop showcase — cutout + absolutely positioned chips */}
-      <div className="relative hidden md:block min-h-[640px] lg:min-h-[720px]">
-        {/* Cutout image — bottom-centered */}
-        <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none select-none">
-          <div className="relative h-[520px] lg:h-[600px] aspect-[3/4]">
+      {/* Desktop showcase — cutout + absolutely positioned screenshot cards */}
+      <div className="relative hidden md:block min-h-[680px] lg:min-h-[760px]">
+        {/* Cutout image — bottom-centered, behind the cards */}
+        <div className="absolute inset-x-0 bottom-0 z-0 flex justify-center pointer-events-none select-none">
+          <div className="relative h-[540px] lg:h-[620px] aspect-[3/4]">
             <Image
               src="/img/luis-cutout.png"
               alt="Luis Sanchez"
               fill
               className="object-contain object-bottom drop-shadow-[0_30px_60px_rgba(0,0,0,0.45)]"
-              sizes="(min-width: 1024px) 450px, 390px"
+              sizes="(min-width: 1024px) 465px, 405px"
               priority={false}
             />
           </div>
         </div>
 
-        {/* Chips */}
-        {CHIPS.map((chip, i) => (
-          <ChipCard key={i} chip={chip} className={chip.positionMd} />
+        {/* Cards */}
+        {SHOWCASE.map((card, i) => (
+          <ScreenshotCard
+            key={i}
+            card={card}
+            className={cn(card.positionMd, card.widthMd)}
+          />
         ))}
       </div>
 
-      {/* Mobile stack — cutout above, chips below in a single column */}
+      {/* Mobile stack */}
       <div className="md:hidden flex flex-col gap-6">
-        <div className="relative h-[320px]">
+        <div className="relative h-[300px]">
           <Image
             src="/img/luis-cutout.png"
             alt="Luis Sanchez"
@@ -161,8 +137,8 @@ export function WorkingWithMeShowcase() {
           />
         </div>
         <div className="flex flex-col gap-4">
-          {CHIPS.map((chip, i) => (
-            <ChipCard key={i} chip={chip} />
+          {SHOWCASE.map((card, i) => (
+            <ScreenshotCard key={i} card={card} />
           ))}
         </div>
       </div>
@@ -170,47 +146,93 @@ export function WorkingWithMeShowcase() {
   );
 }
 
-function ChipCard({ chip, className }: { chip: Chip; className?: string }) {
-  const tone = TONE_STYLES[chip.tone];
-  return (
-    <article
-      className={cn(
-        "relative rounded-2xl border p-4 md:p-5 backdrop-blur-sm",
-        "shadow-[0_18px_40px_-18px_rgba(0,0,0,0.45),0_2px_4px_rgba(0,0,0,0.10)]",
-        tone.card,
-        chip.todo && "opacity-90",
-        className,
-      )}
-    >
-      <div className="flex items-start gap-3">
-        <span
-          aria-hidden
-          className={cn(
-            "shrink-0 grid place-items-center h-8 w-8 rounded-full text-[13px] font-semibold leading-none",
-            tone.avatar,
-          )}
-        >
-          {chip.initial ?? chip.name[0]}
-        </span>
-        <div className="min-w-0">
-          <div className="flex items-baseline gap-2 flex-wrap">
-            <span className="font-display text-[14px] md:text-[15px] text-[var(--color-text-strong)] leading-tight">
-              {chip.name}
-            </span>
-            {chip.todo ? (
-              <span className="font-mono uppercase tracking-[0.12em] text-[9px] text-[var(--color-text-muted)]">
-                TODO
-              </span>
-            ) : null}
-          </div>
-          <span className="text-[11px] md:text-[12px] text-[var(--color-text-muted)] block leading-tight">
-            {chip.context}
-          </span>
+function ScreenshotCard({
+  card,
+  className,
+}: {
+  card: Card;
+  className?: string;
+}) {
+  const aspect = card.aspect ?? "aspect-[4/5]";
+  const cardClasses = cn(
+    "group/card block rounded-2xl overflow-hidden",
+    "bg-[var(--color-surface)] border border-[var(--color-border-strong)]",
+    "shadow-[0_22px_50px_-22px_rgba(0,0,0,0.65),0_2px_6px_rgba(0,0,0,0.20)]",
+    "transition-transform duration-300 ease-out",
+    "hover:!rotate-0 hover:scale-[1.03] hover:z-40",
+    className,
+  );
+
+  // If real screenshot — render the image card
+  if (card.src) {
+    const Inner = (
+      <>
+        <div className={cn("w-full bg-black/[0.04] dark:bg-white/[0.04]", aspect)}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={card.src}
+            alt={card.label}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
         </div>
+        <span className="block px-3 py-2 text-[10px] md:text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-text-muted)] truncate">
+          {card.label}
+        </span>
+      </>
+    );
+    return card.href ? (
+      <a
+        href={card.href}
+        target="_blank"
+        rel="noreferrer"
+        className={cardClasses}
+        aria-label={card.label}
+      >
+        {Inner}
+      </a>
+    ) : (
+      <article className={cardClasses}>{Inner}</article>
+    );
+  }
+
+  // TODO placeholder — styled to look like the real cards
+  return (
+    <article className={cn(cardClasses, "opacity-95")}>
+      <div
+        className={cn(
+          aspect,
+          "relative grid place-items-center bg-gradient-to-br from-[var(--color-surface)] to-[var(--color-bg-cream)] border-b border-[var(--color-border)]",
+        )}
+      >
+        {/* Skeleton "LinkedIn post" layout */}
+        <div className="absolute inset-0 p-4 flex flex-col gap-3">
+          <div className="flex items-start gap-2">
+            <div className="h-9 w-9 rounded-full bg-[var(--color-border-strong)]" />
+            <div className="flex-1 flex flex-col gap-1.5">
+              <div className="h-2.5 w-2/3 rounded bg-[var(--color-border-strong)]" />
+              <div className="h-2 w-1/3 rounded bg-[var(--color-border)]" />
+            </div>
+          </div>
+          <div className="flex flex-col gap-1.5 mt-1">
+            <div className="h-2 w-full rounded bg-[var(--color-border)]" />
+            <div className="h-2 w-[92%] rounded bg-[var(--color-border)]" />
+            <div className="h-2 w-[85%] rounded bg-[var(--color-border)]" />
+            <div className="h-2 w-[70%] rounded bg-[var(--color-border)]" />
+          </div>
+          <div className="mt-auto flex items-center gap-3 text-[var(--color-text-muted)]">
+            <span className="inline-block h-3 w-3 rounded-full bg-[var(--color-border-strong)]" />
+            <span className="inline-block h-3 w-3 rounded-full bg-[var(--color-border-strong)]" />
+            <span className="ml-auto inline-block h-2 w-10 rounded bg-[var(--color-border)]" />
+          </div>
+        </div>
+        <span className="absolute top-3 right-3 font-mono uppercase tracking-[0.12em] text-[9px] text-[var(--color-text-muted)] bg-[var(--color-bg-elev)]/80 rounded-full px-2 py-0.5 border border-[var(--color-border)]">
+          TODO
+        </span>
       </div>
-      <p className="mt-3 text-[13px] md:text-[14px] text-[var(--color-text-primary)] leading-[1.55]">
-        {chip.todo ? chip.quote : `“${chip.quote}”`}
-      </p>
+      <span className="block px-3 py-2 text-[10px] md:text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-text-muted)] truncate">
+        {card.label}
+      </span>
     </article>
   );
 }
