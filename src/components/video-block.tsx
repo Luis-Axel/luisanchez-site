@@ -2,20 +2,23 @@
 
 import * as React from "react";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 /**
- * Hero video block. Shows a small clickable thumbnail with a handwritten
- * "In case you're tired of reading" caption + an arrow. Clicking opens a
- * modal that plays the video.
+ * VideoCard — sits as the middle sticky card in the hero row. Looks like the
+ * other sticky cards (tilted, same size, drop shadow) but acts as the click
+ * target for the introduction video. The "In case you're tired of reading"
+ * caption + arrow only appear on hover.
  *
- * Current placeholder: uses /press/speech.png as a stand-in. When Luis drops
- * a real loop at /public/hero/lui-video.mp4, swap the <Image> in the modal
- * for a <video src=".../lui-video.mp4" autoPlay controls playsInline />.
+ * Clicking opens a centered modal. Today the modal shows /press/speech.png
+ * as a placeholder. When Luis drops a real loop at /public/hero/lui-video.mp4
+ * the <Image> inside the modal can be swapped for a <video> element (TODO in
+ * the modal body).
  */
-export function VideoBlock() {
+export function VideoCard({ className }: { className?: string }) {
   const [open, setOpen] = React.useState(false);
 
-  // Close on Escape; lock body scroll while open.
+  // Close modal on Escape; lock body scroll while open.
   React.useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -32,73 +35,97 @@ export function VideoBlock() {
 
   return (
     <>
-      <div className="mt-6 md:mt-10 flex flex-col items-center gap-1">
-        {/* Handwritten caption above the video */}
-        <span className="font-hand text-[20px] md:text-[24px] text-[var(--color-primary)] leading-none">
-          In case you&apos;re tired of reading
-        </span>
-        {/* Curly arrow pointing down at the video */}
-        <svg
-          width="40"
-          height="34"
-          viewBox="0 0 40 34"
-          fill="none"
-          aria-hidden
-          className="text-[var(--color-primary)] -mt-1 mb-1"
-        >
-          <path
-            d="M4 2 C 14 2, 26 4, 28 22"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            fill="none"
-          />
-          <path
-            d="M22 18 L 28 24 L 34 16"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-          />
-        </svg>
-
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label="Watch Luis introduce himself"
-          className="group relative h-[220px] w-[180px] md:h-[260px] md:w-[210px] overflow-hidden rounded-[24px] border-4 border-[var(--color-surface)] bg-black shadow-[0_20px_40px_-12px_rgba(0,0,0,0.55)] rotate-[-2deg] transition-transform duration-300 ease-out hover:scale-[1.04] hover:rotate-0"
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label="Watch Luis introduce himself"
+        className={cn(
+          // Sized to match StickyCard's footprint so the row stays balanced.
+          "group/video relative w-[240px] h-[280px] md:w-[280px] md:h-[320px]",
+          "overflow-visible rounded-2xl",
+          // Focus ring for keyboard users
+          "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)]",
+          className,
+        )}
+      >
+        {/* The clickable card surface */}
+        <span
+          className={cn(
+            "relative block h-full w-full overflow-hidden rounded-2xl",
+            "border-4 border-[var(--color-surface)] bg-black",
+            "shadow-[0_18px_40px_-18px_rgba(0,0,0,0.55),0_2px_6px_rgba(0,0,0,0.25)]",
+          )}
         >
           <Image
             src="/press/speech.png"
             alt="Luis Sanchez"
-            width={420}
-            height={520}
+            width={560}
+            height={640}
             className="h-full w-full object-cover"
           />
-          <span className="absolute inset-0 bg-black/30" aria-hidden />
+          {/* Dark wash for play-button contrast */}
+          <span className="pointer-events-none absolute inset-0 bg-black/30" aria-hidden />
+          {/* Play overlay */}
           <span
-            className="absolute inset-0 grid place-items-center"
+            className="pointer-events-none absolute inset-0 grid place-items-center"
             aria-hidden
           >
-            <span className="grid place-items-center h-14 w-14 rounded-full bg-white shadow-lg transition-transform group-hover:scale-110">
+            <span className="grid h-14 w-14 place-items-center rounded-full bg-white/95 shadow-lg transition-transform duration-300 group-hover/video:scale-110">
               <svg
+                viewBox="0 0 24 24"
                 width="22"
                 height="22"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="text-black translate-x-[1px]"
+                className="ml-1 fill-black"
               >
                 <path d="M8 5v14l11-7z" />
               </svg>
             </span>
           </span>
-        </button>
-      </div>
+        </span>
+
+        {/* Hover-only caption + arrow, positioned above the card. */}
+        <span
+          aria-hidden
+          className={cn(
+            "pointer-events-none absolute -top-14 md:-top-16 left-1/2 -translate-x-1/2 z-30",
+            "flex flex-col items-center gap-0.5",
+            "opacity-0 transition-opacity duration-300 ease-out",
+            "group-hover/video:opacity-100 group-hover/video:delay-100",
+          )}
+        >
+          <span className="whitespace-nowrap font-hand text-[18px] md:text-[22px] text-[var(--color-primary)] leading-none">
+            In case you&apos;re tired of reading
+          </span>
+          <svg
+            width="34"
+            height="28"
+            viewBox="0 0 34 28"
+            fill="none"
+            className="text-[var(--color-primary)]"
+            aria-hidden
+          >
+            <path
+              d="M4 2 C 12 4, 22 6, 24 20"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <path
+              d="M18 16 L 24 22 L 30 14"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+          </svg>
+        </span>
+      </button>
 
       {open && (
         <div
-          className="fixed inset-0 z-[100] grid place-items-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in"
+          className="fixed inset-0 z-[100] grid place-items-center bg-black/80 backdrop-blur-sm p-4"
           onClick={() => setOpen(false)}
           role="dialog"
           aria-modal="true"

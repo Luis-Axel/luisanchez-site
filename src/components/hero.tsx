@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { StickyCard } from "./sticky-card";
-import { VideoBlock } from "./video-block";
+import { VideoCard } from "./video-block";
 import { CASE_STUDIES } from "@/content/case-studies";
 
 /* ===========================================================
@@ -114,11 +114,8 @@ export function HomeHero({ className }: { className?: string }) {
         <CompanyBadge name="Genpro" href="https://genproinc.com/" />.
       </p>
 
-      {/* Sticky-note row */}
+      {/* Sticky-note row (Card 2 is the introduction video) */}
       <StickyRow />
-
-      {/* Hero video — "In case you're tired of reading" → opens modal on click */}
-      <VideoBlock />
     </header>
   );
 }
@@ -158,16 +155,10 @@ function StickyRow() {
           />
         </div>
 
-        {/* Card 2 — About me */}
-        <div className={cardWrapper}>
-          <StickyCard
-            tone="green"
-            label="About me"
-            description="Background, current role, and how I think about the work."
-            cta="More about Luis →"
-            href="/about"
-            baseTilt="rotate-1"
-          />
+        {/* Card 2 — Introduction video. Opens a modal on click. Hover reveals
+            the "In case you're tired of reading" caption above the card. */}
+        <div className={cn(cardWrapper, "rotate-1")}>
+          <VideoCard />
         </div>
 
         {/* Card 3 — Working with me */}
