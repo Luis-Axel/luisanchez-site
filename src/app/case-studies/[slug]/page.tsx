@@ -80,16 +80,7 @@ export default async function CaseStudyPage({
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
-        ) : (
-          <div className="relative aspect-[1948/1080] overflow-hidden rounded-[12px] bg-black/90 dark:bg-black/60">
-            <div className="absolute inset-0 grid place-items-center p-6 text-center">
-              <span className="text-xs md:text-sm text-white/40 font-mono leading-relaxed max-w-[80%]">
-                [Hero visual placeholder — TODO: {cs.visualTodo}]
-              </span>
-            </div>
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
-          </div>
-        )}
+        ) : null}
       </Section>
 
       {/* Metadata grid */}
@@ -147,7 +138,9 @@ export default async function CaseStudyPage({
               </div>
               {s.visuals?.length ? (
                 <div className="mt-4 flex flex-col gap-4">
-                  {s.visuals.map((v, i) => {
+                  {s.visuals
+                    .filter((v) => v.src || v.stack?.length)
+                    .map((v, i) => {
                     // Stacked deck-of-cards visual (e.g. Mutuall's
                     // Target + Walmart + Other platforms stack).
                     if (v.stack?.length) {
@@ -201,16 +194,7 @@ export default async function CaseStudyPage({
                             alt={v.todo}
                             className="absolute inset-0 w-full h-full object-contain"
                           />
-                        ) : (
-                          <>
-                            <div className="absolute inset-0 grid place-items-center p-6 text-center">
-                              <span className="text-xs text-white/40 font-mono leading-relaxed max-w-[80%]">
-                                [Inline visual — TODO: {v.todo}]
-                              </span>
-                            </div>
-                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
-                          </>
-                        )}
+                        ) : null}
                       </div>
                     );
                   })}
@@ -247,6 +231,7 @@ export default async function CaseStudyPage({
             href: `/case-studies/${o.slug}`,
             title: o.title,
             tag: `${o.company} · ${o.year}`,
+            heroImage: o.heroImage,
             todo: o.visualTodo,
           }))}
         />

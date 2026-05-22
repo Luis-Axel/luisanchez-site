@@ -5,7 +5,10 @@ export type MoreCaseStudyItem = {
   href: string;
   title: string;
   tag: string;
-  todo: string;
+  /** Path under /public to a hero image. */
+  heroImage?: string;
+  /** Fallback caption when heroImage isn't set. */
+  todo?: string;
 };
 
 export function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] }) {
@@ -29,10 +32,22 @@ export function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] }) {
             href={item.href}
             className="group flex flex-col gap-3 rounded-[12px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)]"
           >
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[12px] bg-black/90 dark:bg-black/60 grid place-items-center p-4 text-center">
-              <span className="text-[11px] md:text-xs text-white/40 font-mono leading-relaxed">
-                [TODO: {item.todo}]
-              </span>
+            <div className="relative aspect-[16/10] overflow-hidden rounded-[12px] bg-black/90 dark:bg-black/60">
+              {item.heroImage ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={item.heroImage}
+                  alt={item.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="absolute inset-0 grid place-items-center p-4 text-center">
+                  <span className="text-[11px] md:text-xs text-white/40 font-mono leading-relaxed">
+                    {item.title}
+                  </span>
+                </div>
+              )}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
             </div>
             <div className="flex flex-col gap-1">

@@ -22,13 +22,15 @@ export type CaseStudy = {
     heading: string;
     body: string[];
     /** Optional inline visuals. `src` is a single image. When `stack` is set,
-     *  the visual renders as a composite of multiple images layered like a
-     *  deck of cards — first entry in the stack array sits on top. */
+     *  the visual renders as a composite of images layered like a deck of
+     *  cards. When `puzzle` is set, the visual renders an illustrated
+     *  before/after comparison (scattered pieces → assembled puzzle). */
     visuals?: {
       todo: string;
       aspect?: string;
       src?: string;
       stack?: { src: string; label?: string }[];
+      puzzle?: { before: string; after: string };
     }[];
   }[];
 };
@@ -148,6 +150,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     company: "Genpro",
     visualTodo:
       "Architecture diagram: trading partners → internal ingestion service (EDI parser, ETL pipelines, API connectors) → BigQuery → internal consumers",
+    heroImage: "/cleo/integration-cloud.png",
     overview:
       "Designed and built the internal EDI/ETL/API integration system that replaced Cleo at Genpro. The replacement handles EDI parsing, ETL pipelines, and REST integrations from one in-house codebase and lands all trading-partner data directly in our BigQuery warehouse, where the pricing platform, data governance layer, and the rest of the analytics stack can use it natively. The $80K/year Cleo subscription was decommissioned.",
     metadata: [

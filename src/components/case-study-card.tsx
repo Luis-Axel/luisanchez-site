@@ -72,12 +72,13 @@ export function CaseStudyCard({
           </>
         ) : (
           <>
+            {/* No-hero-image fallback: a clean dark frame with just the
+                case-study title centered. No TODO text. */}
             <div className="absolute inset-0 grid place-items-center p-6 text-center">
-              <div className="text-xs md:text-sm text-white/40 font-mono leading-relaxed">
-                [Visual placeholder — TODO: {visualTodo}]
-              </div>
+              <span className="font-display text-white/55 text-[20px] md:text-[26px] tracking-[-0.01em]">
+                {title}
+              </span>
             </div>
-            {/* Subtle gradient to suggest depth */}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/40" />
           </>
         )}
