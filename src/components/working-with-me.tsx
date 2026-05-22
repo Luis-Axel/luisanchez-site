@@ -102,19 +102,11 @@ const QUOTES: ReviewQuote[] = [
   },
   {
     source: "Endorsement",
-    attribution: "Direct report · USCS",
-    quote:
-      "Luis built an environment where ideas got tested fast. He'd hand you the hard problem, point at the data, and trust you to figure out what good looked like. Then he'd show up when you got stuck.",
-    positionMd:
-      "absolute top-[38%] left-[-1%] -rotate-2 z-10 md:w-[300px] lg:w-[330px]",
-  },
-  {
-    source: "Endorsement",
     attribution: "Cross-functional partner · USCS",
     quote:
       "Luis was the engineer who actually showed up in the meeting and asked what we needed before he built it. The systems came back working the first time. That doesn't happen often.",
     positionMd:
-      "absolute bottom-[20%] left-[1%] -rotate-1 z-10 md:w-[300px] lg:w-[330px]",
+      "absolute top-[38%] left-[-1%] -rotate-2 z-10 md:w-[300px] lg:w-[330px]",
   },
 ];
 
