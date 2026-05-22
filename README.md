@@ -1,18 +1,25 @@
 # luisanchez-site
 
-Personal portfolio for **Lui Sanchez** — data engineer & analytics builder.
+Personal portfolio for **Luis Sanchez** — data + ML engineer for operationally messy businesses.
 
-> _"I build the data and automation systems that turn messy operations into scalable decisions."_
+Live at **[luissanchez.io](https://luissanchez.io)**.
+
+> _"I build production-grade data and ML systems for operationally messy businesses, especially in logistics and supply chain."_
 
 ## Stack
 
-- **Next.js 16** (App Router, TypeScript, Turbopack)
+- **Next.js 15** (App Router, TypeScript, Turbopack)
+  - Originally scaffolded on Next 16.2.6; downgraded after a Vercel adapter (`modifyConfig`) path-resolution bug. See `AGENTS.md` for the full note. Revisit Next 16 once the adapter is stable.
 - **React 19**
-- **Tailwind CSS v4** (CSS-variable token system)
-- **next/font** — Geist Sans + Geist Mono (Vercel's free typeface; defensible substitute for the paywalled Acorn/Roobert pair from the design teardown)
-- Custom theme provider (light/dark) via `useSyncExternalStore` + `data-theme` on `<html>`
-- All components hand-built — no shadcn CLI dependency at runtime (`clsx` + `tailwind-merge` for the `cn()` helper)
-- Static export-friendly: every route is prerendered (`○ Static` / `● SSG`)
+- **Tailwind CSS v4** — `@theme inline` + CSS-variable token system in `src/app/globals.css`
+- **next/font** (Google) — four faces:
+  - **Geist Sans** → body (`--font-geist-sans`)
+  - **Geist Mono** → labels, eyebrows, captions (`--font-geist-mono`)
+  - **Outfit** → display, free analogue to Acorn from the design teardown (`--font-outfit`, exposed as `font-display`)
+  - **Caveat** → handwritten accents, e.g. the "in case you're tired of reading" hero caption (`--font-caveat`, exposed as `font-hand`)
+- Custom **theme provider** (light/dark) via `useSyncExternalStore` + `data-theme` on `<html>` — chosen over `next-themes` for cleaner React 19 lint compliance and zero hydration drift. Dark mode is the default.
+- All components hand-built — **no shadcn CLI dependency**. The `cn()` helper (`clsx` + `tailwind-merge`) is the only UI primitive borrowed.
+- **Static export-friendly**: every route is prerendered (`○ Static` / `● SSG`). Case-study routes use `generateStaticParams`.
 
 ## Dev / build / lint
 
@@ -21,130 +28,118 @@ npm install
 npm run dev        # http://localhost:3000
 npm run build      # production build
 npm run start      # serve the production build
-npm run lint       # ESLint (Next.js + React rules)
+npm run lint       # ESLint (Next.js + React 19 rules)
 ```
 
-> If you have `pnpm` installed, `pnpm install / pnpm dev / pnpm build / pnpm lint` work identically — the project was scaffolded with npm only because pnpm wasn't on the build box.
+> Project was scaffolded with npm; pnpm and yarn work too if preferred.
 
 ## Routes
 
-| Route | What |
+| Route | What lives there |
 | --- | --- |
-| `/` | Homepage — hero, stat banner, about teaser, 3 hero case studies (with year rail), 5 "More Work" entries, contact |
-| `/about` | Bio, current role, work timeline, side projects, contact details |
-| `/case-studies/[slug]` | Case study detail — hero → metadata grid → 3 stat callouts → constraint chips → OnThisPageNav → Symptom / Diagnosis / Hypothesis / Implementation / Results → Before/After → MoreCaseStudies |
+| `/` | Homepage — intro hero with sticky-card row + introduction video, About teaser, 4 hero case studies with year rail, "Working with me" showcase, Press & recognition, Contact |
+| `/about` | Hero · Right Now · How I Work (5 cards) · Journey timeline · School · Side projects · Contact |
+| `/case-studies/[slug]` | Case study detail — Hero → MetadataGrid → StatCallout → ConstraintChipRow → OnThisPageNav → Symptom / Diagnosis / Hypothesis / Implementation / Results → MoreCaseStudies |
 
-Three case studies ship out of the box:
+### Case studies (current, in homepage order)
 
-- `/case-studies/pricing-intelligence-platform`
-- `/case-studies/enterprise-analytics-platform`
-- `/case-studies/causal-inference-evaluation-framework`
+1. `/case-studies/pricing-intelligence-platform` — Genpro, 2025
+2. `/case-studies/etl-integration-replacement` — USCS, 2023
+3. `/case-studies/smartmove-platform` — USCS, 2024
+4. `/case-studies/mutuall-chrome-extension` — Personal, 2025
+
+Order is defined by the array in `src/content/case-studies.ts`. `generateStaticParams()` picks up new slugs automatically.
 
 ## Project structure
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx                  # Root layout, fonts, ThemeProvider, NavPill, Footer
+│   ├── layout.tsx                  # Fonts, ThemeProvider, NavPill, Footer
 │   ├── globals.css                 # Tailwind import + design tokens (light + dark)
 │   ├── page.tsx                    # Homepage
 │   ├── about/page.tsx              # About page
 │   └── case-studies/[slug]/page.tsx# Dynamic case study (uses generateStaticParams)
-├── components/                     # All 14 components from the teardown spec
-│   ├── nav-pill.tsx                # Top pill nav + mobile bottom-tab pill
+├── components/
+│   ├── nav-pill.tsx                # Top pill nav (hash-aware active state) + mobile bottom-tab pill
 │   ├── section.tsx                 # px-5 py-10 md:px-8 lg:px-[120px] wrapper, max-w-[1200px]
-│   ├── hero.tsx                    # H1 + intro
+│   ├── hero.tsx                    # HomeHero (intro + sticky-card row) and shared Hero (case studies / about)
 │   ├── button.tsx                  # Primary / outline / ghost; renders <Link> or <a>
+│   ├── sticky-card.tsx             # The orange/green/blue tilted hero cards
+│   ├── video-block.tsx             # VideoCard + modal player (centerpiece of the hero row)
+│   ├── working-with-me.tsx         # 5-card testimonial showcase with cutout centerpiece
+│   ├── journey-timeline.tsx        # Diagonal staircase pills with hover detail cards (About)
 │   ├── year-rail.tsx               # 2-col grid, year at 25% opacity in left rail
-│   ├── case-study-card.tsx         # Title above media, absolute <Link> overlay, button below
-│   ├── stat-callout.tsx            # 3-up big numbers, tabular-nums, primary color
+│   ├── case-study-card.tsx         # Title above media, absolute <Link> overlay
+│   ├── stat-callout.tsx            # 3-up big numbers, tabular-nums
 │   ├── metadata-grid.tsx           # 4-cell Stack / Scale / SLA / Outcome grid
-│   ├── before-after.tsx            # 2-up captioned figure
-│   ├── constraint-chip.tsx         # bg-primary/10 text-primary pill (was "How Might We")
-│   ├── on-this-page-nav.tsx       # Inline anchor TOC
-│   ├── more-case-studies.tsx       # 3-card grid at bottom of detail pages
+│   ├── before-after.tsx            # 2-up captioned figure (kept for case studies that ship B/A)
+│   ├── constraint-chip.tsx         # bg-primary/10 pill row
+│   ├── on-this-page-nav.tsx        # Inline anchor TOC
+│   ├── more-case-studies.tsx       # 3-card grid at the bottom of detail pages
+│   ├── testimonial-card.tsx        # LinkedIn-style + cream-paper testimonial cards
+│   ├── press-card.tsx              # Compact press / recognition entry
 │   ├── footer.tsx                  # Site + Elsewhere link columns
 │   ├── theme-provider.tsx          # Light/dark via useSyncExternalStore + localStorage
 │   └── theme-toggle.tsx            # The switch itself
 ├── content/
-│   └── case-studies.ts             # All case study content + "More Work" entries
+│   └── case-studies.ts             # All case study content + MORE_WORK entries (typed)
 └── lib/
-    └── utils.ts                    # cn() helper
+    └── utils.ts                    # cn() helper (clsx + tailwind-merge)
 ```
-
-## Adding visuals
-
-Every spot that needs imagery is rendered today as a labeled `[TODO: ...]` placeholder so it's obvious where to drop the real asset. Two patterns:
-
-1. **Dark media frame** (case study hero, case study card, inline section visuals, MoreCaseStudies cards) — `bg-black/90 rounded-[12px]` with the TODO text overlaid in white/40 mono. Replace with `<Image />` or `<video autoPlay muted loop playsInline>`.
-2. **Bordered figure** (`BeforeAfter`, More Work strip on homepage) — light card with the TODO text in muted mono.
-
-To swap a placeholder for a real asset:
-
-```tsx
-// Before
-<div className="aspect-[1948/1080] bg-black/90 rounded-[12px] grid place-items-center">
-  <span>[Hero visual placeholder — TODO: ...]</span>
-</div>
-
-// After
-import Image from "next/image";
-
-<div className="aspect-[1948/1080] overflow-hidden rounded-[12px] bg-black/90">
-  <Image
-    src="/case-studies/pricing/hero.png"
-    alt="Pricing platform — broker quoting view"
-    width={1948}
-    height={1080}
-    className="h-full w-full object-cover"
-    priority
-  />
-</div>
-```
-
-Drop static assets in `public/` (e.g. `public/case-studies/pricing/hero.png`) and reference them with leading-slash paths.
-
-## Adding or editing case studies
-
-All case-study copy lives in **`src/content/case-studies.ts`** as a typed array. To add a new study:
-
-1. Push a new `CaseStudy` object onto `CASE_STUDIES`. The shape is enforced by TypeScript.
-2. `generateStaticParams()` in `src/app/case-studies/[slug]/page.tsx` will pick up the new slug automatically — no other wiring needed.
-3. To surface it on the homepage's Selected Work strip, it's already included (homepage iterates `CASE_STUDIES`).
-4. To add a secondary entry (no detail page), append to `MORE_WORK` in the same file.
-
-Each case study uses the **Symptom / Diagnosis / Hypothesis / Implementation / Results** narrative arc lifted from the benshih.design teardown. Stick to that shape — it's load-bearing for the OnThisPageNav anchors.
 
 ## Design tokens
 
-All colors and shadow are CSS variables defined in `src/app/globals.css`, both for `:root` (light) and `[data-theme="dark"]`. Tailwind v4 exposes them via `@theme inline` so you can write `text-[var(--color-primary)]` or `bg-[var(--color-bg-cream)]` directly in JSX.
+All colors and shadows are CSS variables defined in `src/app/globals.css`, both for `:root` (dark — the default) and `[data-theme="light"]`. Tailwind v4 exposes them via `@theme inline` so you can write `text-[var(--color-accent)]` or `bg-[var(--color-primary)]` directly in JSX.
 
-Key tokens:
+The palette uses **two distinct teal tokens** by design:
 
-| Token | Light | Dark | Use |
+| Token | Dark (default) | Light | Use |
 | --- | --- | --- | --- |
-| `--color-bg` | `#fafafa` | `#0a0e0d` | Page background |
-| `--color-bg-cream` | `#f9f4ed` | `#11201d` | Accent sections only (e.g. Contact CTA) |
-| `--color-primary` | `#02594e` | `#02594e` | Brand accent, links, buttons |
-| `--color-text-strong` | `#101828` | `#f2f5f4` | H1, H2, emphasized text |
-| `--color-text-primary` | `#4c6763` | `#c8d4d1` | Body |
-| `--color-text-secondary` | `#344054` | `#a0aeac` | Secondary nav, captions |
+| `--color-bg` | `#0a0e0d` | `#fafafa` | Page background |
+| `--color-bg-cream` | `#11201d` | `#f9f4ed` | Accent sections only (e.g. case-study CTA) |
+| `--color-primary` | `#02594e` | `#02594e` | Deep teal — solid-fill backgrounds that surround white text (badges, buttons, sticky bullets) |
+| `--color-accent` | `#5eead4` | `#02594e` | Bright mint **as text** in dark; falls back to deep teal in light because mint washes out on cream |
+| `--color-text-strong` | `#f2f5f4` | `#101828` | H1, H2, emphasized text |
+| `--color-text-primary` | `#c8d4d1` | `#4c6763` | Body |
+| `--color-text-secondary` | `#a0aeac` | `#344054` | Secondary nav, captions |
 
-## Fonts
+**Rule of thumb**: if you're rendering colored *text*, use `--color-accent`. If you're rendering a *background fill* that will hold white text on top, use `--color-primary`. Splitting these stops mint accents from disappearing on the cream sections in light mode.
 
-The teardown spec called for **Acorn** (Indian Type Foundry) for display and **Roobert** for body. Both are paywalled, so this build ships **Geist Sans + Geist Mono** via `next/font/google` — Vercel's own typeface, free, and a defensible visual substitute. To swap:
+## Adding or editing case studies
 
-1. Self-host the licensed font files under `public/fonts/`.
-2. Replace `next/font/google` import in `src/app/layout.tsx` with `next/font/local`.
-3. Keep the same `--font-geist-sans` / `--font-geist-mono` CSS-variable names, or update the references in `globals.css` (`--font-sans`, `--font-display`, `--font-mono`).
+Case-study copy lives in **`src/content/case-studies.ts`** as a typed array.
+
+1. Push a new `CaseStudy` object onto `CASE_STUDIES`. The shape is TypeScript-enforced.
+2. `generateStaticParams()` in `src/app/case-studies/[slug]/page.tsx` picks up the new slug automatically — no other wiring needed.
+3. The homepage's Selected Work section iterates `CASE_STUDIES` directly, so the new study appears there on its own.
+4. For lighter-weight entries that don't deserve a detail page, append to `MORE_WORK` in the same file.
+
+Each case study follows the **Symptom / Diagnosis / Hypothesis / Implementation / Results** narrative arc. Keep that shape — it's load-bearing for the `OnThisPageNav` anchor IDs.
+
+### Section visuals
+
+Per-section visuals are declared inline on each case study via the `visuals` array. Three modes are supported:
+
+- **`src`** — a single image (default 1948:1080 aspect, override with `aspect`).
+- **`stack`** — a deck-of-cards effect for multi-platform mocks (used on Mutuall for Target / Walmart / Other).
+- _(reserved)_ **`puzzle`** — placeholder slot for a future jigsaw layout; not yet rendered.
+
+## Adding visuals
+
+Most `[TODO: ...]` placeholders from the initial scaffold have been replaced with real assets. The conventions if you need to drop more in:
+
+1. **Dark media frame** (case-study hero, in-section visuals, MoreCaseStudies cards) — `aspect-[1948/1080] overflow-hidden rounded-[12px] bg-black/90` with the asset inside.
+2. **Bordered figure** (BeforeAfter, paper testimonials, working-with-me cards) — light card with a soft border.
+
+Drop static assets in `public/` (e.g. `public/case-studies/pricing/hero.png`) and reference them with leading-slash paths.
 
 ## Deploy
 
-Built for Vercel. Just connect the repo and it deploys with zero config — the build is already static (`generateStaticParams` covers the dynamic route).
+Built for **Vercel**. Connect the repo at the dashboard and it deploys on push to `main` with zero config — the build is fully static. Domain `luissanchez.io` is registered at Cloudflare Registrar; DNS points at Vercel.
 
-## TODOs left in the build
+## Open TODOs
 
-- Replace every `[TODO: ...]` visual placeholder with real diagrams / screenshots (see "Adding visuals" above).
-- Two stat values on enterprise-analytics + causal-inference case studies are marked `TODO` pending confirmation of exact counts.
-- ✓ Domain set to luissanchez.io (replaces earlier placeholder).
-- Optional: swap Geist for licensed Acorn/Roobert if budget allows.
+- A few stat values across case studies are marked `TODO` pending exact confirmation.
+- Reserved `puzzle` visual mode in the case-study schema is defined but not yet rendered.
+- Optional: swap free Outfit/Geist for licensed Acorn/Roobert if budget ever allows. The token + font-variable plumbing is already in place — see `src/app/layout.tsx`.

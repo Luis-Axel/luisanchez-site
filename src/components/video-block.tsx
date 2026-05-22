@@ -134,8 +134,10 @@ export function VideoCard({ className }: { className?: string }) {
           aria-modal="true"
           aria-label="Luis Sanchez introduction video"
         >
+          {/* No bounding "box" around the video — it sits floating on the
+              overlay at its natural aspect ratio, capped only by viewport. */}
           <div
-            className="relative w-full max-w-[720px] rounded-[28px] overflow-hidden bg-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)]"
+            className="relative inline-block"
             onClick={(e) => e.stopPropagation()}
           >
             {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
@@ -145,12 +147,12 @@ export function VideoCard({ className }: { className?: string }) {
               controls
               autoPlay
               playsInline
-              className="h-auto w-full block"
+              className="block max-h-[92vh] max-w-[95vw] h-auto w-auto rounded-2xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)]"
             />
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/90 hover:bg-white text-black shadow-lg transition-transform hover:scale-105"
+              className="absolute -top-3 -right-3 md:top-3 md:right-3 inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/95 hover:bg-white text-black shadow-lg transition-transform hover:scale-105"
               aria-label="Close video"
             >
               <svg
