@@ -29,7 +29,7 @@ export function BeforeAfter({
             </span>
           </div>
           <figcaption className="flex items-baseline gap-2 text-[14px] text-[var(--color-text-secondary)]">
-            <span className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-primary)]">
+            <span className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-accent)]">
               {tag}
             </span>
             <span>{item.caption}</span>

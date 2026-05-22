@@ -60,7 +60,7 @@ export function PressCard({
           />
         ) : (
           <div className="grid h-full w-full place-items-center bg-[var(--color-primary-soft)]">
-            <span className="font-display text-[22px] text-[var(--color-primary)]">
+            <span className="font-display text-[22px] text-[var(--color-accent)]">
               {outlet[0]}
             </span>
           </div>

@@ -168,7 +168,7 @@ export default function AboutPage() {
         <Hero
           eyebrow={
             <>
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-primary)]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
               About
             </>
           }
@@ -267,7 +267,7 @@ export default function AboutPage() {
             href="https://bergen.edu/posts/spotlight/luis-sanchez/"
             target="_blank"
             rel="noreferrer"
-            className="text-[var(--color-primary)] hover:underline underline-offset-4"
+            className="text-[var(--color-accent)] hover:underline underline-offset-4"
           >
             Bergen Community College spotlight ↗
           </a>
@@ -314,7 +314,7 @@ export default function AboutPage() {
                 </span>
                 <a
                   href="mailto:lsancheznj@gmail.com"
-                  className="hover:text-[var(--color-primary)]"
+                  className="hover:text-[var(--color-accent)]"
                 >
                   lsancheznj@gmail.com
                 </a>
@@ -327,7 +327,7 @@ export default function AboutPage() {
                   href="https://www.linkedin.com/in/luissanchez000"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-[var(--color-primary)]"
+                  className="hover:text-[var(--color-accent)]"
                 >
                   linkedin.com/in/luissanchez000
                 </a>

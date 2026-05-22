@@ -93,7 +93,7 @@ export function VideoCard({ className }: { className?: string }) {
             "group-hover/video:opacity-100 group-hover/video:delay-100",
           )}
         >
-          <span className="whitespace-nowrap font-hand text-[18px] md:text-[22px] text-[var(--color-primary)] leading-none">
+          <span className="whitespace-nowrap font-hand text-[18px] md:text-[22px] text-[var(--color-accent)] leading-none">
             Proof, not just paragraphs.
           </span>
           <svg
@@ -101,7 +101,7 @@ export function VideoCard({ className }: { className?: string }) {
             height="28"
             viewBox="0 0 34 28"
             fill="none"
-            className="text-[var(--color-primary)]"
+            className="text-[var(--color-accent)]"
             aria-hidden
           >
             <path

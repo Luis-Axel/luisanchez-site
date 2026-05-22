@@ -70,13 +70,13 @@ function CompanyBadge({ name, href }: { name: string; href?: string }) {
       {/* Tiny dot placeholder for the logo slot. Swap to <Image> once we have art. */}
       <span
         aria-hidden
-        className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-primary)] align-middle"
+        className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] align-middle"
       />
       <span className="align-middle">{name}</span>
     </>
   );
   const cls =
-    "mx-0.5 inline-block whitespace-nowrap rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-2 py-[2px] align-[1px] font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-strong)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]";
+    "mx-0.5 inline-block whitespace-nowrap rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-2 py-[2px] align-[1px] font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-strong)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]";
 
   if (href) {
     return (
@@ -103,7 +103,7 @@ export function HomeHero({ className }: { className?: string }) {
     // line from forcing the column wider than the viewport on small screens.
     <header className={cn("hero-dots flex w-full min-w-0 flex-col gap-8 md:gap-10", className)}>
       {/* Headline */}
-      <h1 className="min-w-0 font-display font-semibold text-[var(--color-primary)] text-[40px] sm:text-[52px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.035em]">
+      <h1 className="min-w-0 font-display font-semibold text-[var(--color-accent)] text-[40px] sm:text-[52px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.035em]">
         I build data and ML systems for messy real-world operations.
       </h1>
 

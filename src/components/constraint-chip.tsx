@@ -15,7 +15,7 @@ export function ConstraintChip({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 rounded-full bg-[var(--color-primary-soft)] text-[var(--color-primary)] px-3 py-1.5 text-[13px] font-medium leading-[1.4]",
+        "inline-flex items-center gap-2 rounded-full bg-[var(--color-primary-soft)] text-[var(--color-accent)] px-3 py-1.5 text-[13px] font-medium leading-[1.4]",
         className,
       )}
     >

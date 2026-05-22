@@ -12,9 +12,9 @@ const variants: Record<Variant, string> = {
   primary:
     "bg-[var(--color-primary)] text-white shadow-[var(--shadow-button)] hover:bg-[var(--color-primary-hover)] hover:-translate-y-[1px]",
   ghost:
-    "bg-transparent text-[var(--color-primary)] hover:bg-[var(--color-primary-soft)]",
+    "bg-transparent text-[var(--color-accent)] hover:bg-[var(--color-primary-soft)]",
   outline:
-    "border border-[var(--color-border-strong)] text-[var(--color-text-strong)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] bg-transparent",
+    "border border-[var(--color-border-strong)] text-[var(--color-text-strong)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] bg-transparent",
 };
 
 const sizes: Record<Size, string> = {

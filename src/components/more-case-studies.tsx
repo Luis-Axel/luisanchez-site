@@ -20,7 +20,7 @@ export function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] }) {
         </h2>
         <Link
           href="/"
-          className="text-[14px] text-[var(--color-primary)] hover:underline underline-offset-4"
+          className="text-[14px] text-[var(--color-accent)] hover:underline underline-offset-4"
         >
           All work →
         </Link>
@@ -54,7 +54,7 @@ export function MoreCaseStudies({ items }: { items: MoreCaseStudyItem[] }) {
               <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
                 {item.tag}
               </span>
-              <h3 className="font-display text-[18px] text-[var(--color-text-strong)] group-hover:text-[var(--color-primary)] transition-colors">
+              <h3 className="font-display text-[18px] text-[var(--color-text-strong)] group-hover:text-[var(--color-accent)] transition-colors">
                 {item.title}
               </h3>
             </div>

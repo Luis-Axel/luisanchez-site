@@ -30,7 +30,7 @@ export function StatCallout({ stats, className }: Props) {
           key={i}
           className="flex flex-col gap-2 border-t border-[var(--color-border)] pt-6"
         >
-          <div className="font-display tabular text-[var(--color-primary)] text-[40px] md:text-[56px] lg:text-[64px] leading-[1] tracking-[-0.025em]">
+          <div className="font-display tabular text-[var(--color-accent)] text-[40px] md:text-[56px] lg:text-[64px] leading-[1] tracking-[-0.025em]">
             {s.value}
           </div>
           <div className="text-[15px] font-medium text-[var(--color-text-strong)]">

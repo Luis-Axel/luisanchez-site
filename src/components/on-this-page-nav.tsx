@@ -20,7 +20,7 @@ export function OnThisPageNav({ items }: { items: OnThisPageItem[] }) {
           <a
             key={item.id}
             href={`#${item.id}`}
-            className="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors"
+            className="text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors"
           >
             {item.label}
           </a>

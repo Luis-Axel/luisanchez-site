@@ -34,7 +34,7 @@ export function Footer() {
               <a
                 key={l.href}
                 href={l.href}
-                className="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]"
+                className="text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]"
               >
                 {l.label}
               </a>
@@ -42,7 +42,7 @@ export function Footer() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]"
+                className="text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]"
               >
                 {l.label}
               </Link>
@@ -60,7 +60,7 @@ export function Footer() {
               href={l.href}
               target={l.href.startsWith("http") ? "_blank" : undefined}
               rel={l.href.startsWith("http") ? "noreferrer" : undefined}
-              className="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]"
+              className="text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]"
             >
               {l.label}
             </a>

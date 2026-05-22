@@ -39,7 +39,7 @@ export function TestimonialCard({
             href={sourceUrl}
             target="_blank"
             rel="noreferrer"
-            className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"
+            className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-muted)] hover:text-[var(--color-accent)]"
           >
             {sourceLabel} ↗
           </a>

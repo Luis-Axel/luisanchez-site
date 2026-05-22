@@ -49,7 +49,7 @@ export default async function CaseStudyPage({
       <Section boxed={false} className="pt-4 md:pt-6 pb-0">
         <Link
           href="/"
-          className="text-[13px] text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"
+          className="text-[13px] text-[var(--color-text-muted)] hover:text-[var(--color-accent)]"
         >
           ← Back to work
         </Link>
@@ -60,7 +60,7 @@ export default async function CaseStudyPage({
         <Hero
           eyebrow={
             <>
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-primary)]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
               {cs.company} · {cs.year}
             </>
           }
@@ -92,7 +92,7 @@ export default async function CaseStudyPage({
               href={cs.externalLink.href}
               target="_blank"
               rel="noreferrer"
-              className="text-[14px] text-[var(--color-primary)] hover:underline underline-offset-4"
+              className="text-[14px] text-[var(--color-accent)] hover:underline underline-offset-4"
             >
               {cs.externalLink.label}
             </a>
@@ -125,7 +125,7 @@ export default async function CaseStudyPage({
         <div className="flex flex-col gap-16 md:gap-20 max-w-[820px]">
           {cs.sections.map((s) => (
             <article id={s.id} key={s.id} className="flex flex-col gap-4 scroll-mt-24">
-              <div className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-primary)]">
+              <div className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-accent)]">
                 {s.label}
               </div>
               <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[36px] tracking-[-0.02em] leading-[1.15]">

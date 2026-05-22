@@ -41,14 +41,14 @@ export default function Home() {
             <div className="flex flex-wrap gap-3 pt-1">
               <Link
                 href="/about"
-                className="text-[var(--color-primary)] hover:underline underline-offset-4 text-[16px]"
+                className="text-[var(--color-accent)] hover:underline underline-offset-4 text-[16px]"
               >
                 Read the full background →
               </Link>
               <a
                 href="/Sanchez_Luis_Resume.pdf"
                 download
-                className="text-[var(--color-primary)] hover:underline underline-offset-4 text-[16px]"
+                className="text-[var(--color-accent)] hover:underline underline-offset-4 text-[16px]"
               >
                 Download resume ↓
               </a>

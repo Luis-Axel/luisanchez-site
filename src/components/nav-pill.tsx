@@ -88,8 +88,8 @@ export function NavPill() {
                   className={cn(
                     "px-4 py-2 rounded-full text-[15px] font-medium transition-colors leading-none",
                     active
-                      ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)]"
-                      : "text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]",
+                      ? "bg-[var(--color-primary-soft)] text-[var(--color-accent)]"
+                      : "text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]",
                   )}
                 >
                   {item.label}
@@ -110,7 +110,7 @@ export function NavPill() {
           >
             <a
               href="mailto:lsancheznj@gmail.com"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[14px] font-medium text-[var(--color-text-strong)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)] transition-colors leading-none"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[14px] font-medium text-[var(--color-text-strong)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-accent)] transition-colors leading-none"
             >
               <MailIcon className="h-4 w-4" />
               Say Hello
@@ -120,7 +120,7 @@ export function NavPill() {
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
-              className="inline-flex items-center justify-center h-9 w-9 rounded-full text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)] transition-colors"
+              className="inline-flex items-center justify-center h-9 w-9 rounded-full text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-accent)] transition-colors"
             >
               <LinkedInIcon className="h-[18px] w-[18px]" />
             </a>
@@ -128,7 +128,7 @@ export function NavPill() {
               href="/Sanchez_Luis_Resume.pdf"
               download
               aria-label="Download resume PDF"
-              className="inline-flex items-center justify-center h-9 w-9 rounded-full text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)] transition-colors"
+              className="inline-flex items-center justify-center h-9 w-9 rounded-full text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-accent)] transition-colors"
               title="Download resume"
             >
               <ResumeIcon className="h-[18px] w-[18px]" />
@@ -166,7 +166,7 @@ export function NavPill() {
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"
-            className="inline-flex items-center justify-center h-7 w-7 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]"
+            className="inline-flex items-center justify-center h-7 w-7 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]"
           >
             <LinkedInIcon className="h-4 w-4" />
           </a>
@@ -174,7 +174,7 @@ export function NavPill() {
             href="/Sanchez_Luis_Resume.pdf"
             download
             aria-label="Download resume"
-            className="inline-flex items-center justify-center h-7 w-7 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]"
+            className="inline-flex items-center justify-center h-7 w-7 rounded-full text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]"
           >
             <ResumeIcon className="h-4 w-4" />
           </a>
@@ -198,7 +198,7 @@ export function NavPill() {
               className={cn(
                 "px-3 py-1.5 rounded-full transition-colors leading-none",
                 active
-                  ? "bg-[var(--color-primary-soft)] text-[var(--color-primary)]"
+                  ? "bg-[var(--color-primary-soft)] text-[var(--color-accent)]"
                   : "text-[var(--color-text-secondary)]",
               )}
             >
@@ -208,7 +208,7 @@ export function NavPill() {
         })}
         <a
           href="mailto:lsancheznj@gmail.com"
-          className="px-3 py-1.5 rounded-full text-[var(--color-primary)] hover:bg-[var(--color-primary-soft)] leading-none"
+          className="px-3 py-1.5 rounded-full text-[var(--color-accent)] hover:bg-[var(--color-primary-soft)] leading-none"
         >
           Say Hello
         </a>
