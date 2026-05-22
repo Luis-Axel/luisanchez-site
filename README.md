@@ -146,5 +146,5 @@ Built for Vercel. Just connect the repo and it deploys with zero config — the 
 
 - Replace every `[TODO: ...]` visual placeholder with real diagrams / screenshots (see "Adding visuals" above).
 - Two stat values on enterprise-analytics + causal-inference case studies are marked `TODO` pending confirmation of exact counts.
-- Wire a real domain in `metadataBase` (currently `https://luisanchez.dev`).
+- ✓ Domain set to luissanchez.io (replaces earlier placeholder).
 - Optional: swap Geist for licensed Acorn/Roobert if budget allows.
