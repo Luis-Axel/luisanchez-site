@@ -2,6 +2,7 @@ import { Section } from "@/components/section";
 import { Hero } from "@/components/hero";
 import { Button, ArrowRight } from "@/components/button";
 import { YearRail } from "@/components/year-rail";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -40,6 +41,27 @@ const TIMELINE = [
     role: "Logistics Analyst",
     org: "USCS",
     body: "Operational analytics on cold-storage logistics — the foundation everything after this was built on.",
+  },
+  {
+    year: "2021 — 2024",
+    role: "Leadership Development Program",
+    org: "USCS",
+    body: "Rotational program across logistics, customer experience, and load planning. Gave me end-to-end exposure to the supply chain before specializing in automation and analytics.",
+  },
+];
+
+const SCHOOL = [
+  {
+    year: "2021",
+    role: "BS, Supply Chain Management",
+    org: "Rutgers Business School",
+    body: "Summa Cum Laude (3.94 GPA). Led a six-student team in the New Jersey County College Case Competition.",
+  },
+  {
+    year: "2018 — 2019",
+    role: "NJ STARS / Phi Theta Kappa officer",
+    org: "Bergen Community College",
+    body: "PTK Distinguished Leadership Award and one of 30 students worldwide named PTK Distinguished Chapter Officer. Helped Alpha Epsilon Phi chapter earn Most Distinguished Chapter across 800+ colleges. Co-developed the new General Studies curriculum adopted by the college, led a campus environmental sustainability initiative, and spent a year as lead researcher on the largest statistical analysis of ASMR's effects on the brain.",
   },
 ];
 
@@ -129,6 +151,74 @@ export default function AboutPage() {
             </YearRail>
           ))}
         </div>
+      </Section>
+
+      {/* In my own words — pull quote from the LinkedIn post */}
+      <Section className="pt-12 md:pt-16">
+        <div className="grid gap-8 md:grid-cols-[160px_1fr] lg:[grid-template-columns:200px_1fr]">
+          <div className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)] md:pt-2">
+            In my own words
+          </div>
+          <figure className="flex flex-col gap-4 max-w-[820px]">
+            <div className="rounded-[12px] overflow-hidden border border-[var(--color-border)] bg-black/[0.03] dark:bg-white/[0.04]">
+              <Image
+                src="/press/uscs-lui-statement.jpeg"
+                alt="LinkedIn post: Lui Sanchez statement on his work at USCS"
+                width={1600}
+                height={1200}
+                className="w-full h-auto object-contain"
+                sizes="(min-width: 1024px) 760px, 100vw"
+              />
+            </div>
+            <figcaption className="text-[13px] text-[var(--color-text-muted)]">
+              <a
+                href="https://www.linkedin.com/feed/update/urn:li:activity:7065447818877960192/"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-[var(--color-primary)]"
+              >
+                Original post on LinkedIn ↗
+              </a>
+            </figcaption>
+          </figure>
+        </div>
+      </Section>
+
+      {/* School */}
+      <Section className="pt-12 md:pt-16">
+        <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em] mb-10 md:mb-14">
+          School
+        </h2>
+        <div className="flex flex-col gap-12">
+          {SCHOOL.map((s, i) => (
+            <YearRail key={i} year={s.year}>
+              <div className="flex flex-col gap-2 max-w-[760px]">
+                <div className="flex items-baseline gap-3 flex-wrap">
+                  <h3 className="font-display text-[20px] md:text-[24px] text-[var(--color-text-strong)] tracking-[-0.01em]">
+                    {s.role}
+                  </h3>
+                  <span className="text-[14px] text-[var(--color-text-muted)]">
+                    {s.org}
+                  </span>
+                </div>
+                <p className="text-[15px] md:text-[16px] leading-[1.6] text-[var(--color-text-primary)]">
+                  {s.body}
+                </p>
+              </div>
+            </YearRail>
+          ))}
+        </div>
+        <p className="mt-8 text-[14px] text-[var(--color-text-muted)] max-w-[760px]">
+          More background:{" "}
+          <a
+            href="https://bergen.edu/posts/spotlight/luis-sanchez/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[var(--color-primary)] hover:underline underline-offset-4"
+          >
+            Bergen Community College spotlight ↗
+          </a>
+        </p>
       </Section>
 
       {/* Side projects */}

@@ -300,15 +300,19 @@ export const MORE_WORK: {
   title: string;
   tag: string;
   description: string;
+  /** Used when no `image` is set yet — describes what visual should eventually go here. */
   visualTodo: string;
+  /** Path under /public to a real image. When set, replaces the TODO placeholder. */
+  image?: string;
 }[] = [
   {
     title: "Operational ML & Automation Portfolio",
     tag: "USCS · 2022 – 2024",
     description:
-      "Applied ML, computer vision, and RPA (UiPath, Power Platform, Python) to procurement, inventory, and fulfillment workflows across 26 sites. $9.3M in savings and 12,500 hours returned annually.",
+      "Applied ML, computer vision, and RPA (UiPath, Power Platform, Python) to procurement, inventory, and fulfillment workflows across 26 sites. $9.3M in savings and 12,500 hours returned annually. Featured in USCS's company newsletter as “a game changer for LTL load planning.”",
     visualTodo:
       "thumbnail strip showing 3 representative automations: e.g. a CV inspection still, a UiPath workflow, an inventory model",
+    image: "/press/smartmove.png",
   },
   {
     title: "Mutuall — Freight Rate Intelligence SaaS",

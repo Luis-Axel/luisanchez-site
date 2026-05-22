@@ -4,7 +4,11 @@ import { Button, ArrowRight } from "@/components/button";
 import { StatCallout } from "@/components/stat-callout";
 import { YearRail } from "@/components/year-rail";
 import { CaseStudyCard } from "@/components/case-study-card";
+import { TestimonialCard } from "@/components/testimonial-card";
+import { PressCard } from "@/components/press-card";
 import { CASE_STUDIES, MORE_WORK } from "@/content/case-studies";
+import { TESTIMONIALS } from "@/content/testimonials";
+import { PRESS } from "@/content/press";
 import Link from "next/link";
 
 const HERO_STATS = [
@@ -111,6 +115,40 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Working with me — testimonials */}
+      <Section id="working-with-me" className="pt-16 md:pt-24">
+        <div className="flex items-baseline justify-between mb-12 md:mb-16">
+          <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em]">
+            What it&apos;s like working with me
+          </h2>
+          <span className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)]">
+            From peers & mentees
+          </span>
+        </div>
+        <div className="grid gap-6 md:gap-8 md:grid-cols-2">
+          {TESTIMONIALS.map((t) => (
+            <TestimonialCard key={t.name} {...t} />
+          ))}
+        </div>
+      </Section>
+
+      {/* Press & recognition */}
+      <Section id="press" className="pt-16 md:pt-24">
+        <div className="flex items-baseline justify-between mb-12 md:mb-16">
+          <h2 className="font-display text-[var(--color-text-strong)] text-[28px] md:text-[40px] tracking-[-0.02em]">
+            Press & recognition
+          </h2>
+          <span className="font-mono uppercase tracking-[0.12em] text-[11px] text-[var(--color-text-muted)]">
+            {PRESS.length} mentions
+          </span>
+        </div>
+        <div className="grid gap-10 md:gap-12 md:grid-cols-2">
+          {PRESS.map((p) => (
+            <PressCard key={p.url} {...p} />
+          ))}
+        </div>
+      </Section>
+
       {/* More work strip */}
       <Section className="pt-16 md:pt-24">
         <div className="flex items-baseline justify-between mb-12">
@@ -138,15 +176,25 @@ export default function Home() {
               <p className="text-[15px] leading-[1.6] text-[var(--color-text-primary)]">
                 {item.description}
               </p>
-              {/* TODO: visual placeholder */}
-              <div
-                className="mt-2 aspect-[16/9] bg-black/10 dark:bg-white/[0.04] rounded-[12px] grid place-items-center text-center p-4 border border-[var(--color-border)]"
-                aria-hidden
-              >
-                <span className="text-[11px] md:text-xs text-[var(--color-text-muted)] font-mono leading-relaxed">
-                  [TODO: {item.visualTodo}]
-                </span>
-              </div>
+              {item.image ? (
+                <div className="mt-2 aspect-[16/9] overflow-hidden rounded-[12px] border border-[var(--color-border)] bg-black/[0.03] dark:bg-white/[0.04]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                <div
+                  className="mt-2 aspect-[16/9] bg-black/10 dark:bg-white/[0.04] rounded-[12px] grid place-items-center text-center p-4 border border-[var(--color-border)]"
+                  aria-hidden
+                >
+                  <span className="text-[11px] md:text-xs text-[var(--color-text-muted)] font-mono leading-relaxed">
+                    [TODO: {item.visualTodo}]
+                  </span>
+                </div>
+              )}
             </article>
           ))}
         </div>
