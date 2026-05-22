@@ -1,5 +1,5 @@
 export type Testimonial = {
-  /** Person quoting Lui */
+  /** Person quoting Luis */
   name: string;
   /** Role/affiliation when the quote was made */
   context: string;
@@ -28,7 +28,7 @@ export const TESTIMONIALS: Testimonial[] = [
     sourceLabel: "View on LinkedIn",
   },
   {
-    // TODO: Lui — fill in the actual student's name + quote text from the screenshot
+    // TODO: Luis — fill in the actual student's name + quote text from the screenshot
     name: "[TODO: student's name]",
     context: "Student at Bergen Community College, posted on LinkedIn",
     relationship: "Student",

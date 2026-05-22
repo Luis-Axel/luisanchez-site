@@ -8,7 +8,7 @@ export type MetadataCell = {
 
 /**
  * 4-cell grid — adapted from Ben's Role/Team/Timeline (3) to
- * Stack / Scale / SLA / Outcome (4) for Lui's data work.
+ * Stack / Scale / SLA / Outcome (4) for Luis's data work.
  */
 export function MetadataGrid({
   cells,

@@ -6,9 +6,9 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About — Lui Sanchez",
+  title: "About — Luis Sanchez",
   description:
-    "Background, current role, work timeline, and how to reach Lui Sanchez.",
+    "Background, current role, work timeline, and how to reach Luis Sanchez.",
 };
 
 const TIMELINE = [
@@ -163,7 +163,7 @@ export default function AboutPage() {
             <div className="rounded-[12px] overflow-hidden border border-[var(--color-border)] bg-black/[0.03] dark:bg-white/[0.04]">
               <Image
                 src="/press/uscs-lui-statement.jpeg"
-                alt="LinkedIn post: Lui Sanchez statement on his work at USCS"
+                alt="LinkedIn post: Luis Sanchez statement on his work at USCS"
                 width={1600}
                 height={1200}
                 className="w-full h-auto object-contain"

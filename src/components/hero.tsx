@@ -90,7 +90,7 @@ export function HomeHero({ className }: { className?: string }) {
     <header className={cn("flex w-full min-w-0 flex-col gap-8 md:gap-10", className)}>
       {/* Headline */}
       <h1 className="min-w-0 font-display font-semibold text-[var(--color-primary)] text-[44px] sm:text-[56px] md:text-[80px] lg:text-[96px] leading-[1.0] tracking-[-0.035em]">
-        Hi, I&apos;m Lui.
+        Hi, I&apos;m Luis.
       </h1>
 
       {/* Subtitle with inline company badges */}
@@ -200,7 +200,7 @@ function VideoSlot() {
     >
       <Image
         src="/press/speech.png"
-        alt="Lui Sanchez speaking at a conference"
+        alt="Luis Sanchez speaking at a conference"
         width={600}
         height={600}
         className="h-full w-full object-cover"

@@ -45,7 +45,7 @@ export function NavPill() {
             href="/"
             className="px-3 py-1.5 font-display text-[15px] text-[var(--color-text-strong)] hover:text-[var(--color-primary)]"
           >
-            Lui Sanchez
+            Luis Sanchez
           </Link>
           <span className="mx-1 h-5 w-px bg-[var(--color-border)]" />
           {NAV.map((item) => {
@@ -78,7 +78,7 @@ export function NavPill() {
             href="/"
             className="px-2 py-1 font-display text-[14px] text-[var(--color-text-strong)]"
           >
-            Lui Sanchez
+            Luis Sanchez
           </Link>
           <ThemeToggle className="!h-7 !w-7" />
         </nav>

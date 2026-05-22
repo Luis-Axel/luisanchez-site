@@ -4,7 +4,7 @@ export type PressItem = {
   title: string;
   /** ISO-ish date string for display (e.g. "May 2023") */
   date: string;
-  /** Short blurb in Lui's voice describing what the piece is about. */
+  /** Short blurb in Luis's voice describing what the piece is about. */
   blurb: string;
   /** Direct link to the source. */
   url: string;

@@ -36,12 +36,12 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Lui Sanchez — Data engineer & analytics builder",
+  title: "Luis Sanchez — Data engineer & analytics builder",
   description:
     "I build the data and automation systems that turn messy operations into scalable decisions. Selected work, case studies, and how to reach me.",
   metadataBase: new URL("https://luissanchez.io"),
   openGraph: {
-    title: "Lui Sanchez — Data engineer & analytics builder",
+    title: "Luis Sanchez — Data engineer & analytics builder",
     description:
       "I build the data and automation systems that turn messy operations into scalable decisions.",
     type: "website",

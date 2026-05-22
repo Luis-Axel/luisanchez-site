@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Renamed from Ben's "How Might We" chips — Lui's are framed as
+ * Renamed from Ben's "How Might We" chips — Luis's are framed as
  * the constraints / design rules that shaped the build.
  */
 export function ConstraintChip({

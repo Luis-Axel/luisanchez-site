@@ -19,7 +19,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1200px] px-5 md:px-8 lg:px-[120px] py-12 grid gap-10 md:grid-cols-[1fr_auto_auto]">
         <div className="flex flex-col gap-3">
           <span className="font-display text-[20px] text-[var(--color-text-strong)]">
-            Lui Sanchez
+            Luis Sanchez
           </span>
           <p className="text-[14px] text-[var(--color-text-primary)] max-w-[420px] leading-[1.55]">
             Data engineer & analytics builder. Currently leading data at Genpro.

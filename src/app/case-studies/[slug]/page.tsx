@@ -27,7 +27,7 @@ export async function generateMetadata({
   const cs = CASE_STUDIES.find((c) => c.slug === slug);
   if (!cs) return {};
   return {
-    title: `${cs.title} — Lui Sanchez`,
+    title: `${cs.title} — Luis Sanchez`,
     description: cs.oneLiner,
   };
 }
