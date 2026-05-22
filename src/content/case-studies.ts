@@ -335,11 +335,4 @@ export const MORE_WORK: {
       "Replaced an $80K/year third-party EDI middleware platform with an internal integration system handling EDI, ETL, and API data exchange.",
     visualTodo: "EDI/integration architecture diagram, before vs. after vendor",
   },
-  {
-    title: "Macro — Consumer AI Product",
-    tag: "Cofounder · 2026 –",
-    description:
-      "Building a consumer-health AI product on top of model APIs. Current side project.",
-    visualTodo: "Macro product screenshot or marketing visual",
-  },
 ];

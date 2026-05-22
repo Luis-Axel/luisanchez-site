@@ -104,12 +104,11 @@ export function HomeHero({ className }: { className?: string }) {
         Hi, I&apos;m Luis.
       </h1>
 
-      {/* Subtitle with inline company badges */}
+      {/* Subtitle with inline company badge */}
       <p className="min-w-0 max-w-[820px] text-[16px] md:text-[22px] leading-[1.6] text-[var(--color-text-primary)] break-words">
-        Data engineer with a supply-chain background. Shipping data, analytics,
-        and automation at{" "}
-        <CompanyBadge name="Genpro" href="https://genproinc.com/" /> by day,
-        building <CompanyBadge name="Macro" /> by night.
+        Data engineer with a supply-chain background. Currently leading data and
+        analytics at{" "}
+        <CompanyBadge name="Genpro" href="https://genproinc.com/" />.
       </p>
 
       {/* Sticky-note row with hover-fan-out + video reveal */}
@@ -119,48 +118,28 @@ export function HomeHero({ className }: { className?: string }) {
 }
 
 function StickyRow() {
+  /*
+    Per-card isolation hover:
+    - Each card has only a direct :hover transform — lifts, scales, straightens
+      its tilt, bumps z-index. The OTHER cards do not move when this one is
+      hovered. Result: hovering a card "pulls it forward" cleanly while the
+      siblings stay calm.
+    - No row-level group-hover transform — that's what made the previous
+      version feel jittery when the cursor crossed between cards.
+    - Video reveal + handwritten caption are paused until Lui drops the real
+      `/public/hero/lui-video.mp4` and we decide on the right placement. The
+      VideoSlot component is kept in the file (just unused) so we can wire it
+      back in cleanly later.
+  */
+  const cardWrapper =
+    "relative z-10 transition-transform duration-300 ease-out " +
+    "hover:scale-[1.06] hover:-translate-y-3 hover:!rotate-0 hover:z-30 hover:drop-shadow-[0_20px_30px_rgba(0,0,0,0.35)]";
+
   return (
     <div className="relative mt-2 md:mt-4">
-      {/*
-        `group` lets all three cards + the center video respond to a single
-        hover on the row container. Padding gives the cards room to translate
-        outward without clipping at the edges. On mobile the cards stack
-        vertically (no hover layer is sensible at touch widths).
-      */}
-      <div className="group relative flex flex-col items-center gap-5 md:flex-row md:items-start md:justify-center md:gap-6 px-2 py-6 md:py-10">
-        {/* Center video / portrait placeholder — sits behind the cards at rest,
-            fades in + scales up on hover. */}
-        <VideoSlot />
-
-        {/* Hand-written caption that appears above the video on hover. */}
-        <span
-          aria-hidden
-          className={cn(
-            "pointer-events-none absolute left-1/2 top-0 z-20 -translate-x-1/2",
-            "whitespace-nowrap font-hand text-[20px] md:text-[24px] text-[var(--color-primary)]",
-            "opacity-0 transition-opacity duration-500 ease-out",
-            "group-hover:opacity-100 group-hover:delay-150",
-          )}
-        >
-          in case you got tired of reading
-        </span>
-
-        {/*
-          Each card lives in its own wrapper that owns BOTH:
-          (a) a group-hover transform (cards fan out when ANY card in the row is hovered)
-          (b) a direct :hover transform (the specific card the cursor is over pops
-              forward — lifts, scales up, bumps z-index). So each card feels uniquely
-              responsive while still participating in the shared fan-out reveal.
-        */}
-
-        {/* Card 1 — orange, slides LEFT on group hover; pops forward on direct hover */}
-        <div
-          className={cn(
-            "relative z-10 transition-transform duration-500 ease-out",
-            "group-hover:-translate-x-[120px] md:group-hover:-translate-x-[180px] group-hover:-rotate-[6deg]",
-            "hover:!translate-x-0 hover:!rotate-[-4deg] hover:!scale-[1.05] hover:!-translate-y-2 hover:z-30",
-          )}
-        >
+      <div className="relative flex flex-col items-center gap-5 md:flex-row md:items-start md:justify-center md:gap-6 px-2 py-6 md:py-10">
+        {/* Card 1 — Recent work */}
+        <div className={cardWrapper}>
           <StickyCard
             tone="orange"
             label="Recent work"
@@ -171,32 +150,20 @@ function StickyRow() {
           />
         </div>
 
-        {/* Card 2 — green, stays put on group hover; lifts up on direct hover */}
-        <div
-          className={cn(
-            "relative z-10 transition-transform duration-500 ease-out",
-            "group-hover:-translate-y-1",
-            "hover:!-translate-y-4 hover:!scale-[1.05] hover:z-30",
-          )}
-        >
+        {/* Card 2 — About me */}
+        <div className={cardWrapper}>
           <StickyCard
             tone="green"
-            label="Currently building"
-            description="Macro — a consumer-health AI product."
-            cta="See Macro →"
-            href="#more-work"
+            label="About me"
+            description="Background, current role, and how I think about the work."
+            cta="More about Luis →"
+            href="/about"
             baseTilt="rotate-1"
           />
         </div>
 
-        {/* Card 3 — blue, slides RIGHT on group hover; pops forward on direct hover */}
-        <div
-          className={cn(
-            "relative z-10 transition-transform duration-500 ease-out",
-            "group-hover:translate-x-[120px] md:group-hover:translate-x-[180px] group-hover:rotate-[6deg]",
-            "hover:!translate-x-0 hover:!rotate-[4deg] hover:!scale-[1.05] hover:!-translate-y-2 hover:z-30",
-          )}
-        >
+        {/* Card 3 — Working with me */}
+        <div className={cardWrapper}>
           <StickyCard
             tone="blue"
             label="Working with me"
