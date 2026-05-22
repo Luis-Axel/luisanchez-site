@@ -387,7 +387,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         heading: "From spreadsheet pricing to a system the GTM org runs on.",
         body: [
           "The platform is the default surface for lane pricing at Genpro and is wired directly into daily GTM market-targeting decisions. Sales, capacity, and pricing are working off the same numbers for the first time, and the broker desk is no longer exposed to whichever way the DAT peer noise leaned that week.",
-          "Just as important, the underlying warehouse, models, and serving layer are now the substrate the next set of internal ML projects sit on. Not a one-off. (The platform's internal UI isn't shown here for IP reasons.)",
+          "Just as important, the underlying warehouse, models, and serving layer are now the substrate the next set of internal ML projects sit on. Not a one-off.",
+        ],
+        visuals: [
+          {
+            todo: "The final solution to the pricing problem — a collage of the platform's surfaces and outputs. Full product UI not shown for IP reasons.",
+            aspect: "aspect-[16/9]",
+            src: "/pricing/product-collage.webp",
+          },
         ],
       },
     ],
