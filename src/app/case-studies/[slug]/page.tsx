@@ -7,7 +7,6 @@ import { StatCallout } from "@/components/stat-callout";
 import { MetadataGrid } from "@/components/metadata-grid";
 import { OnThisPageNav } from "@/components/on-this-page-nav";
 import { ConstraintChipRow } from "@/components/constraint-chip";
-import { BeforeAfter } from "@/components/before-after";
 import { MoreCaseStudies } from "@/components/more-case-studies";
 import { Button, ArrowRight } from "@/components/button";
 import Link from "next/link";
@@ -220,31 +219,6 @@ export default async function CaseStudyPage({
             </article>
           ))}
         </div>
-      </Section>
-
-      {/* Before/After (generic per case study) */}
-      <Section boxed={false} className="pt-16">
-        <div className="flex flex-col gap-6 max-w-[820px] mb-8">
-          <h2 className="font-display text-[var(--color-text-strong)] text-[24px] md:text-[32px] tracking-[-0.015em]">
-            Before / After
-          </h2>
-          <p className="text-[16px] text-[var(--color-text-primary)] leading-[1.6]">
-            How the system changed the actual operational shape of the work —
-            not just the dashboards on top of it.
-          </p>
-        </div>
-        <BeforeAfter
-          before={{
-            caption:
-              "The decision shape before the platform — manual, lagging, and team-by-team divergent.",
-            todo: `"before" DAG or latency histogram for ${cs.title}`,
-          }}
-          after={{
-            caption:
-              "After: a shared, automated surface that closed the loop between data and decision.",
-            todo: `"after" DAG or latency histogram for ${cs.title}`,
-          }}
-        />
       </Section>
 
       {/* CTA */}
