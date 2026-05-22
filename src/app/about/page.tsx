@@ -187,6 +187,9 @@ export default function AboutPage() {
             <Button href="https://www.linkedin.com/in/luissanchez000" variant="outline">
               LinkedIn
             </Button>
+            <Button href="/Sanchez_Luis_Resume.pdf" variant="outline" download>
+              Download resume
+            </Button>
           </div>
         </Hero>
       </Section>

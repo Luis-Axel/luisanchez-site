@@ -15,6 +15,7 @@ const NAV = [
 
 export function NavPill() {
   const [scrolled, setScrolled] = React.useState(false);
+  const [hash, setHash] = React.useState("");
   const pathname = usePathname();
 
   React.useEffect(() => {
@@ -23,6 +24,35 @@ export function NavPill() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Track URL hash so anchor links (e.g. /#selected-work) can hold the
+  // active state on their nav tab. Listens to hashchange + popstate; also
+  // re-syncs whenever the route pathname changes.
+  React.useEffect(() => {
+    const sync = () => setHash(window.location.hash);
+    sync();
+    window.addEventListener("hashchange", sync);
+    window.addEventListener("popstate", sync);
+    return () => {
+      window.removeEventListener("hashchange", sync);
+      window.removeEventListener("popstate", sync);
+    };
+  }, [pathname]);
+
+  /** True if the nav item should render in the active state. */
+  function isActive(href: string): boolean {
+    // Hash links like "/#selected-work" are active when we're on "/" and the
+    // current hash matches the link's hash.
+    if (href.includes("#")) {
+      const [base, frag] = href.split("#");
+      const wantBase = base || "/";
+      return pathname === wantBase && hash === `#${frag}`;
+    }
+    // Plain "/" — only active when there's no hash AND we're on the home route.
+    if (href === "/") return pathname === "/" && hash === "";
+    // Inner routes — active on exact match or any sub-route.
+    return pathname === href || pathname.startsWith(href + "/");
+  }
 
   return (
     <>
@@ -75,12 +105,7 @@ export function NavPill() {
             )}
           >
             {NAV.map((item) => {
-              const isHome = item.href === "/";
-              const active = isHome
-                ? pathname === "/"
-                : item.href.startsWith("/")
-                  ? pathname === item.href || pathname.startsWith(item.href + "/")
-                  : false;
+              const active = isActive(item.href);
               return (
                 <Link
                   key={item.href}
@@ -185,12 +210,7 @@ export function NavPill() {
       {/* Mobile bottom-tab nav — Home / Work / About + Say Hello */}
       <nav className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1 rounded-full border border-[var(--color-border)] bg-[var(--color-bg-elev)]/95 backdrop-blur-md px-2 py-1.5 text-sm shadow-[var(--shadow-pill)]">
         {NAV.map((item) => {
-          const isHome = item.href === "/";
-          const active = isHome
-            ? pathname === "/"
-            : item.href.startsWith("/")
-              ? pathname === item.href || pathname.startsWith(item.href + "/")
-              : false;
+          const active = isActive(item.href);
           return (
             <Link
               key={item.href}
