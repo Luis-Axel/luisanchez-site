@@ -97,7 +97,7 @@ export function VideoCard({ className }: { className?: string }) {
           )}
         >
           <span className="whitespace-nowrap font-hand text-[18px] md:text-[22px] text-[var(--color-accent)] leading-none">
-            Proof, not just paragraphs.
+            In case you&apos;re tired of reading
           </span>
           <svg
             width="34"

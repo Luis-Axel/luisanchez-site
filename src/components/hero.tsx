@@ -155,13 +155,12 @@ function StickyRow() {
 
   return (
     <div className="relative mt-2 md:mt-4">
-      {/* Mobile: horizontal scroll-snap row so the three cards sit side by
-          side and the user can swipe through them instead of seeing them
-          stacked vertically. Desktop: standard centered flex row. */}
-      <div className="relative flex flex-row items-start gap-4 md:gap-6 md:justify-center px-4 md:px-2 py-6 md:py-10 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {/* Mobile shows ONLY the introduction video card — the 3-card row read
+          poorly on phone widths. Desktop (md+) restores the full row. */}
+      <div className="relative flex flex-row items-start justify-center gap-4 md:gap-6 px-4 md:px-2 py-6 md:py-10">
         {/* Card 1 — Recent work. Wrapped in `group/recent` so 3 mini case-study
             thumbnails can fan out from behind the card on hover. */}
-        <div className={cn(cardWrapper, "group/recent")}>
+        <div className={cn(cardWrapper, "group/recent hidden md:block")}>
           <ProjectThumbsFan />
           <StickyCard
             tone="orange"
@@ -173,14 +172,14 @@ function StickyRow() {
           />
         </div>
 
-        {/* Card 2 — Introduction video. Opens a modal on click. Hover reveals
-            the "In case you're tired of reading" caption above the card. */}
+        {/* Card 2 — Introduction video. Always visible. Click opens modal;
+            hover reveals "In case you're tired of reading" caption. */}
         <div className={cn(cardWrapper, "rotate-1")}>
           <VideoCard />
         </div>
 
         {/* Card 3 — Working with me */}
-        <div className={cardWrapper}>
+        <div className={cn(cardWrapper, "hidden md:block")}>
           <StickyCard
             tone="blue"
             label="Working with me"
